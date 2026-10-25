@@ -1,0 +1,316 @@
+TAP version 13
+# Subtest: Current compiled browser build can never enable advertising
+ok 1 - Current compiled browser build can never enable advertising
+  ---
+  duration_ms: 2.165897
+  type: 'test'
+  ...
+# Subtest: Future synthetic reviewed-capability fixture can reach allowed branch
+ok 2 - Future synthetic reviewed-capability fixture can reach allowed branch
+  ---
+  duration_ms: 0.182563
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: unsigned
+ok 3 - Ads fail closed: unsigned
+  ---
+  duration_ms: 0.134019
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: expiredClock
+ok 4 - Ads fail closed: expiredClock
+  ---
+  duration_ms: 0.078126
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: firstSession
+ok 5 - Ads fail closed: firstSession
+  ---
+  duration_ms: 0.084464
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: installDayZero
+ok 6 - Ads fail closed: installDayZero
+  ---
+  duration_ms: 0.068822
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: installDayOne
+ok 7 - Ads fail closed: installDayOne
+  ---
+  duration_ms: 2.382962
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: notReturning
+ok 8 - Ads fail closed: notReturning
+  ---
+  duration_ms: 0.101327
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: midGameplay
+ok 9 - Ads fail closed: midGameplay
+  ---
+  duration_ms: 0.239153
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: tooEarly
+ok 10 - Ads fail closed: tooEarly
+  ---
+  duration_ms: 1.328939
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: tooFrequent
+ok 11 - Ads fail closed: tooFrequent
+  ---
+  duration_ms: 0.169906
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: dailyCap
+ok 12 - Ads fail closed: dailyCap
+  ---
+  duration_ms: 0.054359
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: holdout
+ok 13 - Ads fail closed: holdout
+  ---
+  duration_ms: 0.034885
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: privacyMissing
+ok 14 - Ads fail closed: privacyMissing
+  ---
+  duration_ms: 0.072691
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: buildMismatch
+ok 15 - Ads fail closed: buildMismatch
+  ---
+  duration_ms: 0.036094
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: rollback
+ok 16 - Ads fail closed: rollback
+  ---
+  duration_ms: 0.029081
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: noClock
+ok 17 - Ads fail closed: noClock
+  ---
+  duration_ms: 0.026713
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: negativeImpressions
+ok 18 - Ads fail closed: negativeImpressions
+  ---
+  duration_ms: 0.131897
+  type: 'test'
+  ...
+# Subtest: Ads fail closed: missingActiveDays
+ok 19 - Ads fail closed: missingActiveDays
+  ---
+  duration_ms: 0.124957
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses killSwitch
+ok 20 - Remote policy refuses killSwitch
+  ---
+  duration_ms: 0.083754
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses missingKillSwitch
+ok 21 - Remote policy refuses missingKillSwitch
+  ---
+  duration_ms: 0.04467
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses overCap
+ok 22 - Remote policy refuses overCap
+  ---
+  duration_ms: 0.038923
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses overRollout
+ok 23 - Remote policy refuses overRollout
+  ---
+  duration_ms: 0.04074
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses missingApp
+ok 24 - Remote policy refuses missingApp
+  ---
+  duration_ms: 0.146185
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses schemaMismatch
+ok 25 - Remote policy refuses schemaMismatch
+  ---
+  duration_ms: 0.054989
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses disabled
+ok 26 - Remote policy refuses disabled
+  ---
+  duration_ms: 0.041647
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses invalidIssued
+ok 27 - Remote policy refuses invalidIssued
+  ---
+  duration_ms: 0.037771
+  type: 'test'
+  ...
+# Subtest: Remote policy refuses wrongType
+ok 28 - Remote policy refuses wrongType
+  ---
+  duration_ms: 0.046805
+  type: 'test'
+  ...
+# Subtest: Local save round trip
+ok 29 - Local save round trip
+  ---
+  duration_ms: 0.331666
+  type: 'test'
+  ...
+# Subtest: Corrupt save recovers last valid backup
+ok 30 - Corrupt save recovers last valid backup
+  ---
+  duration_ms: 0.220858
+  type: 'test'
+  ...
+# Subtest: Unknown save schema uses safe defaults
+ok 31 - Unknown save schema uses safe defaults
+  ---
+  duration_ms: 0.09731
+  type: 'test'
+  ...
+# Subtest: Reset removes primary and backup
+ok 32 - Reset removes primary and backup
+  ---
+  duration_ms: 0.145115
+  type: 'test'
+  ...
+# Subtest: Storage exception never breaks gameplay
+ok 33 - Storage exception never breaks gameplay
+  ---
+  duration_ms: 0.20094
+  type: 'test'
+  ...
+# Subtest: Absent storage keeps an in-memory playable state
+ok 34 - Absent storage keeps an in-memory playable state
+  ---
+  duration_ms: 0.110607
+  type: 'test'
+  ...
+# Subtest: Pet normalization limits objects and rejects arbitrary strings
+ok 35 - Pet normalization limits objects and rejects arbitrary strings
+  ---
+  duration_ms: 1.321261
+  type: 'test'
+  ...
+# Subtest: Each pet has a distinct favorite
+ok 36 - Each pet has a distinct favorite
+  ---
+  duration_ms: 0.081958
+  type: 'test'
+  ...
+# Subtest: Light experiment 1: initial unsolved and provided route solves
+ok 37 - Light experiment 1: initial unsolved and provided route solves
+  ---
+  duration_ms: 0.274648
+  type: 'test'
+  ...
+# Subtest: Light experiment 2: initial unsolved and provided route solves
+ok 38 - Light experiment 2: initial unsolved and provided route solves
+  ---
+  duration_ms: 0.051559
+  type: 'test'
+  ...
+# Subtest: Light experiment 3: initial unsolved and provided route solves
+ok 39 - Light experiment 3: initial unsolved and provided route solves
+  ---
+  duration_ms: 0.053115
+  type: 'test'
+  ...
+# Subtest: Light tracing remains bounded on arbitrary mirror states
+ok 40 - Light tracing remains bounded on arbitrary mirror states
+  ---
+  duration_ms: 0.877079
+  type: 'test'
+  ...
+# Subtest: Lab progress deduplicates and validates puzzle indexes
+ok 41 - Lab progress deduplicates and validates puzzle indexes
+  ---
+  duration_ms: 0.214127
+  type: 'test'
+  ...
+# Subtest: Garage road tires finish meadow
+ok 42 - Garage road tires finish meadow
+  ---
+  duration_ms: 1.56486
+  type: 'test'
+  ...
+# Subtest: Garage road tires finish dunes
+ok 43 - Garage road tires finish dunes
+  ---
+  duration_ms: 1.631991
+  type: 'test'
+  ...
+# Subtest: Garage trail tires finish meadow
+ok 44 - Garage trail tires finish meadow
+  ---
+  duration_ms: 1.201142
+  type: 'test'
+  ...
+# Subtest: Garage trail tires finish dunes
+ok 45 - Garage trail tires finish dunes
+  ---
+  duration_ms: 0.702841
+  type: 'test'
+  ...
+# Subtest: Garage giant tires finish meadow
+ok 46 - Garage giant tires finish meadow
+  ---
+  duration_ms: 0.718388
+  type: 'test'
+  ...
+# Subtest: Garage giant tires finish dunes
+ok 47 - Garage giant tires finish dunes
+  ---
+  duration_ms: 0.649438
+  type: 'test'
+  ...
+# Subtest: Different tires measurably change run time
+ok 48 - Different tires measurably change run time
+  ---
+  duration_ms: 1.566002
+  type: 'test'
+  ...
+# Subtest: Road tires are fastest on a flat course
+ok 49 - Road tires are fastest on a flat course
+  ---
+  duration_ms: 1.341909
+  type: 'test'
+  ...
+# Subtest: Garage braking slows the car
+ok 50 - Garage braking slows the car
+  ---
+  duration_ms: 0.1438
+  type: 'test'
+  ...
+# Subtest: Garage invalid configuration resets to a playable setup
+ok 51 - Garage invalid configuration resets to a playable setup
+  ---
+  duration_ms: 0.188488
+  type: 'test'
+  ...
+1..51
+# tests 51
+# suites 0
+# pass 51
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 48.556127

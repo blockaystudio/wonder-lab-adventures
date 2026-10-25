@@ -1,3 +1,14 @@
+# 2026-10-25 — OPT-01 verification checkpoint
+
+Current implementation evidence is in [OPT01_REPORT.md](OPT01_REPORT.md):
+81 Node model/policy checks, 6 Python signer tests and 17 real HTTP browser
+methods pass. System Chromium 154 and Playwright Chromium 145 were exercised.
+The new harness uses real localStorage and fresh contexts; it supersedes the
+storage-fixture limitation of the historical Build 01 browser report below.
+Physical-device, child-usability and learning-outcome testing remain unperformed.
+
+---
+
 # Build 01 — Verification Report
 October 24, 2026
 

@@ -1,7 +1,7 @@
 # Wonder Lab Adventures
 
 **Working browser prototype; not a finished iOS/Android game.**
-Prepared for a private GitHub repository and bounded Codex development tasks.
+Source repository: `blockaystudio/wonder-lab-adventures`; bounded OPT-01 work is documented in `evidence/OPT01_REPORT.md`.
 
 ## Start here
 Read `AGENTS.md`, `HANDOFF.md`, `docs/GITHUB_CODEX_STATUS.md` and
@@ -21,9 +21,24 @@ python server/serve_preview.py
 
 Open the local address printed by the preview server. The pages are also standalone
 HTML, but local HTTP is preferred for meaningful storage tests. The verifier runs
-63 Node tests and 6 Python tests plus build/syntax/static-page checks. The tests
-include shared reference logic for all three games; these are not 69 distinct
-UI scenarios. Physical-device, native-export and store tests remain pending.
+81 Node tests and 6 Python tests plus build/syntax/static-page checks. The tests
+include shared reference logic for all three games; these are model/policy checks, separate from browser interaction tests. Physical-device, native-export and store tests remain pending.
+
+## Browser regressions
+
+After activating the isolated Python environment and selecting the pinned runtimes:
+
+```sh
+python -m pip install -r tests/browser-requirements.txt
+python -m playwright install chromium
+python tests/browser_lab.py
+```
+
+For an installed Chromium, use `CHROMIUM_EXECUTABLE=/usr/bin/chromium python tests/browser_lab.py`.
+The harness starts/stops a loopback HTTP preview, uses fresh browser contexts and
+real localStorage, and writes JSON results/screenshots to `test-results/browser-lab/`.
+`--root /path/to/checkout` permits comparing an unchanged baseline. Storage failure
+scenarios deliberately deny storage; successful persistence uses the browser's own storage.
 
 ## Gameplay
 Three light-reflection puzzles, local adaptive hints, and discovery cards.
@@ -38,7 +53,7 @@ not a live advertisement service. Keep all keys out of source control.
 ## Codex and CI
 `docs/CODEX_SETUP.md` gives setup steps. `AGENTS.md` states boundaries and commands.
 The GitHub workflow runs tests only, with read-only repository permissions; it
-publishes nothing. It has not yet been executed on GitHub.
+publishes nothing. The browser regression step uses an isolated local HTTP preview. See the current work log for observed run results.
 
 Private commercial work: no open-source license has been selected or granted in
 this handoff. Do not add a license or publish the repository without owner approval.
