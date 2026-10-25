@@ -26,3 +26,30 @@
   `evidence/OPT01_REPORT.md`. No shared-library logic or other repositories changed.
 - No physical-device, child-usability or learning-outcome testing. No deployment,
   merge, ads, analytics, profile upload or production service activation.
+
+## 2026-10-25 — Wonder Workshop progression and original artwork
+
+- Read AGENTS, CODEX_START_PROMPT, IMPORT_STATUS, HANDOFF, master tracker and
+  required status/QA documents first. Clean baseline at `80e86ad` on OPT-01.
+- New branch `codex/lab-progression` builds on the still-open OPT-01 PR #1;
+  the new PR is stacked on `codex/lab-opt01`, without merging either branch.
+- Baseline verifier: 81 Node checks + 6 Python tests pass. Baseline real-HTTP
+  browser suite: 17/17 pass in Chromium 154. Pinned Node 22.16.0, isolated Python
+  3.13.5 environment and declared dependencies reused.
+- Added permanent, finite Wonder Sparks, six concept cards, eight goals, four
+  cosmetics, two themes and Nova. Hints stay free; no daily pressure or random
+  rewards. All equipment is usable and saved. Legacy saves migrate in place.
+- Authored/integrated 16 original SVG illustrations in `art/rewards/`; build
+  embeds them for standalone offline play. No original assets removed.
+- Review reproduced a new keyboard focus escape after reviewing a card; fixed
+  by moving focus to another enabled dialog control. Also fixed false save
+  claims when browser storage is denied/full. Added browser regressions.
+- Details: `docs/PROGRESSION.md`; test results and actual captures:
+  `evidence/PROGRESSION_REPORT.md`. Generated pages rebuilt from source.
+- Shared code, ads-off safeguards and the three puzzle rules remain unchanged.
+  No analytics, account, upload, production endpoint or hosting update added.
+- Final checks: `python scripts/verify.py` passes (106 Node + 6 signer tests);
+  direct progression suite 25/25; existing HTTP browser suite 17/17; new suite
+  12/12 in both system Chromium 154 and pinned Playwright Chromium 145. No browser
+  console/page errors or unexpected external requests observed. No child,
+  physical-device, demonstrated learning or measured retention tests performed.

@@ -1,0 +1,24 @@
+Actual pre-fix regression captured from the execution tool, 2026-10-25.
+The first run printed to the tool rather than a redirected log; this file
+preserves the observed assertion and result, not a fresh test execution.
+
+Command:
+CHROMIUM_EXECUTABLE=/usr/bin/chromium .venv/bin/python - <<'PY'
+import sys,unittest
+sys.path.insert(0,'tests')
+from browser_progression import ProgressionBrowser
+unittest.TextTestRunner(verbosity=2).run(unittest.TestSuite([ProgressionBrowser('test_progression_review_keyboard_focus_stays_in_book')]))
+PY
+
+Observed:
+test_progression_review_keyboard_focus_stays_in_book (browser_progression.ProgressionBrowser.test_progression_review_keyboard_focus_stays_in_book) ... FAIL
+
+AssertionError: False is not true : Reviewing must move focus away from the newly disabled button inside the book
+
+Ran 1 test in 1.388s
+FAILED (failures=1)
+Chromium 154.0.8037.57; real HTTP preview; Python 3.13.5
+
+The test used actual focus and Enter activation on the earned beam-card review.
+The focused button became disabled without moving focus inside the dialog.
+The regression is covered in the full final suite after the source fix.

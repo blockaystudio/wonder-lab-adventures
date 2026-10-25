@@ -1,3 +1,13 @@
+# 2026-10-25 — Wonder Workshop progression checkpoint
+
+Current evidence: [PROGRESSION_REPORT.md](PROGRESSION_REPORT.md). The repository
+adds finite local progression and 16 original SVGs. Final verification: 106 Node
+checks, 6 signer tests, 17 existing browser methods and 12 new progression
+methods; new browser suite also exercised with the pinned Chromium revision.
+These automated results do not demonstrate improved child retention or learning.
+
+---
+
 # 2026-10-25 — OPT-01 verification checkpoint
 
 Current implementation evidence is in [OPT01_REPORT.md](OPT01_REPORT.md):

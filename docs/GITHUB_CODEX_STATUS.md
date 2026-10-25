@@ -16,3 +16,15 @@ Observed 2026-10-25 during OPT-01 implementation. Supersedes the package's
   Actions result. Inspect the PR checks for the actual remote run state.
 - Repository visibility was observed as public and was not changed.
 - No native export, store submission, monetization, deployment or profile upload.
+
+## Wonder Workshop progression checkpoint
+
+- Branch `codex/lab-progression` builds on `80e86ad`, the OPT-01 PR #1 head.
+  PR #1 was still open when this task began; the new PR is stacked on it.
+- Requested progression, compatible local saves and original artwork are
+  implemented. Current rules: `docs/PROGRESSION.md`; executed test evidence:
+  `evidence/PROGRESSION_REPORT.md`.
+- A private mobile playtest site was created in the intervening user-requested
+  hosting task. This repository task does not redeploy it; that site continues
+  serving the OPT-01 snapshot until an explicitly authorized hosting update.
+- No merge, visibility change, analytics, monetization, account or profile upload.

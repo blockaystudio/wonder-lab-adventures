@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img">
+  <title>Mint Circuit robot suit</title>
+  <desc>A cheerful mint robot suit with an amber antenna, curved arms and a glowing round chest button.</desc>
+  <rect x="9" y="9" width="162" height="162" rx="46" fill="#E0F5E9"/><g transform="translate(90 92) scale(0.9)">
+      <ellipse cx="0" cy="63" rx="43" ry="8" fill="#1B304A" opacity=".12"/>
+      <path d="M-31 21L-47 34M31 21L47 13" stroke="#1B304A" stroke-width="13" stroke-linecap="round"/>
+      <path d="M-31 21L-47 34M31 21L47 13" stroke="#B7F1D8" stroke-width="7" stroke-linecap="round"/>
+      <path d="M-13 43L-20 56M13 43L20 56" stroke="#1B304A" stroke-width="12" stroke-linecap="round"/>
+      <path d="M-13 43L-20 56M13 43L20 56" stroke="#B7F1D8" stroke-width="6" stroke-linecap="round"/>
+      <rect x="-29" y="12" width="58" height="36" rx="17" fill="#B7F1D8" stroke="#1B304A" stroke-width="4"/>
+      <circle cy="29" r="9" fill="#FFD987" stroke="#1B304A" stroke-width="3"/>
+      <path d="M0-48V-64" stroke="#1B304A" stroke-width="4"/><circle cy="-67" r="7" fill="#FFD987" stroke="#1B304A" stroke-width="3"/><path d="M-38-32Q-38-47-22-47H22Q38-47 38-32V1Q38 17 22 17H-22Q-38 17-38 1Z" fill="#B7F1D8" stroke="#1B304A" stroke-width="4"/>
+      <rect x="-28" y="-33" width="56" height="39" rx="15" fill="#223A5A"/><circle cx="-12" cy="-5" r="5" fill="#E7FFF0"/><circle cx="12" cy="-5" r="5" fill="#E7FFF0"/>
+      <path d="M-7 4Q0 10 7 4" fill="none" stroke="#FFD987" stroke-width="3" stroke-linecap="round"/>
+      <path d="M-31-28V-18" stroke="#FFFFFF" opacity=".6" stroke-width="4" stroke-linecap="round"/>
+    </g><path d="M30 27 Q31 34 38 35 Q31 36 30 43 Q29 36 22 35 Q29 34 30 27Z" fill="#72D6D2"/><path d="M151 124 Q152 130 158 131 Q152 132 151 138 Q150 132 144 131 Q150 130 151 124Z" fill="#E3B249"/>
+</svg>

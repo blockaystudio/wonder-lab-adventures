@@ -14,3 +14,19 @@ Screenshots in `evidence/` are genuine rendered browser-prototype captures. They
 Final character sheets/expressions, cohesive animation states, full environment/object catalog, original audio, touch-first low-reading UX, final native captures, icon alternatives, app-preview video, localized copy and actual store-specific acceptance checks remain pending.
 
 No font files are distributed. Browser rendering uses locally available system fonts.
+
+## 2026-10-25 — Wonder Sparks progression illustrations
+
+Added 16 original editable SVG illustrations under `art/rewards/`: six distinct
+science-card compositions; Inventor Goggles, Mint Circuit, Orbit Maker and
+Starlight cosmetics; Moonlit Observatory and Glass Garden scenes; Nova companion;
+Wonder Spark crystal, mission notebook and progression hero. Each was authored
+from geometric vector shapes for this project, with no downloaded assets,
+external fonts, stock icon packs or copied/licensed character designs. See
+`art/rewards/README.md` for the individual sources, uses and scientific framing.
+
+SVGs include titles/descriptions and no scripts, external image references or
+font-dependent labels. Card labels and controls belong to the accessible HTML
+interface. The equal-angle illustration measures angles from the perpendicular
+normal to a flat mirror. These are original prototype illustrations, not final
+approved storefront artwork or evidence of educational outcomes.

@@ -52,3 +52,13 @@ A reproducible native project; one complete first-play loop; local save/reload/r
 
 ## Business measurement
 No retention, public downloads, parent purchases or revenue have been measured. Begin with supervised comprehension/interest tests using `docs/PLAYTEST_PROTOCOL.md`. Browser visit counts are not unique users or retention. Do not infer success from synthetic tests, screenshot polish, or family enthusiasm alone.
+
+## 2026-10-25 — Wonder Workshop continuation checkpoint
+
+`codex/lab-progression` adds a finite local progression layer for the requested
+ages 7–11: six science cards, four cosmetics, two themes, eight goals and Nova.
+Sixteen original SVGs are integrated into the standalone build. The three
+experiments and free local hints remain. See `docs/PROGRESSION.md` for rules,
+`evidence/PROGRESSION_REPORT.md` for executed verification and actual screenshots.
+OPT-01 PR #1 remains the dependency; the progression PR awaits owner review.
+No retention outcome, child playtest, native build or hosted update is claimed.

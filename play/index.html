@@ -15,7 +15,57 @@ body{--ink:#304060;--muted:#61708B;--paper:#F3F5FC;--panel:#FFFFFF;--accent:#657
 .mirror:focus-visible{outline:3px solid #FFFFFF;outline-offset:3px}
 .path-description{font-size:14px;line-height:1.55;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 15px;margin:10px 0 0;overflow-wrap:anywhere}
 @media(max-width:620px){.lab-stage{min-height:330px}.mirror::after{font-size:11px}.lab-stage .stage-top{padding:12px}.lab-stage .stage-tag{padding:7px 8px}.light-source,.light-goal{min-width:27px;min-height:27px}.lab-actions button{flex-basis:100px}}
-</style></head><body><div class="shell"><header class="topbar" id="header"></header><div class="intro"><div><div class="eyebrow">The laboratory of little wonders</div><h1 style="margin-top:8px">“What happens when I try this?”</h1><p>Turn a mirror. Follow the light. Find your own way to “aha!”</p></div><span class="badge">Play prototype · Build 01</span></div><main class="layout"><aside class="panel"><div class="eyebrow">01 / Light & discovery</div><h2>Let’s light things up.</h2><div id="puzzle-list"></div><div class="divider"></div><div class="robot-note"><div id="robot-art"></div><p id="robot-note" aria-live="polite">Hello, inventor! Tap a mirror to turn it. Then send a beam of light to the little lamp.</p></div><div class="progress" id="lab-progress"></div><button id="discoveries" class="secondary wide">My discovery book</button><p class="small" style="margin:14px 0 0">No clocks. No lost lives. A good question is always welcome.</p></aside><div class="stage-wrap"><section class="stage lab-stage" aria-label="Interactive light reflection experiment"><div class="stage-top"><span class="stage-tag" id="puzzle-title">A little reflection</span><span class="stage-tag">TURN MIRRORS · SEND LIGHT</span></div><div class="lab-board" id="board"></div><svg class="ray" id="ray" viewBox="0 0 900 600" preserveAspectRatio="none" aria-hidden="true"></svg></section><p id="path-description" class="path-description" role="status" aria-live="polite"></p><div class="toolbar lab-actions"><button class="primary" id="send-light">Send light →</button><button class="secondary" id="hint">A little hint</button><button class="secondary" id="reset-puzzle">↻ Start again</button></div><div class="message" aria-live="polite"><span class="message-icon">✧</span><p id="lab-message"><strong>Let curiosity lead.</strong> Rotate the mirrors to connect the golden light to the lamp.</p></div><div class="concept"><h3>THE IDEA YOU’RE EXPLORING</h3><p id="concept">Light moves in straight lines until a mirror changes its direction.</p></div><button id="next-puzzle" class="primary wide" style="margin-top:12px" hidden>Try the next experiment →</button></div></main><footer class="footnote"><span>Supervised playtest · No advertisements or purchases · No network requests</span><span id="save-status">Discoveries saved on this browser only</span></footer></div>
+
+/* The Wonder Workshop: original illustrated rewards, always available at your pace. */
+.reward-art{display:block;line-height:0;min-width:0}.reward-art>svg{display:block;width:100%;height:auto;max-height:100%}
+.wonder-banner{position:relative;isolation:isolate;overflow:hidden;border:1px solid #b9d8d9;border-radius:26px;background:linear-gradient(115deg,#e1f2eb 5%,#edf4f7 58%,#d9e6ee);display:grid;grid-template-columns:1fr 290px;gap:16px;padding:28px;margin-bottom:24px;box-shadow:0 12px 30px #2440530a}
+#banner-art{position:absolute;inset:0 0 0 26%;z-index:-1;opacity:.88;pointer-events:none}#banner-art .reward-art,#banner-art svg{width:100%;height:100%;object-fit:cover}
+.banner-copy{max-width:380px}.banner-copy .eyebrow{color:#3c6769;letter-spacing:1.2px}.banner-copy h2{font-size:clamp(26px,3vw,36px);line-height:1.12;letter-spacing:-1.2px;margin:10px 0;color:#213d50}.banner-copy p{font-size:14px;max-width:310px;color:#426174;margin:0}
+.spark-purse{align-self:start;display:flex;gap:12px;text-align:left;align-items:center;padding:16px;background:#fffffff0;border:2px solid #ffffff;border-radius:22px;box-shadow:0 8px 24px #294b6417;min-height:110px;color:#263d58}.spark-purse:hover{border-color:#85b9be}.spark-purse:focus-visible{outline-offset:3px}.spark-purse>#spark-icon{width:66px;flex-shrink:0}.spark-purse strong{font-size:17px;display:block;line-height:1.35}.spark-purse #tier-name{display:block;font-size:13px;margin:4px 0;color:#4b5d79}.spark-purse small{font-size:12px;font-weight:800;color:#385b76}
+.banner-progress{grid-column:1/-1;display:grid;grid-template-columns:260px 1fr;align-items:center;gap:8px 16px;font-size:12px;color:#2b5261;font-weight:700;background:#ffffffd9;border-radius:14px;padding:12px 16px}.banner-progress progress{width:100%;height:10px;accent-color:#3a8c86}.banner-progress #next-wonder{grid-column:1/-1;font-size:12px;line-height:1.5;font-weight:500}
+#robot-art{position:relative;width:88px;flex-shrink:0;min-height:80px}#robot-art>svg{width:100%;height:auto}.robot-note{align-items:flex-start}.robot-accessory{position:absolute;pointer-events:none}.robot-accessory.goggles{left:12%;top:26%;width:76%}.robot-accessory.badge-orbit{right:-5%;bottom:-2%;width:48%}.robot-accessory>svg{width:100%;height:auto}#robot-art[data-companion="nova"][data-cosmetic="bot-mint"]>svg{filter:hue-rotate(35deg)}#robot-art[data-companion="nova"][data-cosmetic="bot-plum"]>svg{filter:hue-rotate(115deg)}
+.model-note{font-size:11px!important;margin-top:8px!important;color:#6c624f!important}
+.reward-notice{background:linear-gradient(115deg,#fff6d6,#e7f5ee);border:2px solid #d8c175;border-radius:22px;padding:18px;margin-top:14px}.reward-celebration{display:flex;align-items:center;gap:18px}.reward-celebration>.reward-art{width:110px;flex-shrink:0}.reward-celebration h3{font-size:23px;margin:5px 0;color:#394c61}.reward-celebration p{font-size:14px;margin:0 0 12px;color:#465f6b}.reward-celebration .eyebrow{color:#685b2d;letter-spacing:1px}.reward-celebration button{font-size:12px;min-height:44px;background:#fffdf3}
+.wonder-modal{max-width:1020px;padding:28px;background:#f8fafb}.wonder-modal h2{font-size:30px;line-height:1.15;color:#273d58}.wonder-modal h3{font-size:18px;letter-spacing:-.3px;color:#30465f}.wonder-modal p{line-height:1.6}.wonder-modal .eyebrow{font-size:10px;letter-spacing:1.3px}.wonder-modal button{min-height:44px}.wonder-modal button:disabled{opacity:1;background:#e8edf1;color:#596475;border-color:#cbd5dc}.wonder-modal .modal-close{position:sticky;top:0;z-index:3;background:#e8edf3;border:1px solid #cbd5dc}
+.hub-heading{display:flex;align-items:center;gap:18px;clear:none;padding:6px 44px 14px 0}.hub-heading>.reward-art{width:90px;flex-shrink:0}.hub-heading h2{margin:8px 0}.hub-heading p{margin-bottom:0}.hub-columns{display:grid;grid-template-columns:1.15fr 1fr;gap:20px;margin:12px 0 26px}.mission-board,.reward-rules{border:1px solid #d5e3e4;border-radius:22px;background:#fff;padding:20px}.reward-rules{background:#eaf3ef}.mission-list{padding:0;margin:0;list-style:none}.mission-list li{display:flex;gap:12px;border-top:1px solid #e1e8ed;padding:13px 0}.mission-list li:last-child{padding-bottom:0}.mission-list strong{font-size:14px}.mission-list p{font-size:12px;margin:4px 0!important;line-height:1.45!important}.goal-mark{flex-shrink:0;display:grid;place-items:center;height:29px;width:29px;border-radius:50%;background:#edf1f8;color:#536384;font-weight:800}.goal-done .goal-mark{background:#c5eadc;color:#28634e}.goal-status{font-size:11px;color:#496078;font-weight:800}.reward-rules dl{display:grid;grid-template-columns:1fr auto;gap:12px 15px;font-size:13px;line-height:1.5}.reward-rules dd{font-weight:800;margin:0;color:#23685d}.reward-rules .small{font-size:12px}
+.collection-heading{display:flex;justify-content:space-between;gap:16px;align-items:center}.collection-heading>span{font-size:12px;color:#51677c}.treasure-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.treasure{padding:15px;border:1px solid #cfdee5;border-radius:21px;background:#fff;display:flex;flex-direction:column;min-width:0;box-shadow:0 5px 0 #e7edf2}.treasure.earned{border-color:#82bba8;background:#f4fbf7}.treasure>.reward-art{height:145px;display:grid;place-items:center;margin-bottom:12px;background:linear-gradient(145deg,#e7f1f0,#eef0f9);border-radius:14px;overflow:hidden}.treasure>.reward-art>svg{width:100%;height:100%;object-fit:contain}.treasure h3{margin:8px 0}.treasure p{font-size:12px;margin-bottom:8px}.treasure .reward-requirement{font-weight:700;color:#52617d;margin-top:auto}.treasure .secondary{font-size:12px;padding:10px}.treasure [aria-pressed="true"]{background:#2e6c5b;color:#fff;border-color:#2e6c5b}.classic-options{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:22px 0;font-size:12px}.classic-options span{width:100%}.classic-options button{font-size:12px}.classic-options [aria-pressed="true"]{border-color:#637c9c;background:#e0eaf4}
+.collection-preview{margin-top:24px;padding-top:22px;border-top:1px solid #d5e0e5}.card-preview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}.card-preview{border:1px solid #d6e3e8;border-radius:15px;overflow:hidden;background:white}.card-preview .reward-art{height:95px}.card-preview svg{height:100%;width:100%;object-fit:cover}.card-preview strong,.card-preview>span:not(.reward-art){display:block;padding:0 12px;font-size:12px;line-height:1.5}.card-preview strong{padding-top:10px}.card-preview>span:not(.reward-art){padding-bottom:12px;color:#52667b}
+.card-collection{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:20px 0}.science-card{padding:16px;border:1px solid #cfdbdf;border-radius:22px;background:#fff;display:flex;flex-direction:column;min-width:0}.science-card.discovery{margin:0;background:#f0f7f3;border:1px solid #a2c9bc}.science-card>.reward-art{height:170px;background:#e5eef3;border-radius:14px;overflow:hidden;margin-bottom:14px}.science-card>.reward-art>svg{height:100%;width:100%;object-fit:cover}.science-card h3{font-size:19px;margin:9px 0}.science-card p{font-size:14px;margin:0 0 16px}.science-card button,.collection-lock{margin-top:auto}.science-card button{font-size:12px}.collection-lock{font-size:12px;line-height:1.5;background:#edf1f5;border-radius:12px;padding:12px;color:#52637c}#book-feedback:not(:empty),#equip-feedback:not(:empty){background:#dcefe5;border:1px solid #a8c9b7;border-radius:14px;padding:12px;font-weight:700;font-size:13px}
+body[data-theme="moonlit"]{--paper:#ebedf9;--panel:#fafaff;--accent:#6654a0;--line:#d3d7ed}body[data-theme="moonlit"] .lab-stage{background:#252c57}body[data-theme="moonlit"] .lab-board{background:radial-gradient(ellipse at top,#414578,#252d56)}
+body[data-theme="greenhouse"]{--paper:#edf7f1;--panel:#fbfffc;--accent:#397a67;--line:#cde3d6}body[data-theme="greenhouse"] .lab-stage{background:#1d4949}body[data-theme="greenhouse"] .lab-board{background:linear-gradient(125deg,#315c56,#224947)}body[data-theme="greenhouse"] .mirror{background:#3d6a62}
+@media(max-width:850px){.wonder-banner{grid-template-columns:1fr 250px;padding:22px}.banner-copy h2{font-size:29px}.banner-copy p{max-width:230px}.spark-purse{padding:13px}.spark-purse strong{font-size:15px}.spark-purse>#spark-icon{width:48px}.banner-progress{grid-template-columns:1fr}.banner-progress #next-wonder{grid-column:auto}.treasure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.wonder-banner{display:flex;flex-direction:column;padding:20px;gap:16px;border-radius:22px;margin-bottom:18px}#banner-art{inset:0 -20% 35% 20%;opacity:.48}.banner-copy{max-width:100%}.banner-copy h2{font-size:28px;max-width:240px}.banner-copy p{font-size:13px;max-width:240px}.banner-copy .eyebrow{font-size:9px}.spark-purse{width:100%;min-height:90px;background:#fffffff2}.spark-purse strong{font-size:17px}.spark-purse>#spark-icon{width:52px}.banner-progress{display:grid;font-size:11px;padding:12px}.banner-progress #next-wonder{font-size:11px}#robot-art{width:70px}.reward-celebration{gap:10px;align-items:flex-start}.reward-celebration>.reward-art{width:65px}.reward-notice{padding:14px}.reward-celebration h3{font-size:19px}.reward-celebration p{font-size:12px}.reward-celebration .secondary{padding:8px;font-size:11px}.wonder-modal{padding:18px;max-height:94vh}.wonder-modal h2{font-size:25px}.hub-heading{gap:10px;padding-right:26px}.hub-heading>.reward-art{width:50px}.hub-heading p{font-size:12px}.hub-columns{grid-template-columns:1fr;gap:14px}.mission-board,.reward-rules{padding:16px}.collection-heading{display:block}.collection-heading h3{margin-bottom:6px}.collection-heading>span{display:block;margin-bottom:12px}.treasure-grid{gap:10px}.treasure{padding:10px;border-radius:17px}.treasure>.reward-art{height:105px}.treasure h3{font-size:15px}.treasure p{font-size:11px;line-height:1.5}.treasure .eyebrow{font-size:8px}.treasure .secondary{font-size:11px;padding:8px;line-height:1.3}.card-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card-preview strong,.card-preview>span:not(.reward-art){font-size:11px;padding-left:8px;padding-right:8px}.card-preview .reward-art{height:85px}.card-collection{grid-template-columns:1fr;gap:14px}.science-card>.reward-art{height:175px}.science-card h3{font-size:20px}.science-card p{font-size:14px}.classic-options button{flex:1}}
+
+/* Keep heading contrast independent of the illustration beneath it. */
+.wonder-banner{background:#20394e;grid-template-columns:1fr 1fr;border-color:#355b6d}
+#banner-art{inset:0;opacity:.9}.banner-copy{grid-column:1}.banner-copy h2{color:#f6f6e9}.banner-copy .eyebrow{color:#a6e1d2}.banner-copy p{color:#cce1e3}.spark-purse{grid-column:1;max-width:345px;margin-top:2px;min-height:92px}.banner-progress{position:relative;z-index:1}
+@media(max-width:620px){#banner-art{inset:0;opacity:.22}.banner-copy p{color:#e0eeed}.spark-purse{max-width:none}.banner-copy .eyebrow{color:#bcf1e1}}
+
+/* On phones, put the experiment ahead of decorative banner copy. */
+@media(max-width:620px){.wonder-banner{padding:14px 16px;gap:10px}.banner-copy h2,.banner-copy p{display:none}.banner-copy .eyebrow{font-size:9px}.spark-purse{min-height:76px;padding:10px 13px}.spark-purse>#spark-icon{width:45px}.spark-purse strong{font-size:16px}.spark-purse #tier-name{margin:2px 0;font-size:12px}.spark-purse small{font-size:11px}.banner-progress{padding:8px 12px;gap:4px}.banner-progress progress{height:6px}}
+</style></head><body><div class="shell">
+  <header class="topbar" id="header"></header>
+  <div class="intro"><div><div class="eyebrow">The laboratory of little wonders</div><h1 style="margin-top:8px">“What happens when I try this?”</h1><p>Turn a mirror. Follow the light. Find your own way to “aha!”</p></div><span class="badge">Play prototype · Wonder Workshop</span></div>
+  <section class="wonder-banner" aria-label="Your Wonder Workshop progress">
+    <div id="banner-art" aria-hidden="true"></div>
+    <div class="banner-copy"><span class="eyebrow">Curiosity makes a little magic</span><h2>A growing collection<br>of “I wonder…”</h2><p>No rush. Every new idea has a place in your lab.</p></div>
+    <button id="open-goals" class="spark-purse"><span id="spark-icon" aria-hidden="true"></span><span><strong><span id="spark-count">0</span> Wonder Sparks</strong><span id="tier-name">Curious Inventor</span><small>My goals & treasures →</small></span></button>
+    <div class="banner-progress"><span id="collection-count">0/6 science cards · 0/7 lab treasures</span><progress id="spark-meter" value="0" max="40" aria-label="Lifetime Sparks toward your next inventor tier"></progress><span id="next-wonder"></span></div>
+  </section>
+  <main class="layout">
+    <aside class="panel"><div class="eyebrow">01 / Light & discovery</div><h2>Let’s light things up.</h2><div id="puzzle-list"></div><div class="divider"></div><div class="robot-note"><div id="robot-art" role="img"></div><p id="robot-note" aria-live="polite"></p></div><div class="progress" id="lab-progress"></div><button id="discoveries" class="secondary wide">My discovery book</button><p class="small" style="margin:14px 0 0">No clocks. No lost lives. Hints are free. Your discoveries never expire.</p></aside>
+    <div class="stage-wrap">
+      <section class="stage lab-stage" aria-label="Interactive light reflection experiment"><div class="stage-top"><span class="stage-tag" id="puzzle-title">A little reflection</span><span class="stage-tag">TURN MIRRORS · SEND LIGHT</span></div><div class="lab-board" id="board"></div><svg class="ray" id="ray" viewBox="0 0 900 600" preserveAspectRatio="none" aria-hidden="true"></svg></section>
+      <p id="path-description" class="path-description" role="status" aria-live="polite"></p>
+      <div class="toolbar lab-actions"><button class="primary" id="send-light">Send light →</button><button class="secondary" id="hint">A little hint</button><button class="secondary" id="reset-puzzle">↻ Start again</button></div>
+      <div class="message" aria-live="polite"><span class="message-icon">✧</span><p id="lab-message"></p></div>
+      <section id="reward-notice" class="reward-notice" role="status" aria-live="polite" hidden></section>
+      <div class="concept"><h3>THE IDEA YOU’RE EXPLORING</h3><p id="concept"></p><p class="model-note">A simplified 2D model of flat-mirror reflection.</p></div>
+      <button id="next-puzzle" class="primary wide" style="margin-top:12px" hidden>Try the next experiment →</button>
+    </div>
+  </main>
+  <footer class="footnote"><span>Play prototype · No advertisements or purchases · No game uploads</span><span id="save-status">Discoveries saved on this browser only</span></footer>
+</div>
 <noscript><p>This prototype needs JavaScript enabled.</p></noscript><script>/* Shared prototype foundation. No network, analytics, advertisements or purchases. */
 (function (root, factory) {
   const api = factory(); if (typeof module === 'object' && module.exports) module.exports = api;
@@ -192,33 +242,412 @@ function parentArea(store,stats,onReset,onMotion){
 root.KidsUI={modal,closeModal,toast,spark,mountHeader,parentArea};
 })(globalThis);
 
-(function(){'use strict';const C=KidsCore,A=KidsArt,U=KidsUI,$=id=>document.getElementById(id);const store=new C.LocalSave('wonder-lab-adventures',C.labDefaults,C.normalizeLab);let state=store.data;state.visits++;let result=null,hinted=-1;
- const invitation='Tap a mirror to turn it. Then send light to test your path.';
- // A saved discovery alone must not light a board that has since been changed.
- function restoreTrace(){const trace=C.traceLight(C.PUZZLES[state.puzzle],state.orientations[state.puzzle]);result=state.solved.includes(state.puzzle)&&trace.success?trace:null;}
- function freshFeedback(){hinted=-1;$('robot-note').textContent=invitation;$('lab-message').textContent=result?.success?'Your saved path lights the lamp. Your discovery card is in the book.':'A fresh question. Turn a mirror, then send the light.';}
- function openPuzzle(i){state.puzzle=i;restoreTrace();freshFeedback();save();render();}
- function describePath(){
-  if(!result)return 'Light source → mirrors → lamp. Send light to see where your current path goes.';
-  const route=['Light source',...result.touched.map(i=>'mirror '+String.fromCharCode(65+i))];
-  const [x,y]=result.path.at(-1);
-  route.push(result.success?'Lamp lit':result.loop?'repeating path — light stopped':(x<0?'left':x>8?'right':y<0?'top':'bottom')+' board edge — lamp not lit');
-  return route.join(' → ');
- }
- U.mountHeader('lab','Wonder Lab Adventures','Follow a question. Find a wonder.');$('robot-art').innerHTML=A.robot();
- function save(){store.save(state);$('save-status').textContent=store.warning||'Discoveries saved on this browser only';document.body.classList.toggle('reduced-motion',state.reducedMotion);}
- function render(){const p=C.PUZZLES[state.puzzle];
-  $('puzzle-list').innerHTML=C.PUZZLES.map((p,i)=>`<button class="lab-step ${state.puzzle===i?'selected':''} ${state.solved.includes(i)?'solved':''}" data-puzzle="${i}" aria-pressed="${state.puzzle===i}"><span class="number">${state.solved.includes(i)?'✓':i+1}</span><div><strong>${p.name}</strong><small>${p.mirrors.length} mirrors · One discovery</small></div></button>`).join('');document.querySelectorAll('[data-puzzle]').forEach(b=>b.onclick=()=>{openPuzzle(Number(b.dataset.puzzle));});
-  $('puzzle-title').textContent=p.name;$('concept').textContent=p.concept;$('lab-progress').innerHTML=C.PUZZLES.map((_,i)=>`<span class="${state.solved.includes(i)?'done':''}"></span>`).join('');$('discoveries').textContent='My discovery book · '+state.solved.length+'/3';
-  let html='';for(let y=0;y<6;y++)for(let x=0;x<9;x++){const m=p.mirrors.findIndex(v=>v[0]===x&&v[1]===y),start=x===p.start[0]&&y===p.start[1],goal=x===p.goal[0]&&y===p.goal[1];html+='<div class="lab-cell">'+(m>=0?`<button class="mirror ${state.orientations[state.puzzle][m]==='\\'?'backslash':''} ${hinted===m?'hint':''}" data-mirror="${m}" data-label="${String.fromCharCode(65+m)}" aria-label="Rotate mirror ${String.fromCharCode(65+m)}. Currently ${state.orientations[state.puzzle][m]==='/'?'sloping up right':'sloping down right'}"></button>`:start?'<div class="light-source" aria-label="Light source">☀</div>':goal?`<div class="light-goal ${result?.success?'lit':''}" aria-label="${result?.success?'Lamp is lit':'Lamp is waiting for light'}"><span class="lamp">✧</span></div>`:'')+'</div>';}$('board').innerHTML=html;
-  document.querySelectorAll('[data-mirror]').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.mirror);state.orientations[state.puzzle][i]=state.orientations[state.puzzle][i]==='/'?'\\':'/';result=null;freshFeedback();$('lab-message').textContent='Mirrors changed. Send light to test this path.';save();render();const newButton=document.querySelector(`[data-mirror="${i}"]`);newButton?.focus({preventScroll:true});});
-  $('path-description').textContent=describePath();
-  $('ray').innerHTML=result?`<path pathLength="1" d="${result.path.map(([x,y],i)=>(i?'L':'M')+(x*100+50)+' '+(y*100+50)).join(' ')}"/>`:'';$('next-puzzle').hidden=!result?.success||state.puzzle===2;
- }
- function hint(){const p=C.PUZZLES[state.puzzle];hinted=p.solution.findIndex((o,i)=>state.orientations[state.puzzle][i]!==o);if(hinted<0){$('robot-note').textContent='Your mirrors are lined up. Try sending the light!';}else{$('robot-note').textContent=`Take another look at mirror ${String.fromCharCode(65+hinted)}. Turn it once, then follow where the light goes.`;}render();}
- $('send-light').onclick=()=>{const i=state.puzzle,p=C.PUZZLES[i];state.attempts[i]++;result=C.traceLight(p,state.orientations[i]);if(result.success){const first=!state.solved.includes(i);if(first)state.solved.push(i);$('lab-message').innerHTML='<strong>Aha! You lit the lamp.</strong> '+p.concept;$('robot-note').textContent=state.solved.length===3?'Three lovely discoveries. You can revisit any experiment, or stop here and celebrate what you found.':'You found a path! A fresh experiment is waiting whenever you are ready.';if(first)U.spark(document.querySelector('.lab-stage'));}else{$('lab-message').innerHTML='<strong>A useful experiment!</strong> Follow the beam and try turning the mirror where it goes off course.';$('robot-note').textContent='Nothing is lost when you try. Every path gives you another clue.';if(state.attempts[i]>=2){hinted=p.solution.findIndex((o,j)=>state.orientations[i][j]!==o);if(hinted>=0)$('robot-note').textContent=`Here’s a little help: try turning mirror ${String.fromCharCode(65+hinted)}. Your hints stay on this browser.`;}}save();render();};
- $('hint').onclick=hint;$('reset-puzzle').onclick=()=>{state.orientations[state.puzzle]=C.PUZZLES[state.puzzle].initial.slice();state.attempts[state.puzzle]=0;result=null;freshFeedback();save();render();$('lab-message').textContent='A fresh start. Your discovery cards are still safe.';};$('next-puzzle').onclick=()=>{openPuzzle(Math.min(2,state.puzzle+1));};
- $('discoveries').onclick=()=>U.modal(`<span class="eyebrow">My discovery book</span><h2 style="margin-top:10px">Small experiments. Big ideas.</h2>${state.solved.length?state.solved.map(i=>`<div class="discovery"><h3>✦ ${C.PUZZLES[i].name}</h3><p>${C.PUZZLES[i].concept}</p></div>`).join(''):'<p>Light a lamp to add your first discovery card.</p>'}<p class="small">This prototype explores idealized 2D mirror reflection. It is not a complete science curriculum or an independently validated learning assessment.</p>`);
- $('parents').onclick=()=>U.parentArea(store,[{value:state.solved.length,label:'Experiments solved'},{value:state.visits,label:'Browser visits'}],()=>location.reload(),()=>{state.reducedMotion=!state.reducedMotion;save();});restoreTrace();freshFeedback();save();render();
+globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>An equal-angle bounce</title>\n  <desc>A horizontal flat mirror reflects one ray symmetrically. Equal angle arcs lie between each ray and the dotted line perpendicular to the mirror, not between the rays and its surface.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#223A5A\"/><path d=\"M0 134Q70 95 132 128T240 121V160H0Z\" fill=\"#2D4B67\"/><g fill=\"#FFFFFF\" opacity=\".16\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><path d=\"M31 127H209\" stroke=\"#1B304A\" stroke-width=\"16\" stroke-linecap=\"round\"/><path d=\"M31 123H209\" stroke=\"#B7F1D8\" stroke-width=\"7\" stroke-linecap=\"round\"/><path d=\"M120 122V24\" stroke=\"#B7CEDA\" stroke-width=\"2.5\" stroke-dasharray=\"5 6\"/><path d=\"M49 39L120 122L191 39\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M49 39L120 122L191 39\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M74 61L81 73L69 68M159 73L166 61L168 73\" fill=\"none\" stroke=\"#FFF5CE\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M120 90A32 32 0 0 0 99.2 97.7M120 90A32 32 0 0 1 140.8 97.7\" fill=\"none\" stroke=\"#F6A798\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M35 82 Q36 87 41 88 Q36 89 35 94 Q34 89 29 88 Q34 87 35 82Z\" fill=\"#FFD987\"/><path d=\"M208 85 Q209 90 214 91 Q209 92 208 97 Q207 92 202 91 Q207 90 208 85Z\" fill=\"#B7F1D8\"/><path d=\"M47 137L39 145M71 137L63 145M95 137L87 145M119 137L111 145M143 137L135 145M167 137L159 145M191 137L183 145\" stroke=\"#6E8EA1\" stroke-width=\"2\"/>\n</svg>\n", "badge-orbit": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 180 180\" role=\"img\">\n  <title>Orbit Maker badge</title>\n  <desc>A scalloped navy and gold science badge with an original mint orbit emblem and coral ribbons.</desc>\n  <path d=\"M54 107L41 157L65 146L82 162L92 112M126 107L139 157L115 146L98 162L88 112\" fill=\"#F6A798\" stroke=\"#1B304A\" stroke-width=\"4\" stroke-linejoin=\"round\"/><path d=\"M90 18L104 27L121 27L130 42L145 51L145 68L154 82L145 97L145 114L130 123L121 138L104 138L90 147L76 138L59 138L50 123L35 114L35 97L26 82L35 68L35 51L50 42L59 27L76 27Z\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"4\"/><circle cx=\"90\" cy=\"83\" r=\"44\" fill=\"#223A5A\"/><g fill=\"none\" stroke=\"#B7F1D8\" stroke-width=\"3\"><ellipse cx=\"90\" cy=\"83\" rx=\"33\" ry=\"12\" transform=\"rotate(-34 90 83)\"/><ellipse cx=\"90\" cy=\"83\" rx=\"33\" ry=\"12\" transform=\"rotate(34 90 83)\"/></g><circle cx=\"90\" cy=\"83\" r=\"8\" fill=\"#FFD987\"/><circle cx=\"114\" cy=\"58\" r=\"5\" fill=\"#F6A798\"/><path d=\"M29 22 Q30 28 36 29 Q30 30 29 36 Q28 30 22 29 Q28 28 29 22Z\" fill=\"#72D6D2\"/>\n</svg>\n", "beam": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>Light&#x27;s straight path</title>\n  <desc>An illustrated light source sends one straight ray toward a waiting lamp. The arrows show its direction.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#223A5A\"/><path d=\"M0 134Q70 95 132 128T240 121V160H0Z\" fill=\"#2D4B67\"/><g fill=\"#FFFFFF\" opacity=\".16\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><circle cx=\"192\" cy=\"81\" r=\"36\" fill=\"#FFD987\" opacity=\".08\"/><path d=\"M24 122H217\" stroke=\"#55738A\" stroke-width=\"3\"/><path d=\"M42 80H198\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M42 80H198\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M91 74L99 80L91 86M141 74L149 80L141 86\" fill=\"none\" stroke=\"#FFF5CE\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M26 66H43L50 80L43 94H26Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M29 102V120M21 121H44\" stroke=\"#B7F1D8\" stroke-width=\"4\" stroke-linecap=\"round\"/><rect x=\"183\" y=\"62\" width=\"29\" height=\"36\" rx=\"12\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M190 102H205M194 107H201\" stroke=\"#B7F1D8\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M198 71 Q199 78 206 79 Q199 80 198 87 Q197 80 190 79 Q197 78 198 71Z\" fill=\"#FFFCF4\"/><path d=\"M63 27 Q64 34 71 35 Q64 36 63 43 Q62 36 55 35 Q62 34 63 27Z\" fill=\"#FFD987\"/><path d=\"M166 23 Q167 27 171 28 Q167 29 166 33 Q165 29 161 28 Q165 27 166 23Z\" fill=\"#B7F1D8\"/>\n</svg>\n", "bot-mint": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 180 180\" role=\"img\">\n  <title>Mint Circuit robot suit</title>\n  <desc>A cheerful mint robot suit with an amber antenna, curved arms and a glowing round chest button.</desc>\n  <rect x=\"9\" y=\"9\" width=\"162\" height=\"162\" rx=\"46\" fill=\"#E0F5E9\"/><g transform=\"translate(90 92) scale(0.9)\">\n      <ellipse cx=\"0\" cy=\"63\" rx=\"43\" ry=\"8\" fill=\"#1B304A\" opacity=\".12\"/>\n      <path d=\"M-31 21L-47 34M31 21L47 13\" stroke=\"#1B304A\" stroke-width=\"13\" stroke-linecap=\"round\"/>\n      <path d=\"M-31 21L-47 34M31 21L47 13\" stroke=\"#B7F1D8\" stroke-width=\"7\" stroke-linecap=\"round\"/>\n      <path d=\"M-13 43L-20 56M13 43L20 56\" stroke=\"#1B304A\" stroke-width=\"12\" stroke-linecap=\"round\"/>\n      <path d=\"M-13 43L-20 56M13 43L20 56\" stroke=\"#B7F1D8\" stroke-width=\"6\" stroke-linecap=\"round\"/>\n      <rect x=\"-29\" y=\"12\" width=\"58\" height=\"36\" rx=\"17\" fill=\"#B7F1D8\" stroke=\"#1B304A\" stroke-width=\"4\"/>\n      <circle cy=\"29\" r=\"9\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"3\"/>\n      <path d=\"M0-48V-64\" stroke=\"#1B304A\" stroke-width=\"4\"/><circle cy=\"-67\" r=\"7\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M-38-32Q-38-47-22-47H22Q38-47 38-32V1Q38 17 22 17H-22Q-38 17-38 1Z\" fill=\"#B7F1D8\" stroke=\"#1B304A\" stroke-width=\"4\"/>\n      <rect x=\"-28\" y=\"-33\" width=\"56\" height=\"39\" rx=\"15\" fill=\"#223A5A\"/><circle cx=\"-12\" cy=\"-5\" r=\"5\" fill=\"#E7FFF0\"/><circle cx=\"12\" cy=\"-5\" r=\"5\" fill=\"#E7FFF0\"/>\n      <path d=\"M-7 4Q0 10 7 4\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n      <path d=\"M-31-28V-18\" stroke=\"#FFFFFF\" opacity=\".6\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n    </g><path d=\"M30 27 Q31 34 38 35 Q31 36 30 43 Q29 36 22 35 Q29 34 30 27Z\" fill=\"#72D6D2\"/><path d=\"M151 124 Q152 130 158 131 Q152 132 151 138 Q150 132 144 131 Q150 130 151 124Z\" fill=\"#E3B249\"/>\n</svg>\n", "bot-plum": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 180 180\" role=\"img\">\n  <title>Starlight robot suit</title>\n  <desc>A happy plum-coloured robot with an inventive star cap, mint fingertips and a golden chest lamp.</desc>\n  <rect x=\"9\" y=\"9\" width=\"162\" height=\"162\" rx=\"46\" fill=\"#EDE5FA\"/><g transform=\"translate(90 94) scale(0.9)\">\n      <ellipse cx=\"0\" cy=\"63\" rx=\"43\" ry=\"8\" fill=\"#1B304A\" opacity=\".12\"/>\n      <path d=\"M-31 21L-47 34M31 21L47 13\" stroke=\"#1B304A\" stroke-width=\"13\" stroke-linecap=\"round\"/>\n      <path d=\"M-31 21L-47 34M31 21L47 13\" stroke=\"#BCABE7\" stroke-width=\"7\" stroke-linecap=\"round\"/>\n      <path d=\"M-13 43L-20 56M13 43L20 56\" stroke=\"#1B304A\" stroke-width=\"12\" stroke-linecap=\"round\"/>\n      <path d=\"M-13 43L-20 56M13 43L20 56\" stroke=\"#BCABE7\" stroke-width=\"6\" stroke-linecap=\"round\"/>\n      <rect x=\"-29\" y=\"12\" width=\"58\" height=\"36\" rx=\"17\" fill=\"#BCABE7\" stroke=\"#1B304A\" stroke-width=\"4\"/>\n      <circle cy=\"29\" r=\"9\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"3\"/>\n      <path d=\"M-31-49Q0-72 31-49L24-41H-24Z\" fill=\"#E6BCF2\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M0 -63 Q1 -57 7 -56 Q1 -55 0 -49 Q-1 -55 -7 -56 Q-1 -57 0 -63Z\" fill=\"#FFD987\"/><path d=\"M-38-32Q-38-47-22-47H22Q38-47 38-32V1Q38 17 22 17H-22Q-38 17-38 1Z\" fill=\"#BCABE7\" stroke=\"#1B304A\" stroke-width=\"4\"/>\n      <rect x=\"-28\" y=\"-33\" width=\"56\" height=\"39\" rx=\"15\" fill=\"#223A5A\"/><path d=\"M-17-4Q-12-11-7-4M7-4Q12-11 17-4\" fill=\"none\" stroke=\"#E7FFF0\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n      <path d=\"M-7 4Q0 10 7 4\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n      <path d=\"M-31-28V-18\" stroke=\"#FFFFFF\" opacity=\".6\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n    </g><path d=\"M29 116 Q30 123 37 124 Q30 125 29 132 Q28 125 21 124 Q28 123 29 116Z\" fill=\"#72D6D2\"/><path d=\"M154 32 Q155 40 163 41 Q155 42 154 50 Q153 42 145 41 Q153 40 154 32Z\" fill=\"#D9AD51\"/>\n</svg>\n", "compare": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>Predict, turn, test</title>\n  <desc>Two small lab boards compare different mirror positions. A notebook records a prediction with a pencil, celebrating trying and observing.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#F8F3E6\"/><path d=\"M0 126Q83 102 133 131T240 121V160H0Z\" fill=\"#EBE6D6\"/><g fill=\"#6A8A8B\" opacity=\".28\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><rect x=\"17\" y=\"27\" width=\"91\" height=\"92\" rx=\"16\" fill=\"#223A5A\"/><rect x=\"132\" y=\"27\" width=\"91\" height=\"92\" rx=\"16\" fill=\"#223A5A\"/><path d=\"M26 84H70V43\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M26 84H70V43\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g stroke-linecap=\"round\"><path d=\"M57 97L83 71\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M57 97L83 71\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M57 100L83 74\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><path d=\"M141 62H181V105\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M141 62H181V105\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g stroke-linecap=\"round\"><path d=\"M168 49L194 75\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M168 49L194 75\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M168 52L194 78\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><circle cx=\"26\" cy=\"84\" r=\"6\" fill=\"#B7F1D8\"/><circle cx=\"141\" cy=\"62\" r=\"6\" fill=\"#B7F1D8\"/><path d=\"M114 65L126 71L114 77\" fill=\"none\" stroke=\"#7E8E99\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M87 116Q105 109 121 115Q137 109 154 116V146Q137 139 121 145Q105 139 87 146Z\" fill=\"#FFFCF4\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M121 116V145M96 124H111M96 132H112M131 124H145M131 132H142\" fill=\"none\" stroke=\"#86B3AD\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M33 9 Q34 14 39 15 Q34 16 33 21 Q32 16 27 15 Q32 14 33 9Z\" fill=\"#F6A798\"/><path d=\"M213 132 Q214 138 220 139 Q214 140 213 146 Q212 140 206 139 Q212 138 213 132Z\" fill=\"#D8AC4B\"/>\n</svg>\n", "goggles": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 180 100\" role=\"img\">\n  <title>Inventor goggles</title>\n  <desc>Two golden-rimmed goggles with cool blue lenses and a plum strap, drawn as an original transparent lab accessory for layering.</desc>\n  <path d=\"M15 29Q90 7 165 29L160 49Q90 33 20 49Z\" fill=\"#97769C\" stroke=\"#1B304A\" stroke-width=\"5\"/>\n  <rect x=\"15\" y=\"24\" width=\"67\" height=\"58\" rx=\"22\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"5\"/>\n  <rect x=\"98\" y=\"24\" width=\"67\" height=\"58\" rx=\"22\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"5\"/>\n  <path d=\"M82 50Q90 42 98 50\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"5\"/>\n  <rect x=\"26\" y=\"35\" width=\"45\" height=\"36\" rx=\"14\" fill=\"#8ACED1\" fill-opacity=\".8\"/>\n  <rect x=\"109\" y=\"35\" width=\"45\" height=\"36\" rx=\"14\" fill=\"#8ACED1\" fill-opacity=\".8\"/>\n  <path d=\"M34 50L45 39M117 50L128 39\" stroke=\"#EFFFF4\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n</svg>\n", "greenhouse": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>Glass Garden lab</title>\n  <desc>A bright imagined lab with a glass arch, leafy plants and a gentle robot watering can. It is a decoration, not experiment instructions.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#E5F4E9\"/><path d=\"M31 135V79A89 89 0 0 1 209 79V135Z\" fill=\"#D0E9E0\" stroke=\"#7FA9A0\" stroke-width=\"4\"/><path d=\"M120 1V135M34 68H206\" stroke=\"#A3C9BC\" stroke-width=\"3\"/><path d=\"M18 138H222\" stroke=\"#7FA9A0\" stroke-width=\"7\" stroke-linecap=\"round\"/><path d=\"M48 106H94L87 137H55Z\" fill=\"#F6A798\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M71 107V63\" stroke=\"#578B76\" stroke-width=\"4\"/><path d=\"M71 87Q42 87 44 65Q64 61 71 87M71 72Q96 74 95 53Q73 49 71 72\" fill=\"#7EBEA1\" stroke=\"#578B76\" stroke-width=\"3\"/><path d=\"M139 93H180V126H139Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M180 102L207 89L210 99L180 117M140 99Q120 85 119 105Q119 119 140 115\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"5\" stroke-linejoin=\"round\"/><path d=\"M144 88Q157 75 172 88\" fill=\"none\" stroke=\"#4F9691\" stroke-width=\"4\"/><circle cx=\"108\" cy=\"36\" r=\"12\" fill=\"#FFD987\"/><path d=\"M214 31 Q215 38 222 39 Q215 40 214 47 Q213 40 206 39 Q213 38 214 31Z\" fill=\"#D4AF4E\"/><path d=\"M110 103 Q111 109 117 110 Q111 111 110 117 Q109 111 103 110 Q109 109 110 103Z\" fill=\"#FFFFFF\"/>\n</svg>\n", "mirror": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>A mirror&#x27;s turn</title>\n  <desc>A golden ray travels right, meets a diagonal flat mirror and turns upward in this simplified two-dimensional illustration.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#F8F3E6\"/><path d=\"M0 126Q83 102 133 131T240 121V160H0Z\" fill=\"#EBE6D6\"/><g fill=\"#6A8A8B\" opacity=\".28\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><circle cx=\"121\" cy=\"93\" r=\"44\" fill=\"#D9EDE4\"/><path d=\"M22 135H219\" stroke=\"#D5CDBB\" stroke-width=\"3\"/><path d=\"M32 112H120V32\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M32 112H120V32\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M75 107L82 112L75 117M115 60L120 53L125 60\" fill=\"none\" stroke=\"#B78631\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g stroke-linecap=\"round\"><path d=\"M107 125L133 99\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M107 125L133 99\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M107 128L133 102\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><rect x=\"19\" y=\"100\" width=\"22\" height=\"26\" rx=\"9\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M163 87L176 78L188 86L181 101L166 101Z\" fill=\"#E2D8F0\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M120 21 Q121 30 130 31 Q121 32 120 41 Q119 32 110 31 Q119 30 120 21Z\" fill=\"#E4AE48\"/><path d=\"M199 35 Q200 42 207 43 Q200 44 199 51 Q198 44 191 43 Q198 42 199 35Z\" fill=\"#F6A798\"/>\n</svg>\n", "mission": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" role=\"img\">\n  <title>Discovery mission notebook</title>\n  <desc>A mint notebook holding a golden crystal emblem, with three illustrated check marks and a coral pencil.</desc>\n  <rect x=\"8\" y=\"8\" width=\"144\" height=\"144\" rx=\"44\" fill=\"#E3F0F4\"/><path d=\"M39 28H119V133H39Q27 133 27 122V39Q27 28 39 28Z\" fill=\"#FFFCF4\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M42 28V133\" stroke=\"#9FBDB8\" stroke-width=\"4\"/><path d=\"M54 79L60 85L69 73M54 101L60 107L69 95\" fill=\"none\" stroke=\"#4D9E88\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M80 79H103M80 101H98\" stroke=\"#8CACAA\" stroke-width=\"4\" stroke-linecap=\"round\"/><g transform=\"translate(80 51) scale(0.5)\"><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M0-28L0 28L14 15L19-12Z\" fill=\"#45ACA9\"/><path d=\"M0-28L-19-12L0-5L19-12Z\" fill=\"#D3FAEA\"/><path d=\"M-19-12L-14 15L0-5Z\" fill=\"#9CEAE0\"/><path d=\"M0-5L14 15L0 28Z\" fill=\"#62C8C0\"/><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M-7 -16 Q-6 -13 -3 -12 Q-6 -11 -7 -8 Q-8 -11 -11 -12 Q-8 -13 -7 -16Z\" fill=\"#FFFCF4\"/></g><path d=\"M127 65L140 73L116 119L103 111Z\" fill=\"#F6A798\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M103 111L102 126L116 119Z\" fill=\"#E4C58F\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M129 25 Q130 32 137 33 Q130 34 129 41 Q128 34 121 33 Q128 32 129 25Z\" fill=\"#D4AB4D\"/>\n</svg>\n", "model": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>Models are maps</title>\n  <desc>An open notebook shows a simple two-dimensional ray diagram. A chunky flat mirror beside it reminds us that a diagram leaves out many real-world details.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#F8F3E6\"/><path d=\"M0 126Q83 102 133 131T240 121V160H0Z\" fill=\"#EBE6D6\"/><g fill=\"#6A8A8B\" opacity=\".28\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><path d=\"M24 36Q63 23 112 35Q151 23 191 36V131Q152 119 112 131Q63 119 24 131Z\" fill=\"#FFFCF4\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M112 36V131\" stroke=\"#C4BBA6\" stroke-width=\"3\"/><path d=\"M38 55H94M38 65H84M126 105H176M126 115H167\" stroke=\"#B3C8C0\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M41 105H75V79\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M41 105H75V79\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g stroke-linecap=\"round\"><path d=\"M62 118L88 92\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M62 118L88 92\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M62 121L88 95\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><path d=\"M143 82L178 43L195 57L161 95Z\" fill=\"#C2F0E6\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M178 43L195 57L200 78L181 64Z\" fill=\"#73AEA9\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M202 104L219 112L207 140L191 132Z\" fill=\"#F6A798\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M191 132L193 143L207 140Z\" fill=\"#E9CE97\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M213 23 Q214 30 221 31 Q214 32 213 39 Q212 32 205 31 Q212 30 213 23Z\" fill=\"#D5AA46\"/>\n</svg>\n", "moonlit": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>Moonlit Observatory lab</title>\n  <desc>An imaginary night-time laboratory under a crescent moon, with a mint telescope, star charts and a golden lamp.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#223A5A\"/><path d=\"M0 134Q70 95 132 128T240 121V160H0Z\" fill=\"#2D4B67\"/><g fill=\"#FFFFFF\" opacity=\".16\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><path d=\"M200 17A19 19 0 1 0 200 53A15 15 0 0 1 200 17Z\" fill=\"#FFD987\"/><path d=\"M25 125H215\" stroke=\"#607D91\" stroke-width=\"8\" stroke-linecap=\"round\"/><path d=\"M49 121L79 72L125 94L107 128Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M79 72L96 43L147 67L130 96Z\" fill=\"#BFEDE4\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M96 43L104 29L155 53L147 67Z\" fill=\"#8D80CF\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M84 125L62 151M84 125L109 151\" stroke=\"#B7F1D8\" stroke-width=\"5\" stroke-linecap=\"round\"/><rect x=\"164\" y=\"99\" width=\"31\" height=\"24\" rx=\"8\" fill=\"#FFD987\"/><path d=\"M179 99V88\" stroke=\"#B7F1D8\" stroke-width=\"4\"/><path d=\"M38 28 Q39 36 47 37 Q39 38 38 46 Q37 38 29 37 Q37 36 38 28Z\" fill=\"#FFD987\"/><path d=\"M174 64 Q175 69 180 70 Q175 71 174 76 Q173 71 168 70 Q173 69 174 64Z\" fill=\"#B7F1D8\"/><path d=\"M211 98 Q212 102 216 103 Q212 104 211 108 Q210 104 206 103 Q210 102 211 98Z\" fill=\"#F6A798\"/>\n</svg>\n", "nova": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" role=\"img\">\n  <title>Nova, the Wonder Keeper</title>\n  <desc>An original lilac robot companion with a crescent antenna, joyful glowing eyes, mint boots and a diamond-shaped chest light.</desc>\n  <rect x=\"8\" y=\"8\" width=\"184\" height=\"184\" rx=\"55\" fill=\"#EAE3FA\"/><circle cx=\"101\" cy=\"99\" r=\"67\" fill=\"#D9D0F0\"/><g transform=\"translate(100 106) scale(0.95)\">\n      <ellipse cy=\"68\" rx=\"53\" ry=\"9\" fill=\"#1B304A\" opacity=\".12\"/>\n      <path d=\"M-39 17L-57 29L-54 6M39 17L57 29L54 6\" fill=\"#8D80CF\" stroke=\"#1B304A\" stroke-width=\"4\" stroke-linejoin=\"round\"/>\n      <path d=\"M-21 39L-30 58L-13 53M21 39L30 58L13 53\" fill=\"#B7F1D8\" stroke=\"#1B304A\" stroke-width=\"4\" stroke-linejoin=\"round\"/>\n      <path d=\"M-45-23Q-41-48-16-49H16Q41-48 45-23L35 29Q29 48 0 49Q-29 48-35 29Z\" fill=\"#B2A2EC\" stroke=\"#1B304A\" stroke-width=\"5\"/>\n      <path d=\"M-45-23Q-41-48-16-49H16Q41-48 45-23L39-13Q0-27-39-13Z\" fill=\"#E4D7FF\"/>\n      <path d=\"M-27-18Q0-30 27-18L24 13Q0 27-24 13Z\" fill=\"#223A5A\"/>\n      <path d=\"M-16-4L-11-10L-6-4M6-4L11-10L16-4\" fill=\"none\" stroke=\"#CFF9E8\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      <path d=\"M-6 9Q0 14 6 9\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n      <path d=\"M0-49V-65\" stroke=\"#1B304A\" stroke-width=\"4\"/>\n      <path d=\"M8-81A13 13 0 1 0 8-57A10 10 0 0 1 8-81Z\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"3\"/>\n      <path d=\"M0 24L7 32L0 40L-7 32Z\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"2\"/>\n      <path d=\"M-31-26L-27-33\" stroke=\"#FFFFFF\" stroke-width=\"4\" opacity=\".75\" stroke-linecap=\"round\"/>\n      <path d=\"M-62 -40 Q-61 -34 -55 -33 Q-61 -32 -62 -26 Q-63 -32 -69 -33 Q-63 -34 -62 -40Z\" fill=\"#FFD987\"/><path d=\"M63 -21 Q64 -17 68 -16 Q64 -15 63 -11 Q62 -15 58 -16 Q62 -17 63 -21Z\" fill=\"#B7F1D8\"/>\n    </g><path d=\"M40 26 Q41 32 47 33 Q41 34 40 40 Q39 34 33 33 Q39 32 40 26Z\" fill=\"#D6A847\"/>\n</svg>\n", "progression-hero": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 260\" role=\"img\">\n  <title>A laboratory full of possibilities</title>\n  <desc>An original magical illustrated laboratory: Nova floats beside a discovery notebook, golden light winds between cards, and mint crystals glow. The left side is quiet for the interface heading.</desc>\n  <rect width=\"760\" height=\"260\" rx=\"28\" fill=\"#20364F\"/><path d=\"M0 217Q160 178 318 219T760 191V260H0Z\" fill=\"#29465E\"/><path d=\"M341 192Q393 42 481 87T674 59\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"3\" opacity=\".45\" stroke-dasharray=\"5 10\"/><circle cx=\"605\" cy=\"125\" r=\"103\" fill=\"#58738A\" opacity=\".12\"/><g transform=\"rotate(-12 435 87)\"><rect x=\"382\" y=\"39\" width=\"83\" height=\"100\" rx=\"14\" fill=\"#EBF5E9\" stroke=\"#1B304A\" stroke-width=\"4\"/><rect x=\"391\" y=\"48\" width=\"65\" height=\"57\" rx=\"10\" fill=\"#42677B\"/><path d=\"M398 88H423V60\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\"/><g stroke-linecap=\"round\"><path d=\"M410 101L436 75\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M410 101L436 75\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M410 104L436 78\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><path d=\"M398 117H449M398 125H430\" stroke=\"#92B8AA\" stroke-width=\"3\" stroke-linecap=\"round\"/></g><g transform=\"rotate(11 697 150)\"><rect x=\"661\" y=\"108\" width=\"65\" height=\"82\" rx=\"12\" fill=\"#EDDFBC\" stroke=\"#1B304A\" stroke-width=\"4\"/><g transform=\"translate(694 144) scale(0.65)\"><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M0-28L0 28L14 15L19-12Z\" fill=\"#45ACA9\"/><path d=\"M0-28L-19-12L0-5L19-12Z\" fill=\"#D3FAEA\"/><path d=\"M-19-12L-14 15L0-5Z\" fill=\"#9CEAE0\"/><path d=\"M0-5L14 15L0 28Z\" fill=\"#62C8C0\"/><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M-7 -16 Q-6 -13 -3 -12 Q-6 -11 -7 -8 Q-8 -11 -11 -12 Q-8 -13 -7 -16Z\" fill=\"#FFFCF4\"/></g><path d=\"M675 175H714\" stroke=\"#B79D6B\" stroke-width=\"3\" stroke-linecap=\"round\"/></g><path d=\"M370 199Q407 184 453 198Q493 184 534 199V238Q492 225 453 239Q407 225 370 238Z\" fill=\"#FFFCF4\" stroke=\"#1B304A\" stroke-width=\"4\"/><path d=\"M453 198V239M385 211H432M385 220H422M469 211H516M469 220H504\" stroke=\"#95BFB0\" stroke-width=\"3\" stroke-linecap=\"round\"/><g transform=\"translate(588 133) scale(1.03)\">\n      <ellipse cy=\"68\" rx=\"53\" ry=\"9\" fill=\"#1B304A\" opacity=\".12\"/>\n      <path d=\"M-39 17L-57 29L-54 6M39 17L57 29L54 6\" fill=\"#8D80CF\" stroke=\"#1B304A\" stroke-width=\"4\" stroke-linejoin=\"round\"/>\n      <path d=\"M-21 39L-30 58L-13 53M21 39L30 58L13 53\" fill=\"#B7F1D8\" stroke=\"#1B304A\" stroke-width=\"4\" stroke-linejoin=\"round\"/>\n      <path d=\"M-45-23Q-41-48-16-49H16Q41-48 45-23L35 29Q29 48 0 49Q-29 48-35 29Z\" fill=\"#B2A2EC\" stroke=\"#1B304A\" stroke-width=\"5\"/>\n      <path d=\"M-45-23Q-41-48-16-49H16Q41-48 45-23L39-13Q0-27-39-13Z\" fill=\"#E4D7FF\"/>\n      <path d=\"M-27-18Q0-30 27-18L24 13Q0 27-24 13Z\" fill=\"#223A5A\"/>\n      <path d=\"M-16-4L-11-10L-6-4M6-4L11-10L16-4\" fill=\"none\" stroke=\"#CFF9E8\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      <path d=\"M-6 9Q0 14 6 9\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n      <path d=\"M0-49V-65\" stroke=\"#1B304A\" stroke-width=\"4\"/>\n      <path d=\"M8-81A13 13 0 1 0 8-57A10 10 0 0 1 8-81Z\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"3\"/>\n      <path d=\"M0 24L7 32L0 40L-7 32Z\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"2\"/>\n      <path d=\"M-31-26L-27-33\" stroke=\"#FFFFFF\" stroke-width=\"4\" opacity=\".75\" stroke-linecap=\"round\"/>\n      <path d=\"M-62 -40 Q-61 -34 -55 -33 Q-61 -32 -62 -26 Q-63 -32 -69 -33 Q-63 -34 -62 -40Z\" fill=\"#FFD987\"/><path d=\"M63 -21 Q64 -17 68 -16 Q64 -15 63 -11 Q62 -15 58 -16 Q62 -17 63 -21Z\" fill=\"#B7F1D8\"/>\n    </g><g transform=\"translate(343 182) scale(0.8)\"><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M0-28L0 28L14 15L19-12Z\" fill=\"#45ACA9\"/><path d=\"M0-28L-19-12L0-5L19-12Z\" fill=\"#D3FAEA\"/><path d=\"M-19-12L-14 15L0-5Z\" fill=\"#9CEAE0\"/><path d=\"M0-5L14 15L0 28Z\" fill=\"#62C8C0\"/><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M-7 -16 Q-6 -13 -3 -12 Q-6 -11 -7 -8 Q-8 -11 -11 -12 Q-8 -13 -7 -16Z\" fill=\"#FFFCF4\"/></g><g transform=\"translate(724 219) scale(0.55)\"><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M0-28L0 28L14 15L19-12Z\" fill=\"#45ACA9\"/><path d=\"M0-28L-19-12L0-5L19-12Z\" fill=\"#D3FAEA\"/><path d=\"M-19-12L-14 15L0-5Z\" fill=\"#9CEAE0\"/><path d=\"M0-5L14 15L0 28Z\" fill=\"#62C8C0\"/><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M-7 -16 Q-6 -13 -3 -12 Q-6 -11 -7 -8 Q-8 -11 -11 -12 Q-8 -13 -7 -16Z\" fill=\"#FFFCF4\"/></g><path d=\"M32 33 Q33 37 37 38 Q33 39 32 43 Q31 39 27 38 Q31 37 32 33Z\" fill=\"#B7F1D8\"/><path d=\"M307 39 Q308 47 316 48 Q308 49 307 57 Q306 49 298 48 Q306 47 307 39Z\" fill=\"#FFD987\"/><path d=\"M342 100 Q343 104 347 105 Q343 106 342 110 Q341 106 337 105 Q341 104 342 100Z\" fill=\"#F6A798\"/><path d=\"M473 31 Q474 36 479 37 Q474 38 473 43 Q472 38 467 37 Q472 36 473 31Z\" fill=\"#B7F1D8\"/><path d=\"M503 146 Q504 153 511 154 Q504 155 503 162 Q502 155 495 154 Q502 153 503 146Z\" fill=\"#FFD987\"/><path d=\"M685 33 Q686 41 694 42 Q686 43 685 51 Q684 43 676 42 Q684 41 685 33Z\" fill=\"#FFD987\"/><path d=\"M745 86 Q746 90 750 91 Q746 92 745 96 Q744 92 740 91 Q744 90 745 86Z\" fill=\"#B7F1D8\"/><path d=\"M276 220 Q277 223 280 224 Q277 225 276 228 Q275 225 272 224 Q275 223 276 220Z\" fill=\"#72D6D2\"/><path d=\"M62 228 Q63 231 66 232 Q63 233 62 236 Q61 233 58 232 Q61 231 62 228Z\" fill=\"#8D80CF\"/>\n</svg>\n", "relay": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 160\" role=\"img\">\n  <title>A chain of reflections</title>\n  <desc>Four tilted mirrors guide a light ray around a winding route from a source to a lamp.</desc>\n  <rect width=\"240\" height=\"160\" rx=\"22\" fill=\"#223A5A\"/><path d=\"M0 134Q70 95 132 128T240 121V160H0Z\" fill=\"#2D4B67\"/><g fill=\"#FFFFFF\" opacity=\".16\"><circle cx=\"20\" cy=\"37\" r=\"1.5\"/><circle cx=\"43\" cy=\"130\" r=\"1.5\"/><circle cx=\"71\" cy=\"24\" r=\"1.5\"/><circle cx=\"106\" cy=\"139\" r=\"1.5\"/><circle cx=\"154\" cy=\"22\" r=\"1.5\"/><circle cx=\"181\" cy=\"141\" r=\"1.5\"/><circle cx=\"219\" cy=\"72\" r=\"1.5\"/><circle cx=\"214\" cy=\"25\" r=\"1.5\"/></g><path d=\"M24 115H83V46H182V113H213\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"13\" opacity=\".12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M24 115H83V46H182V113H213\" fill=\"none\" stroke=\"#FFD987\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g stroke-linecap=\"round\"><path d=\"M70 128L96 102\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M70 128L96 102\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M70 131L96 105\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><g stroke-linecap=\"round\"><path d=\"M70 59L96 33\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M70 59L96 33\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M70 62L96 36\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><g stroke-linecap=\"round\"><path d=\"M169 33L195 59\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M169 33L195 59\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M169 36L195 62\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g><circle cx=\"25\" cy=\"115\" r=\"12\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><rect x=\"199\" y=\"100\" width=\"24\" height=\"27\" rx=\"10\" fill=\"#FFD987\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M211 107 Q212 112 217 113 Q212 114 211 119 Q210 114 205 113 Q210 112 211 107Z\" fill=\"#FFFCF4\"/><path d=\"M75 85L83 77L91 85M126 39L134 46L126 53M175 78L182 86L189 78\" fill=\"none\" stroke=\"#FFF5CE\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M35 34 Q36 41 43 42 Q36 43 35 50 Q34 43 27 42 Q34 41 35 34Z\" fill=\"#B7F1D8\"/><path d=\"M144 120 Q145 125 150 126 Q145 127 144 132 Q143 127 138 126 Q143 125 144 120Z\" fill=\"#F6A798\"/>\n<g stroke-linecap=\"round\"><path d=\"M169 100L195 126\" stroke=\"#1B304A\" stroke-width=\"14\"/><path d=\"M169 100L195 126\" stroke=\"#B7F1D8\" stroke-width=\"7\"/><path d=\"M169 103L195 129\" stroke=\"#80B3B5\" stroke-width=\"2\"/></g>\n</svg>\n", "spark": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" role=\"img\">\n  <title>Wonder Spark crystal</title>\n  <desc>A faceted mint crystal surrounded by golden four-point sparkles.</desc>\n  <rect x=\"9\" y=\"9\" width=\"142\" height=\"142\" rx=\"45\" fill=\"#E5F6ED\"/><g transform=\"translate(80 81) scale(1.7)\"><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"#72D6D2\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M0-28L0 28L14 15L19-12Z\" fill=\"#45ACA9\"/><path d=\"M0-28L-19-12L0-5L19-12Z\" fill=\"#D3FAEA\"/><path d=\"M-19-12L-14 15L0-5Z\" fill=\"#9CEAE0\"/><path d=\"M0-5L14 15L0 28Z\" fill=\"#62C8C0\"/><path d=\"M0-28L19-12L14 15L0 28L-14 15L-19-12Z\" fill=\"none\" stroke=\"#1B304A\" stroke-width=\"3\"/><path d=\"M-7 -16 Q-6 -13 -3 -12 Q-6 -11 -7 -8 Q-8 -11 -11 -12 Q-8 -13 -7 -16Z\" fill=\"#FFFCF4\"/></g><path d=\"M29 26 Q30 35 39 36 Q30 37 29 46 Q28 37 19 36 Q28 35 29 26Z\" fill=\"#FFD987\"/><path d=\"M132 102 Q133 110 141 111 Q133 112 132 120 Q131 112 123 111 Q131 110 132 102Z\" fill=\"#FFD987\"/><path d=\"M127 25 Q128 29 132 30 Q128 31 127 35 Q126 31 122 30 Q126 29 127 25Z\" fill=\"#72D6D2\"/>\n</svg>\n"};
+/* Wonder Lab progression v1. Finite local achievements; no clock, profile or network. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('../shared/core.js'));
+  else root.WonderProgression = factory(root.KidsCore);
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (C) {
+  'use strict';
+
+  const CARDS = [
+    {id: 'beam', title: "Light's straight path", puzzle: 0,
+      description: 'In this simplified 2D model, a light ray travels in straight lines between mirrors.',
+      condition: 'Solve A little reflection.'},
+    {id: 'mirror', title: "A mirror's turn", puzzle: 1,
+      description: 'A flat mirror reflects light. Turning the mirror changes where the reflected ray goes. This board uses just two mirror slopes.',
+      condition: 'Solve Take the lower path.'},
+    {id: 'relay', title: 'A chain of reflections', puzzle: 2,
+      description: 'Several ideal flat mirrors can guide one ray around a winding path. Follow each straight part of the route in order.',
+      condition: 'Solve The long way around.'},
+    {id: 'compare', title: 'Predict, turn, test', puzzle: 0,
+      description: 'Changing one mirror at a time helps you compare paths. A beam that misses the lamp is still a useful observation.',
+      condition: 'Test 3 different mirror arrangements in A little reflection.'},
+    {id: 'angle', title: 'An equal-angle bounce', puzzle: 1,
+      description: 'For an ideal flat mirror, the incoming and outgoing angles are equal. Measure both from an imaginary line pointing straight out of the mirror, called the normal.',
+      condition: 'Test 3 different mirror arrangements in Take the lower path.'},
+    {id: 'model', title: 'Models are maps', puzzle: 2,
+      description: 'This board is a simplified map of one ray in a flat plane. Real light can spread out and interact with materials in more ways. This game models mirror reflection, not all of optics.',
+      condition: 'Test 5 different mirror arrangements in The long way around.'}
+  ];
+  const REWARDS = [
+    {id: 'goggles', title: 'Prism goggles', type: 'cosmetic', points: 15,
+      description: 'A bright pair of inventor goggles for your robot helper.', requirement: 'Earn 15 Wonder Sparks.'},
+    {id: 'bot-mint', title: 'Mint explorer', type: 'cosmetic', points: 40,
+      description: 'A fresh mint-and-copper look for your robot helper.', requirement: 'Earn 40 Wonder Sparks.'},
+    {id: 'badge-orbit', title: 'Orbit inventor badge', type: 'cosmetic', points: 65,
+      description: 'Wear a little orbit of curiosity on your helper.', requirement: 'Earn 65 Wonder Sparks.'},
+    {id: 'bot-plum', title: 'Cosmic plum', type: 'cosmetic', points: 90,
+      description: 'A starry plum-and-gold look for your robot helper.', requirement: 'Earn 90 Wonder Sparks.'},
+    {id: 'moonlit', title: 'Moonlight observatory', type: 'theme', points: 75,
+      description: 'Give your lab a moonlit blue and lilac palette.', requirement: 'Earn 75 Wonder Sparks.'},
+    {id: 'greenhouse', title: 'Sunbeam greenhouse', type: 'theme', points: 115,
+      description: 'Bring warm sunlight and leafy colors into your lab.', requirement: 'Earn 115 Wonder Sparks.'},
+    {id: 'nova', title: 'Nova, the wonder keeper', type: 'companion', points: 150,
+      description: 'Meet a curious little robot companion with a glowing star lantern.',
+      requirement: 'Earn 150 Wonder Sparks, collect all 6 cards, and review at least 3 different cards.'}
+  ];
+  const TIERS = [
+    {id: 'seed', name: 'Seed inventor', threshold: 0},
+    {id: 'beam', name: 'Beam builder', threshold: 40},
+    {id: 'explorer', name: 'Lab explorer', threshold: 90},
+    {id: 'keeper', name: 'Wonder keeper', threshold: 150}
+  ];
+  const TYPES = ['cosmetic', 'theme', 'companion'];
+  const CARD_IDS = CARDS.map(card => card.id);
+  const MAX_SPARKS = 188;
+
+  function freshProgress() {
+    return {version: 1, traces: C.PUZZLES.map(() => []), reviews: [], replays: [],
+      replayReady: C.PUZZLES.map(() => false),
+      equipped: {cosmetic: 'classic', theme: 'classic', companion: 'classic'}};
+  }
+  const defaults = {...C.clone(C.labDefaults), progress: freshProgress()};
+
+  function cardIds(state, progress) {
+    return CARDS.filter(card => {
+      if (card.id === 'compare') return progress.traces[0].length >= 3;
+      if (card.id === 'angle') return progress.traces[1].length >= 3;
+      if (card.id === 'model') return progress.traces[2].length >= 5;
+      return state.solved.includes(card.puzzle);
+    }).map(card => card.id);
+  }
+
+  // Sparks are a total of saved, bounded facts, never an editable saved balance.
+  // Hints do not enter this calculation and never reduce rewards.
+  function earned(state, progress) {
+    const cards = cardIds(state, progress);
+    const points = state.solved.length * 20 + progress.traces.flat().length * 2
+      + cards.length * 5 + (state.solved.length === C.PUZZLES.length ? 20 : 0)
+      + progress.reviews.length * 3 + progress.replays.length * 4;
+    const unlockedIds = REWARDS.filter(reward => points >= reward.points
+      && (reward.id !== 'nova' || (cards.length === 6 && progress.reviews.length >= 3)))
+      .map(reward => reward.id);
+    return {points, cardIds: cards, unlockedIds};
+  }
+
+  function normalize(data) {
+    const input = C.plain(data) ? data : {};
+    const state = C.normalizeLab(input);
+    const progress = freshProgress();
+    const saved = C.plain(input.progress) && input.progress.version === 1 ? input.progress : {};
+    progress.traces = C.PUZZLES.map((puzzle, index) => {
+      const values = Array.isArray(saved.traces?.[index]) ? saved.traces[index] : [];
+      const limit = 2 ** puzzle.mirrors.length;
+      return [...new Set(values.filter(value => Number.isInteger(value) && value >= 0 && value < limit))]
+        .slice(0, limit).sort((a, b) => a - b);
+    });
+    const availableCards = cardIds(state, progress);
+    progress.reviews = CARD_IDS.filter(id => availableCards.includes(id)
+      && Array.isArray(saved.reviews) && saved.reviews.includes(id));
+    progress.replays = C.PUZZLES.map((_, index) => index).filter(index => state.solved.includes(index)
+      && Array.isArray(saved.replays) && saved.replays.includes(index));
+    progress.replayReady = C.PUZZLES.map((_, index) => saved.replayReady?.[index] === true
+      && state.solved.includes(index) && !progress.replays.includes(index));
+    const unlocked = earned(state, progress).unlockedIds;
+    for (const type of TYPES) {
+      const id = saved.equipped?.[type];
+      if (unlocked.includes(id) && REWARDS.some(reward => reward.id === id && reward.type === type)) {
+        progress.equipped[type] = id;
+      }
+    }
+    return {...state, progress};
+  }
+
+  function goal(id, title, detail, current, target) {
+    return {id, title, detail, current: Math.min(current, target), target, done: current >= target};
+  }
+
+  function snapshot(data) {
+    const state = normalize(data), progress = state.progress;
+    const result = earned(state, progress);
+    const tierIndex = TIERS.findLastIndex(tier => result.points >= tier.threshold);
+    const tier = {...TIERS[tierIndex], nextThreshold: TIERS[tierIndex + 1]?.threshold ?? null};
+    const goals = [
+      goal('first-solve', 'Light your first lamp', 'Solve any experiment. Hints are always welcome.', state.solved.length, 1),
+      goal('test-three', 'Try three ideas', 'Send light through 3 different mirror arrangements, in any experiments.', progress.traces.flat().length, 3),
+      goal('lab-complete', 'Complete the light lab', 'Solve all 3 reflection experiments, in any order.', state.solved.length, 3),
+      goal('three-cards', 'Start a science collection', 'Discover 3 of the 6 illustrated concept cards.', result.cardIds.length, 3),
+      goal('mirror-path', 'Build a mirror path', 'Use mirrors to guide a ray into a lamp.', state.solved.length > 0 ? 1 : 0, 1),
+      goal('review-three', 'Look again, notice more', 'Open and review 3 different cards in your discovery book.', progress.reviews.length, 3),
+      goal('replay-three', 'Revisit familiar paths', 'Change or reset a solved experiment, then light its lamp again. Each experiment counts once.', progress.replays.length, 3),
+      goal('six-cards', 'Fill your discovery shelf', 'Collect all 6 cards by solving and testing different arrangements.', result.cardIds.length, 6)
+    ];
+    return {...result, equipped: {...progress.equipped}, tier,
+      nextReward: REWARDS.filter(reward => !result.unlockedIds.includes(reward.id))
+        .sort((a, b) => a.points - b.points)[0] ?? null,
+      goals};
+  }
+
+  function delta(before, after, result = null) {
+    return {pointsGained: after.points - before.points,
+      newCards: after.cardIds.filter(id => !before.cardIds.includes(id)),
+      newRewards: after.unlockedIds.filter(id => !before.unlockedIds.includes(id)), result};
+  }
+  const noChange = () => ({pointsGained: 0, newCards: [], newRewards: [], result: null});
+  const validPuzzle = index => Number.isInteger(index) && index >= 0 && index < C.PUZZLES.length;
+
+  function recordTrace(state, index, orientations) {
+    if (!C.plain(state) || !validPuzzle(index) || !Array.isArray(orientations)
+      || orientations.length !== C.PUZZLES[index].mirrors.length
+      || !C.PUZZLES[index].mirrors.every((_, bit) => orientations[bit] === '/' || orientations[bit] === '\\')) return noChange();
+    Object.assign(state, normalize(state));
+    const before = snapshot(state), progress = state.progress;
+    const mask = orientations.reduce((value, orientation, bit) => value | (orientation === '/' ? 1 << bit : 0), 0);
+    if (!progress.traces[index].includes(mask)) progress.traces[index].push(mask);
+    state.orientations[index] = orientations.slice();
+    const result = C.traceLight(C.PUZZLES[index], orientations);
+    if (result.success) {
+      const alreadySolved = state.solved.includes(index);
+      if (!alreadySolved) state.solved.push(index);
+      if (alreadySolved && progress.replayReady[index] && !progress.replays.includes(index)) {
+        progress.replays.push(index);
+      }
+      progress.replayReady[index] = false;
+    }
+    return delta(before, snapshot(state), result);
+  }
+
+  function armReplay(state, index) {
+    if (!C.plain(state) || !validPuzzle(index)) return false;
+    Object.assign(state, normalize(state));
+    if (!state.solved.includes(index) || state.progress.replays.includes(index)) return false;
+    state.progress.replayReady[index] = true;
+    return true;
+  }
+
+  function reviewCard(state, id) {
+    if (!C.plain(state) || !CARD_IDS.includes(id)) return noChange();
+    Object.assign(state, normalize(state));
+    const before = snapshot(state);
+    if (!before.cardIds.includes(id) || state.progress.reviews.includes(id)) return noChange();
+    state.progress.reviews.push(id);
+    return delta(before, snapshot(state));
+  }
+
+  // Use equip(state, 'classic', type) to restore a default. Earned items are never spent.
+  function equip(state, id, type) {
+    if (!C.plain(state)) return false;
+    Object.assign(state, normalize(state));
+    if (id === 'classic' && TYPES.includes(type)) {
+      state.progress.equipped[type] = 'classic';
+      return true;
+    }
+    const reward = REWARDS.find(item => item.id === id);
+    if (!reward || !snapshot(state).unlockedIds.includes(id)) return false;
+    state.progress.equipped[reward.type] = id;
+    return true;
+  }
+
+  return {CARDS, REWARDS, TIERS, MAX_SPARKS, defaults, normalize, snapshot,
+    recordTrace, armReplay, reviewCard, equip};
+});
+
+(function () {
+  'use strict';
+  const C = KidsCore, A = KidsArt, U = KidsUI, P = WonderProgression;
+  const $ = id => document.getElementById(id);
+  const store = new C.LocalSave('wonder-lab-adventures', P.defaults, P.normalize);
+  let state = store.data, result = null, hinted = -1, savingAvailable = false;
+  state.visits++;
+  const invitation = 'Turn a mirror, then send light to test your idea. Hints are always welcome.';
+  const art = (id, cls = '') => `<span class="reward-art ${cls}" aria-hidden="true">${WonderRewardArt[id] || ''}</span>`;
+  const rewardName = id => P.REWARDS.find(r => r.id === id)?.title || id;
+  const cardName = id => P.CARDS.find(c => c.id === id)?.title || id;
+
+  function restoreTrace() {
+    const trace = C.traceLight(C.PUZZLES[state.puzzle], state.orientations[state.puzzle]);
+    result = state.solved.includes(state.puzzle) && trace.success ? trace : null;
+  }
+  function freshFeedback() {
+    hinted = -1;
+    $('robot-note').textContent = invitation;
+    $('lab-message').textContent = result?.success
+      ? 'Your path lights the lamp. Your discovery is in the book.'
+      : 'A fresh question. Turn a mirror, then send the light.';
+    $('reward-notice').hidden = true;
+  }
+  function save() {
+    savingAvailable = store.save(state);
+    $('save-status').textContent = store.warning || 'Discoveries and rewards saved on this browser only';
+    document.body.classList.toggle('reduced-motion', state.reducedMotion);
+    return savingAvailable;
+  }
+  function openPuzzle(index) {
+    state.puzzle = index;
+    restoreTrace(); freshFeedback(); save(); render();
+  }
+  function describePath() {
+    if (!result) return 'Light source → mirrors → lamp. Send light to see where your current path goes.';
+    const route = ['Light source', ...result.touched.map(i => 'mirror ' + String.fromCharCode(65 + i))];
+    const [x, y] = result.path.at(-1);
+    route.push(result.success ? 'Lamp lit' : result.loop ? 'repeating path — light stopped'
+      : (x < 0 ? 'left' : x > 8 ? 'right' : y < 0 ? 'top' : 'bottom') + ' board edge — lamp not lit');
+    return route.join(' → ');
+  }
+  function renderProgress() {
+    const s = P.snapshot(state);
+    $('spark-count').textContent = s.points;
+    $('tier-name').textContent = s.tier.name;
+    $('collection-count').textContent = `${s.cardIds.length}/6 science cards · ${s.unlockedIds.length}/7 lab treasures`;
+    $('next-wonder').textContent = s.nextReward
+      ? `Next treasure: ${s.nextReward.title} · ${s.nextReward.points} lifetime Sparks${s.nextReward.id === 'nova' ? ', 6 cards and 3 reviews' : ''}`
+      : 'Your cabinet is complete. Revisit any idea whenever you like.';
+    const max = s.tier.nextThreshold || s.tier.threshold || 1;
+    $('spark-meter').max = max;
+    $('spark-meter').value = Math.min(s.points, max);
+    document.body.dataset.theme = s.equipped.theme;
+    const robot = $('robot-art');
+    robot.dataset.cosmetic = s.equipped.cosmetic;
+    robot.dataset.companion = s.equipped.companion;
+    const bot = s.equipped.companion === 'nova' ? WonderRewardArt.nova
+      : ['bot-mint', 'bot-plum'].includes(s.equipped.cosmetic) ? WonderRewardArt[s.equipped.cosmetic] : A.robot();
+    robot.innerHTML = bot + (['goggles', 'badge-orbit'].includes(s.equipped.cosmetic)
+      ? art(s.equipped.cosmetic, 'robot-accessory ' + s.equipped.cosmetic) : '');
+    robot.setAttribute('aria-label', `Your helper: ${s.equipped.companion === 'nova' ? 'Nova' : 'Lab robot'}, ${s.equipped.cosmetic === 'classic' ? 'classic outfit' : rewardName(s.equipped.cosmetic)}`);
+    $('discoveries').textContent = 'My discovery book · ' + s.cardIds.length + '/6';
+  }
+  function render() {
+    const p = C.PUZZLES[state.puzzle];
+    $('puzzle-list').innerHTML = C.PUZZLES.map((p, i) => `<button class="lab-step ${state.puzzle === i ? 'selected' : ''} ${state.solved.includes(i) ? 'solved' : ''}" data-puzzle="${i}" aria-pressed="${state.puzzle === i}"><span class="number">${state.solved.includes(i) ? '✓' : i + 1}</span><div><strong>${p.name}</strong><small>${p.mirrors.length} mirrors · A new idea</small></div></button>`).join('');
+    document.querySelectorAll('[data-puzzle]').forEach(b => b.onclick = () => openPuzzle(Number(b.dataset.puzzle)));
+    $('puzzle-title').textContent = p.name;
+    $('concept').textContent = p.concept;
+    $('lab-progress').innerHTML = C.PUZZLES.map((_, i) => `<span class="${state.solved.includes(i) ? 'done' : ''}"></span>`).join('');
+    let html = '';
+    for (let y = 0; y < 6; y++) for (let x = 0; x < 9; x++) {
+      const m = p.mirrors.findIndex(v => v[0] === x && v[1] === y);
+      const start = x === p.start[0] && y === p.start[1], goal = x === p.goal[0] && y === p.goal[1];
+      html += '<div class="lab-cell">' + (m >= 0
+        ? `<button class="mirror ${state.orientations[state.puzzle][m] === '\\' ? 'backslash' : ''} ${hinted === m ? 'hint' : ''}" data-mirror="${m}" data-label="${String.fromCharCode(65 + m)}" aria-label="Rotate mirror ${String.fromCharCode(65 + m)}. Currently ${state.orientations[state.puzzle][m] === '/' ? 'sloping up right' : 'sloping down right'}"></button>`
+        : start ? '<div class="light-source" aria-label="Light source">☀</div>'
+          : goal ? `<div class="light-goal ${result?.success ? 'lit' : ''}" aria-label="${result?.success ? 'Lamp is lit' : 'Lamp is waiting for light'}"><span class="lamp">✧</span></div>` : '') + '</div>';
+    }
+    $('board').innerHTML = html;
+    document.querySelectorAll('[data-mirror]').forEach(b => b.onclick = () => {
+      const i = Number(b.dataset.mirror);
+      P.armReplay(state, state.puzzle);
+      state.orientations[state.puzzle][i] = state.orientations[state.puzzle][i] === '/' ? '\\' : '/';
+      result = null; freshFeedback();
+      $('lab-message').textContent = 'Mirrors changed. Send light to test this path.';
+      save(); render();
+      document.querySelector(`[data-mirror="${i}"]`)?.focus({preventScroll: true});
+    });
+    $('path-description').textContent = describePath();
+    $('ray').innerHTML = result ? `<path pathLength="1" d="${result.path.map(([x, y], i) => (i ? 'L' : 'M') + (x * 100 + 50) + ' ' + (y * 100 + 50)).join(' ')}"/>` : '';
+    $('next-puzzle').hidden = !result?.success || state.puzzle === 2;
+    renderProgress();
+  }
+  function celebrate(delta, title) {
+    const notice = $('reward-notice');
+    notice.hidden = !delta.pointsGained;
+    if (!delta.pointsGained) return;
+    const items = [...delta.newCards.map(id => ({id, title: cardName(id)})),
+      ...delta.newRewards.map(id => ({id, title: rewardName(id)}))];
+    notice.innerHTML = `<div class="reward-celebration">${art(items[0]?.id || 'spark')}<div><span class="eyebrow">${title}</span><h3>+${delta.pointsGained} Wonder Sparks</h3><p>${items.length ? items.map(v => C.escapeHTML(v.title)).join(' · ') : 'A new idea recorded in your notebook.'}</p><button class="secondary" id="see-rewards">See my goals & treasures</button></div></div>`;
+    $('see-rewards').onclick = showGoals;
+  }
+  function hint() {
+    const p = C.PUZZLES[state.puzzle];
+    hinted = p.solution.findIndex((o, i) => state.orientations[state.puzzle][i] !== o);
+    $('robot-note').textContent = hinted < 0 ? 'Your mirrors are lined up. Try sending the light!'
+      : `Take another look at mirror ${String.fromCharCode(65 + hinted)}. Turn it once, then follow where the light goes.`;
+    render();
+  }
+  $('send-light').onclick = () => {
+    const i = state.puzzle, p = C.PUZZLES[i], first = !state.solved.includes(i);
+    state.attempts[i]++;
+    const delta = P.recordTrace(state, i, state.orientations[i]);
+    result = delta.result;
+    if (result.success) {
+      $('lab-message').innerHTML = '<strong>Aha! You lit the lamp.</strong> ' + p.concept;
+      $('robot-note').textContent = state.solved.length === 3
+        ? 'All three paths explored! Try another arrangement or visit your discovery book. There is no hurry.'
+        : 'You found a path! A fresh experiment is waiting whenever you are ready.';
+      if (first) U.spark(document.querySelector('.lab-stage'));
+    } else {
+      $('lab-message').innerHTML = '<strong>A useful experiment!</strong> Follow the beam and try turning the mirror where it goes off course.';
+      $('robot-note').textContent = 'Nothing is lost when you try. Every path gives you another clue.';
+      if (state.attempts[i] >= 2) {
+        hinted = p.solution.findIndex((o, j) => state.orientations[i][j] !== o);
+        if (hinted >= 0) $('robot-note').textContent = `Here’s a little help: try turning mirror ${String.fromCharCode(65 + hinted)}. Your hints stay on this browser.`;
+      }
+    }
+    save(); render(); celebrate(delta, result.success ? 'Discovery made!' : 'Curiosity counts!');
+  };
+  $('hint').onclick = hint;
+  $('reset-puzzle').onclick = () => {
+    P.armReplay(state, state.puzzle);
+    state.orientations[state.puzzle] = C.PUZZLES[state.puzzle].initial.slice();
+    state.attempts[state.puzzle] = 0; result = null;
+    freshFeedback(); save(); render();
+    $('lab-message').textContent = 'A fresh start. Your cards, Sparks and treasures are still safe.';
+  };
+  $('next-puzzle').onclick = () => openPuzzle(Math.min(2, state.puzzle + 1));
+
+  function storageNotice() {
+    return savingAvailable ? '' : `<p class="warning" role="status">${C.escapeHTML(store.warning || 'Progress lasts for this visit only.')}</p>`;
+  }
+  function showBook() {
+    const s = P.snapshot(state);
+    U.modal(`<div class="wonder-book"><span class="eyebrow">Your cabinet of curiosities · ${s.cardIds.length}/6</span><h2>Small experiments. Big ideas.</h2><p>Earn cards by solving and trying different mirror arrangements. Review each earned card once for 3 Sparks. Hints are always free.</p>${storageNotice()}<p id="book-feedback" role="status"></p><div class="card-collection">${P.CARDS.map(c => {
+      const earned = s.cardIds.includes(c.id), reviewed = state.progress.reviews.includes(c.id);
+      return `<article data-card="${c.id}" class="science-card ${earned ? 'discovery' : 'card-locked'}">${art(c.id)}<span class="eyebrow">${earned ? 'Discovered' : 'Still to explore'}</span><h3>${C.escapeHTML(c.title)}</h3><p>${C.escapeHTML(earned ? c.description : c.condition)}</p>${earned
+        ? `<button class="secondary wide" data-review="${c.id}" ${reviewed ? 'disabled' : ''}>${reviewed ? (savingAvailable ? 'Reviewed · saved' : 'Reviewed · this visit') : 'Review discovery · +3 Sparks'}</button>`
+        : '<span class="collection-lock">Not yet collected · no hurry</span>'}</article>`;
+    }).join('')}</div><p class="small">This prototype explores idealized 2D flat-mirror reflection. The ray is a simplified model, not a full description of light or an independently validated learning assessment.</p></div>`, dialog => {
+      dialog.querySelector('.modal').classList.add('wonder-modal');
+      dialog.querySelectorAll('[data-review]').forEach(button => button.onclick = () => {
+        const delta = P.reviewCard(state, button.dataset.review);
+        const persisted = save(); render();
+        button.disabled = true; button.textContent = persisted ? 'Reviewed · saved' : 'Reviewed · this visit';
+        // Keep keyboard focus in the dialog after the credited button is disabled.
+        (dialog.querySelector('[data-review]:not([disabled])') || dialog.querySelector('.modal-close')).focus({preventScroll: true});
+        dialog.querySelector('#book-feedback').textContent = delta.pointsGained
+          ? `Idea revisited! +${delta.pointsGained} Sparks.${delta.newRewards.length ? ' New treasure: ' + delta.newRewards.map(rewardName).join(', ') + '.' : ''}`
+          : 'This review is already saved. You can read it again whenever you like.';
+        if (!persisted) dialog.querySelector('#book-feedback').textContent += ' ' + store.warning;
+        celebrate(delta, 'An idea worth revisiting');
+      });
+    });
+  }
+  function updateEquipButtons(dialog) {
+    const s = P.snapshot(state);
+    dialog.querySelectorAll('[data-equip]').forEach(button => {
+      const r = P.REWARDS.find(r => r.id === button.dataset.equip);
+      const unlocked = s.unlockedIds.includes(r.id), selected = s.equipped[r.type] === r.id;
+      button.disabled = !unlocked;
+      button.setAttribute('aria-pressed', String(selected));
+      button.textContent = selected ? '✓ Using this' : unlocked ? 'Use this' : `Unlock at ${r.points} Sparks`;
+    });
+    dialog.querySelectorAll('[data-equip-default]').forEach(button => button.setAttribute('aria-pressed', String(s.equipped[button.dataset.equipDefault] === 'classic')));
+  }
+  function showGoals() {
+    const s = P.snapshot(state);
+    U.modal(`<div class="wonder-hub"><div class="hub-heading">${art('mission')}<div><span class="eyebrow">The Wonder Workshop</span><h2>Your next “what if?”</h2><p>${s.points} lifetime Sparks · ${C.escapeHTML(s.tier.name)}. Nothing expires. Explore at your pace.</p></div></div>${storageNotice()}<div class="hub-columns"><section class="mission-board"><h3>Little goals. Lasting discoveries.</h3><ul class="mission-list">${s.goals.map(g => `<li data-goal="${g.id}" class="${g.done ? 'goal-done' : ''}"><span class="goal-mark" aria-hidden="true">${g.done ? '✓' : '✧'}</span><div><strong>${C.escapeHTML(g.title)}</strong><p>${C.escapeHTML(g.detail)}</p><span class="goal-status">${g.done ? 'Complete' : 'Exploring'} · ${g.current}/${g.target}</span></div></li>`).join('')}</ul></section><section class="reward-rules"><h3>How Wonder Sparks grow</h3><p>These Sparks are progress, not money. You never spend or lose them.</p><dl><dt>First solve of each puzzle</dt><dd>+20</dd><dt>Each different mirror test</dt><dd>+2</dd><dt>Each discovery card</dt><dd>+5</dd><dt>All three puzzles solved</dt><dd>+20</dd><dt>First review of each card</dt><dd>+3</dd><dt>Replay a solved path after changing it</dt><dd>+4 once per puzzle</dd></dl><p class="small">Hints cost nothing and never reduce rewards. Repeating the same test or review does not add more Sparks. There are 188 Sparks to explore in this little lab.</p></section></div><section><div class="collection-heading"><h3>Your lab treasures</h3><span>4 cosmetics · 2 themes · 1 special friend</span></div><p class="small">All treasures are shown from the start. Nova needs 150 Sparks, all 6 cards and 3 card reviews.</p><p id="equip-feedback" role="status"></p><div class="treasure-grid">${P.REWARDS.map(r => `<article class="treasure ${s.unlockedIds.includes(r.id) ? 'earned' : 'locked'}" data-reward="${r.id}">${art(r.id)}<span class="eyebrow">${C.escapeHTML(r.type)}</span><h3>${C.escapeHTML(r.title)}</h3><p>${C.escapeHTML(r.description)}</p><p class="reward-requirement">${C.escapeHTML(r.requirement)}</p><button class="secondary wide" data-equip="${r.id}" aria-label="Use ${C.escapeHTML(r.title)}"></button></article>`).join('')}</div><div class="classic-options"><span>Or keep your familiar lab:</span><button class="secondary" data-equip-default="cosmetic">Classic robot</button><button class="secondary" data-equip-default="theme">Classic lab</button><button class="secondary" data-equip-default="companion">Original helper</button></div></section><section class="collection-preview"><h3>Six cards to wonder about</h3><div class="card-preview-grid">${P.CARDS.map(c => `<div class="card-preview">${art(c.id)}<strong>${C.escapeHTML(c.title)}</strong><span>${s.cardIds.includes(c.id) ? '✓ Collected' : C.escapeHTML(c.condition)}</span></div>`).join('')}</div><button class="primary" id="hub-open-book">Open my discovery book</button></section></div>`, dialog => {
+      dialog.querySelector('.modal').classList.add('wonder-modal');
+      updateEquipButtons(dialog);
+      dialog.querySelectorAll('[data-equip]').forEach(button => button.onclick = () => {
+        if (!P.equip(state, button.dataset.equip)) return;
+        const persisted = save(); render(); updateEquipButtons(dialog);
+        dialog.querySelector('#equip-feedback').textContent = rewardName(button.dataset.equip) + (persisted ? ' is now part of your lab. Saved on this browser.' : ' is ready for this visit. ' + store.warning);
+      });
+      dialog.querySelectorAll('[data-equip-default]').forEach(button => button.onclick = () => {
+        P.equip(state, 'classic', button.dataset.equipDefault);
+        save(); render(); updateEquipButtons(dialog);
+        dialog.querySelector('#equip-feedback').textContent = 'Your familiar lab style is back. All treasures are still yours.';
+      });
+      dialog.querySelector('#hub-open-book').onclick = showBook;
+    });
+  }
+  U.mountHeader('lab', 'Wonder Lab Adventures', 'Follow a question. Find a wonder.');
+  $('banner-art').innerHTML = art('progression-hero');
+  $('spark-icon').innerHTML = art('spark');
+  $('open-goals').onclick = showGoals;
+  $('discoveries').onclick = showBook;
+  $('parents').onclick = () => U.parentArea(store,
+    [{value: state.solved.length, label: 'Experiments solved'}, {value: P.snapshot(state).points, label: 'Local Wonder Sparks'}],
+    () => location.reload(), () => {state.reducedMotion = !state.reducedMotion; save();});
+  restoreTrace(); freshFeedback(); save(); render();
 })();
 </script></body></html>

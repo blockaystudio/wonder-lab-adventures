@@ -35,3 +35,5 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Verify local HTTP discovery loop
         run: python tests/browser_lab.py
+      - name: Verify local progression and rewards
+        run: python tests/browser_progression.py

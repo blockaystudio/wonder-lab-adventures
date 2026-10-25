@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img">
+  <title>Nova, the Wonder Keeper</title>
+  <desc>An original lilac robot companion with a crescent antenna, joyful glowing eyes, mint boots and a diamond-shaped chest light.</desc>
+  <rect x="8" y="8" width="184" height="184" rx="55" fill="#EAE3FA"/><circle cx="101" cy="99" r="67" fill="#D9D0F0"/><g transform="translate(100 106) scale(0.95)">
+      <ellipse cy="68" rx="53" ry="9" fill="#1B304A" opacity=".12"/>
+      <path d="M-39 17L-57 29L-54 6M39 17L57 29L54 6" fill="#8D80CF" stroke="#1B304A" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M-21 39L-30 58L-13 53M21 39L30 58L13 53" fill="#B7F1D8" stroke="#1B304A" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M-45-23Q-41-48-16-49H16Q41-48 45-23L35 29Q29 48 0 49Q-29 48-35 29Z" fill="#B2A2EC" stroke="#1B304A" stroke-width="5"/>
+      <path d="M-45-23Q-41-48-16-49H16Q41-48 45-23L39-13Q0-27-39-13Z" fill="#E4D7FF"/>
+      <path d="M-27-18Q0-30 27-18L24 13Q0 27-24 13Z" fill="#223A5A"/>
+      <path d="M-16-4L-11-10L-6-4M6-4L11-10L16-4" fill="none" stroke="#CFF9E8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M-6 9Q0 14 6 9" fill="none" stroke="#FFD987" stroke-width="3" stroke-linecap="round"/>
+      <path d="M0-49V-65" stroke="#1B304A" stroke-width="4"/>
+      <path d="M8-81A13 13 0 1 0 8-57A10 10 0 0 1 8-81Z" fill="#FFD987" stroke="#1B304A" stroke-width="3"/>
+      <path d="M0 24L7 32L0 40L-7 32Z" fill="#FFD987" stroke="#1B304A" stroke-width="2"/>
+      <path d="M-31-26L-27-33" stroke="#FFFFFF" stroke-width="4" opacity=".75" stroke-linecap="round"/>
+      <path d="M-62 -40 Q-61 -34 -55 -33 Q-61 -32 -62 -26 Q-63 -32 -69 -33 Q-63 -34 -62 -40Z" fill="#FFD987"/><path d="M63 -21 Q64 -17 68 -16 Q64 -15 63 -11 Q62 -15 58 -16 Q62 -17 63 -21Z" fill="#B7F1D8"/>
+    </g><path d="M40 26 Q41 32 47 33 Q41 34 40 40 Q39 34 33 33 Q39 32 40 26Z" fill="#D6A847"/>
+</svg>
