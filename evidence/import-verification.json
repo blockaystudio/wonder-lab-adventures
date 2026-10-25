@@ -1,21 +1,9 @@
 {
   "repository": "blockaystudio/wonder-lab-adventures",
-  "original_zip_sha256": "7dffd428f736ca5ff4d859dfeb440ea8d7dd1c3a743890e3f327e8cf7e6eab86",
-  "common": {
-    "sha256": "1c72e1abb21cf3db3d8cdc0250ea4df2f183ac113004e9c32e3a75d52fdcb75f",
-    "parts": [
-      "https://raw.githubusercontent.com/blockaystudio/mini-garage-adventure/0b697a7f24bfff1678afad4106614c487d3b425a/.source-import/common-0.txt",
-      "https://raw.githubusercontent.com/blockaystudio/mini-garage-adventure/0b697a7f24bfff1678afad4106614c487d3b425a/.source-import/common-1.txt",
-      "https://raw.githubusercontent.com/blockaystudio/mini-garage-adventure/0b697a7f24bfff1678afad4106614c487d3b425a/.source-import/common-2.txt",
-      "https://raw.githubusercontent.com/blockaystudio/mini-garage-adventure/0b697a7f24bfff1678afad4106614c487d3b425a/.source-import/common-3.txt",
-      "https://raw.githubusercontent.com/blockaystudio/mini-garage-adventure/0b697a7f24bfff1678afad4106614c487d3b425a/.source-import/common-4.txt"
-    ]
-  },
-  "app": {
-    "sha256": "b96bb6bb20e3b8c0fc947eff5af9c15cbffb4112d208900ddc5f1dea4d020f8f",
-    "parts": [".source-import/app-0.txt", ".source-import/app-1.txt"]
-  },
-  "expected": {
+  "completed_utc": "2026-10-25T02:14:24.921449+00:00",
+  "original_source_zip_sha256": "7dffd428f736ca5ff4d859dfeb440ea8d7dd1c3a743890e3f327e8cf7e6eab86",
+  "source_files_verified": 47,
+  "source_sha256": {
     "README.md": "0ae168c31065ccc92692d29c9c7cd0d23411ade77cd9138045fd97445037cd7a",
     ".nvmrc": "177d20030d4dcc37eae9ef92865ec54dadce60e8f19e9a34a5d4f37502195a36",
     "AGENTS.md": "d9390f63280c4ff844ed52d619e78e1a291c0e19ce3d6d876a77101244589050",
@@ -64,5 +52,17 @@
     "server/serve_preview.py": "416fd8e78f88db18b94ec2d9c4ddc8de7ce313ebc42c00c8ed83f61288779605",
     ".github/workflows/checks.yml": "f2af631089bb32a960d6314a2316b80a70b84bfa6410fee0ea9e2e935969611c"
   },
-  "raster_exports": ["evidence/lab-mobile.png", "evidence/lab-desktop.png", "art/wonder-lab-adventures-feature-draft-1024x500.png", "art/wonder-lab-adventures-icon-draft-512.png", "art/wonder-lab-adventures-icon-draft-1024.png"]
+  "raster_exports_sha256": {
+    "evidence/lab-mobile.png": "4a9864230fa7c5646eef14d78094048023764f33469efcbb9b9bc062838c45ed",
+    "evidence/lab-desktop.png": "bf088d19a8b350d109d6c708f3d83bf9996b1bf0047721fe400ff7711499d763",
+    "art/wonder-lab-adventures-feature-draft-1024x500.png": "b897f93228bf4f0509c24a47a6dae9bbc3bf4e83ddefe8ac8c540307ec654c49",
+    "art/wonder-lab-adventures-icon-draft-512.png": "03a7eff8367ea8c20bf7ef7424c71412fa4d4ab0a23f1a78f906e570f1d806c4",
+    "art/wonder-lab-adventures-icon-draft-1024.png": "d1d343ccde2ff1937ab3bc6a09c31ad6f61a12860501db92fe599d7bd00ce49a"
+  },
+  "source_changes": [
+    "CI guard skips only the one-time bootstrap push. Game code is unchanged."
+  ],
+  "artifact_note": "PNG exports and browser screenshots were regenerated from original source in GitHub Actions. They are not asserted byte-identical to archived PNGs.",
+  "verification": "python scripts/verify.py completed before this finalization step.",
+  "limitations": "Browser prototypes only. No native-device tests, store submissions, ad activation, deployment, or Codex optimization was performed."
 }

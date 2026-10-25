@@ -1,0 +1,16 @@
+{
+  "publication_status": "INTERNAL_DRAFT_DO_NOT_SUBMIT",
+  "name": "Wonder Lab Adventures",
+  "subtitle": "Hands-on puzzles. Big ideas.",
+  "google_short_description": "Follow your curiosity with hands-on puzzles and playful discoveries.",
+  "primary_age_band": "9\u201311",
+  "headline_A": "Small experiments. Big ideas.",
+  "headline_B": "Follow your next big question.",
+  "two_distinctive_factors": [
+    "Try it yourself\u2014not a quiz",
+    "A helpful nudge, right on device"
+  ],
+  "native_store_screenshots": "Pending final native builds; browser captures supplied for internal review only",
+  "iap_ad_disclosures": "Must reflect the actual submitted binary; no purchases or ads in this prototype",
+  "name_trademark_clearance": "Not completed"
+}
