@@ -67,24 +67,59 @@ experiment set or extra curriculum behind the companion unlock.
 
 - `games/progression.js` is a game-local pure model; `games/lab.js` binds real
   puzzle traces, reviews, equipment controls and the goals/notebook screens.
-- No shared-library contract changed. The game decorates `KidsCore.normalizeLab`
-  rather than modifying its behavior for other repositories.
-- The existing `kidslab.v1.wonder-lab-adventures` key and schema-1 envelope remain.
-  A bounded `data.progress` object records unique configuration masks, reviewed
-  card IDs, replay facts/readiness and chosen equipment. Points, cards and unlocks
-  are derived from those facts, not trusted as an arbitrary stored balance.
+- `games/save.js` owns this game's save protocol. `KidsCore.LocalSave` and
+  `KidsCore.normalizeLab` retain their shared contracts. The shared parent dialog
+  now awaits reset/motion callbacks and displays an explicit failure instead of
+  claiming successful erasure or saving. See `docs/SHARED_CHANGES.md`.
+- Existing `kidslab.v1.wonder-lab-adventures` primary/backup saves migrate into
+  the authoritative `kidslab.v2.wonder-lab-adventures` record. The v1 schema-1
+  copy remains a compatibility view for older builds. The v2 record contains
+  normalized data, an embedded previous save from the same reset generation,
+  a revision, and local reset-coordination metadata. The reset token is never
+  uploaded and does not identify a player.
+- The bounded `data.progress` object still records unique configuration masks,
+  reviewed card IDs, replay facts/readiness and chosen equipment. Points, cards
+  and unlocks are derived from those facts, not a trusted saved balance.
 - Existing saves retain puzzle, orientations, attempts, discoveries and reduced
   motion. Existing solves receive corresponding solve/card/section credit;
   historical experiments and reviews are not invented. Migration is idempotent.
-- Corrupt/unknown progression data is filtered or reset independently of legacy
-  solved discoveries. Invalid/locked equipment falls back to the classic style.
-- Shared LocalSave still provides backups and in-memory play when storage is
-  unavailable. New book/equipment messages distinguish saved from visit-only
-  progress. Erasing local progress through the existing parent area erases this
-  collection too. Changing site origin/browser does not transfer saves.
-- Reopening a much older build can drop the additional progression fields when
-  it re-saves through its older normalizer. Forward migration is supported;
-  downgrade persistence is not promised.
+- During legacy migration, corrupt/unknown progression data is filtered or reset
+  independently of solved discoveries. Invalid/locked equipment falls back to
+  the classic style. Newer versions in a protected record are handled as below.
+- Writes and erasure use a browser Web Lock. Independent changes and earned
+  facts merge across tabs; overlapping board/choice changes are rejected with
+  an explicit warning and the current saved state is shown. Rejected actions
+  must be tried again. A tab from an older reset generation cannot restore its
+  progress. Hints remain free, and merging never changes the finite award rules.
+- Confirmed erasure first atomically replaces the protected record with a blank
+  new generation, then removes both v1 copies. A deletion failure or interruption
+  leaves an unfinished-erase marker that prevents backup recovery; the parent
+  dialog reports failure and allows retry. It never confirms completion while
+  a known legacy copy remains. A blank coordination record is retained so stale
+  tabs cannot recreate erased discoveries.
+- A malformed v1 primary can recover its backup during initial migration.
+  After migration, damaged v1 copies cannot damage the protected save. Damaged
+  data inside a valid v2 record can recover its embedded same-generation backup.
+  An unreadable entire v2 record or newer unsupported schema pauses saving with
+  a warning; it does not silently import an older copy. Recovery cannot promise
+  the latest action if the current data itself was corrupted.
+- Storage denial/quota failure keeps play in memory with truthful visit-only
+  messages. Without Web Locks, persistence is also visit-only: safe coordination
+  requires a supported browser on a secure origin (HTTPS or localhost). A plain
+  HTTP LAN preview on a phone may lack this capability. There is no unlocked
+  fallback that pretends concurrent writes are safe.
+- After a rollback to an older build, returning to REL-01 preserves the protected
+  collection, equipment and discoveries. Activities performed in that old build
+  are **not imported** after v2 exists. Older builds cannot understand the new
+  erase marker: they may display stale in-memory progress or undeleted legacy
+  copies, and their erase control cannot erase the protected record. Perform
+  erasure in REL-01 and prevent old builds being served as production rollbacks;
+  the compatibility view is not full bidirectional downgrade support.
+- Changing site origin/browser does not transfer saves. Continued play after
+  loading works offline. Cold uncached HTTP launch and offline reload are not
+  supported release guarantees; there is no service worker/native package in
+  this milestone. Physical-device storage/lifecycle checks remain separately
+  blocked pending actual devices.
 
 ## Original artwork
 

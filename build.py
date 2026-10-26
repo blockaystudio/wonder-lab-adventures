@@ -24,7 +24,7 @@ for key,(slug,title) in GAMES.items():
     if required - reward_art.keys():
         raise ValueError('Missing reward artwork: '+', '.join(sorted(required-reward_art.keys())))
     art_js='globalThis.WonderRewardArt='+json.dumps(reward_art).replace('</script','<\\/script')+';'
-    js='\n'.join([read('shared/core.js'),read('shared/art.js'),read('shared/ui.js'),art_js,read('games/progression.js'),read(f'games/{key}.js')])
+    js='\n'.join([read('shared/core.js'),read('shared/art.js'),read('shared/ui.js'),art_js,read('games/progression.js'),read('games/save.js'),read(f'games/{key}.js')])
     html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>{title} — Play Prototype 01</title><style>{css}</style></head><body>{read(f'games/{key}.body.html')}<noscript><p>This prototype needs JavaScript enabled.</p></noscript><script>{js}</script></body></html>'''
     (ROOT/'play'/f'{slug}.html').write_text(html,encoding='utf-8')
 print('Built Wonder Lab Adventures standalone prototype.')

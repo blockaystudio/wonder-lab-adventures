@@ -1,0 +1,23 @@
+test_release_backup_delete_failure_is_visible_and_retryable (__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable) ... ok
+test_release_conflicting_mirror_changes_refresh_and_can_retry (__main__.ReleaseBrowser.test_release_conflicting_mirror_changes_refresh_and_can_retry) ... ok
+test_release_erasure_invalidates_stale_tab (__main__.ReleaseBrowser.test_release_erasure_invalidates_stale_tab) ... ok
+test_release_offline_continuation_and_cold_start_are_distinct (__main__.ReleaseBrowser.test_release_offline_continuation_and_cold_start_are_distinct) ... ok
+test_release_page_close_during_unfinished_experiment_recovers_last_action (__main__.ReleaseBrowser.test_release_page_close_during_unfinished_experiment_recovers_last_action) ... ok
+test_release_persistent_browser_close_relaunch (__main__.ReleaseBrowser.test_release_persistent_browser_close_relaunch) ... ok
+test_release_phone_tablet_targets_and_reduced_motion (__main__.ReleaseBrowser.test_release_phone_tablet_targets_and_reduced_motion) ... ok
+test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order (__main__.ReleaseBrowser.test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order) ... ok
+test_release_queued_erase_invalidates_waiting_native_writer (__main__.ReleaseBrowser.test_release_queued_erase_invalidates_waiting_native_writer) ... ok
+test_release_queued_native_lock_writers_keep_both_solves (__main__.ReleaseBrowser.test_release_queued_native_lock_writers_keep_both_solves) ... ok
+test_release_renderer_crash_recovers_committed_progress (__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress) ... Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5
+Renderer interruption: {"trigger": "SIGKILL via pidfd of verified dedicated-browser renderer descendants", "renderer_processes_terminated": 1, "crash_event_observed": true, "committed_progress_recovered": true, "limit": "Linux Chromium renderer-process termination, not OS power loss or mobile process eviction"}
+ok
+test_release_rollback_round_trip_preserves_progression (__main__.ReleaseBrowser.test_release_rollback_round_trip_preserves_progression) ... ok
+test_release_stale_tab_cannot_overwrite_earned_progress (__main__.ReleaseBrowser.test_release_stale_tab_cannot_overwrite_earned_progress) ... ok
+test_release_stale_trace_after_other_tab_selects_another_puzzle (__main__.ReleaseBrowser.test_release_stale_trace_after_other_tab_selects_another_puzzle) ... ok
+test_release_two_tabs_keep_both_puzzle_discoveries (__main__.ReleaseBrowser.test_release_two_tabs_keep_both_puzzle_discoveries) ... ok
+test_release_without_write_locks_is_explicitly_visit_only (__main__.ReleaseBrowser.test_release_without_write_locks_is_explicitly_visit_only) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 22.090s
+
+OK

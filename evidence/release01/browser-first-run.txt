@@ -1,0 +1,73 @@
+test_release_backup_delete_failure_is_visible_and_retryable (__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable) ... FAIL
+test_release_conflicting_mirror_changes_refresh_and_can_retry (__main__.ReleaseBrowser.test_release_conflicting_mirror_changes_refresh_and_can_retry) ... ok
+test_release_erasure_invalidates_stale_tab (__main__.ReleaseBrowser.test_release_erasure_invalidates_stale_tab) ... ok
+test_release_offline_continuation_and_cold_start_are_distinct (__main__.ReleaseBrowser.test_release_offline_continuation_and_cold_start_are_distinct) ... ok
+test_release_page_close_during_unfinished_experiment_recovers_last_action (__main__.ReleaseBrowser.test_release_page_close_during_unfinished_experiment_recovers_last_action) ... ok
+test_release_persistent_browser_close_relaunch (__main__.ReleaseBrowser.test_release_persistent_browser_close_relaunch) ... ok
+test_release_phone_tablet_targets_and_reduced_motion (__main__.ReleaseBrowser.test_release_phone_tablet_targets_and_reduced_motion) ... ok
+test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order (__main__.ReleaseBrowser.test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order) ... ok
+test_release_queued_erase_invalidates_waiting_native_writer (__main__.ReleaseBrowser.test_release_queued_erase_invalidates_waiting_native_writer) ... ERROR
+test_release_queued_native_lock_writers_keep_both_solves (__main__.ReleaseBrowser.test_release_queued_native_lock_writers_keep_both_solves) ... ok
+test_release_renderer_crash_recovers_committed_progress (__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress) ... ok
+test_release_rollback_round_trip_preserves_progression (__main__.ReleaseBrowser.test_release_rollback_round_trip_preserves_progression) ... ok
+test_release_stale_tab_cannot_overwrite_earned_progress (__main__.ReleaseBrowser.test_release_stale_tab_cannot_overwrite_earned_progress) ... ok
+test_release_stale_trace_after_other_tab_selects_another_puzzle (__main__.ReleaseBrowser.test_release_stale_trace_after_other_tab_selects_another_puzzle) ... ok
+test_release_two_tabs_keep_both_puzzle_discoveries (__main__.ReleaseBrowser.test_release_two_tabs_keep_both_puzzle_discoveries) ... ok
+test_release_without_write_locks_is_explicitly_visit_only (__main__.ReleaseBrowser.test_release_without_write_locks_is_explicitly_visit_only) ... ok
+
+======================================================================
+ERROR: test_release_queued_erase_invalidates_waiting_native_writer (__main__.ReleaseBrowser.test_release_queued_erase_invalidates_waiting_native_writer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/wonder-lab-adventures/tests/browser_release.py", line 205, in test_release_queued_erase_invalidates_waiting_native_writer
+    self.hold_native_save_lock(first)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/workspace/wonder-lab-adventures/tests/browser_release.py", line 173, in hold_native_save_lock
+    page.wait_for_function('typeof window.releaseTestLock === "function"')
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 11599, in wait_for_function
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.wait_for_function(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        )
+        ^
+    )
+    ^
+  File "/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_page.py", line 1110, in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 878, in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+  File "/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.wait_for_function: EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'unsafe-inline'".
+
+    at eval (<anonymous>)
+    at predicate (eval at evaluate (:290:30), <anonymous>:4:56)
+    at next (eval at evaluate (:290:30), <anonymous>:29:29)
+
+======================================================================
+FAIL: test_release_backup_delete_failure_is_visible_and_retryable (__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/wonder-lab-adventures/tests/browser_release.py", line 256, in test_release_backup_delete_failure_is_visible_and_retryable
+    self.assertIsNone(page.evaluate('(key) => localStorage.getItem(key + ".backup")', base.KEY))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '{"schema":1,"game":"wonder-lab-adventures","data":{"puzzle":0,"orientations":[["/","/"],["/","/"],["/","\\\\","/","\\\\"]],"solved":[0],"attempts":[1,0,0],"visits":1,"reducedMotion":false,"progress":{"version":1,"traces":[[3],[],[]],"reviews":["beam"],"replays":[],"replayReady":[false,false,false],"equipped":{"cosmetic":"goggles","theme":"classic","companion":"classic"}}}}' is not None
+
+----------------------------------------------------------------------
+Ran 16 tests in 20.104s
+
+FAILED (failures=1, errors=1)
+Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5

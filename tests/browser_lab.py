@@ -108,10 +108,17 @@ class BrowserLab(unittest.TestCase):
         response = page.goto(self.origin + '/', wait_until='load')
         self.assertEqual(response.status, 200)
         self.assertTrue(page.locator('#send-light').is_visible())
+        self.idle(page)
         self.assertIn("connect-src 'none'", page.locator('meta[http-equiv="Content-Security-Policy"]').get_attribute('content'))
         return page
 
+    def idle(self, page=None):
+        page = page or self.page
+        if page.evaluate("typeof WonderSave !== 'undefined'"):
+            page.wait_for_selector('body[data-save-ready="true"]')
+
     def data(self, page=None):
+        self.idle(page)
         return (page or self.page).evaluate('(key) => JSON.parse(localStorage.getItem(key)).data', KEY)
 
     def activate(self, locator, mode='mouse'):
@@ -122,6 +129,7 @@ class BrowserLab(unittest.TestCase):
             locator.press('Enter')
         else:
             locator.click()
+        self.idle(locator.page)
 
     def select(self, index, page=None, mode='mouse'):
         self.activate((page or self.page).locator(f'[data-puzzle="{index}"]'), mode)
@@ -190,62 +198,66 @@ class BrowserLab(unittest.TestCase):
         mirror.focus()
         for _ in range(10):
             page.keyboard.press('Space')
+            self.idle(page)
             self.assertEqual(page.locator(':focus').get_attribute('data-mirror'), '0')
         self.assertEqual(self.data()['orientations'][0], initial)
         page.keyboard.press('Tab')
+        self.idle(page)
         self.assertEqual(page.locator(':focus').get_attribute('id'), 'send-light')
         page.keyboard.press('Shift+Tab')
+        self.idle(page)
         self.assertEqual(page.locator(':focus').get_attribute('data-mirror'), '0')
         page.locator('[data-mirror="1"]').focus()
         page.keyboard.press('Enter')
+        self.idle(page)
         self.assertNotEqual(self.data()['orientations'][0], initial)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(page.locator('.light-goal.lit').count(), 0)
 
     def test_local_attempt_hint_and_reset(self):
         page = self.open()
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(page.locator('.mirror.hint').count(), 0)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(page.locator('.mirror.hint').get_attribute('data-mirror'), '0')
         self.assertIn('mirror A', page.locator('#robot-note').inner_text())
         old_hint = page.locator('#robot-note').inner_text()
         page.reload()
         self.assertEqual(self.data()['attempts'][0], 2)
-        page.locator('#reset-puzzle').click()
+        self.activate(page.locator('#reset-puzzle'))
         self.assertEqual(self.data()['attempts'][0], 0)
         self.assertEqual(page.locator('.mirror.hint').count(), 0)
         self.assertNotEqual(page.locator('#robot-note').inner_text(), old_hint)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(page.locator('.mirror.hint').count(), 0)
 
     def test_hint_text_clears_on_reset(self):
         page = self.open()
-        page.locator('#hint').click()
+        self.activate(page.locator('#hint'))
         hint = page.locator('#robot-note').inner_text()
-        page.locator('#reset-puzzle').click()
+        self.activate(page.locator('#reset-puzzle'))
         self.assertNotEqual(page.locator('#robot-note').inner_text(), hint)
 
     def test_hint_text_matches_current_puzzle_and_rotation(self):
         page = self.open()
         self.select(2)
         for index in range(3):
-            page.locator(f'[data-mirror="{index}"]').click()
-        page.locator('#hint').click()
+            self.activate(page.locator(f'[data-mirror="{index}"]'))
+        self.activate(page.locator('#hint'))
         self.assertIn('mirror D', page.locator('#robot-note').inner_text())
         self.assertEqual(page.locator('.mirror.hint').get_attribute('data-mirror'), '3')
         self.select(0)
         self.assertNotIn('mirror D', page.locator('#robot-note').inner_text())
-        page.locator('#hint').click()
+        self.activate(page.locator('#hint'))
         self.assertIn('mirror A', page.locator('#robot-note').inner_text())
-        page.locator('[data-mirror="0"]').click()
+        self.activate(page.locator('[data-mirror="0"]'))
         self.assertNotIn('turn it once', page.locator('#robot-note').inner_text().lower())
         self.assertEqual(page.locator('.mirror.hint').count(), 0)
 
     def test_rotation_clears_stale_win_but_keeps_discovery(self):
         page = self.open()
         self.solve(0)
-        page.locator('[data-mirror="0"]').click()
+        self.activate(page.locator('[data-mirror="0"]'))
         self.assertEqual(page.locator('.light-goal.lit').count(), 0)
         self.assertEqual(page.locator('#ray path').count(), 0)
         self.assertNotIn('Aha!', page.locator('#lab-message').inner_text())
@@ -260,7 +272,7 @@ class BrowserLab(unittest.TestCase):
         page = self.open()
         self.solve(0)
         message = page.locator('#robot-note').inner_text()
-        page.locator('#next-puzzle').click()
+        self.activate(page.locator('#next-puzzle'))
         self.assertEqual(page.locator('#puzzle-title').inner_text(), NAMES[1])
         self.assertNotEqual(page.locator('#robot-note').inner_text(), message)
         self.assertEqual(page.locator('#ray path').count(), 0)
@@ -268,7 +280,7 @@ class BrowserLab(unittest.TestCase):
     def test_noncolor_path_description_and_reduced_motion(self):
         page = self.open()
         self.assertTrue(page.locator('#path-description').is_visible())
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         description = page.locator('#path-description').inner_text().lower()
         self.assertIn('source', description)
         self.assertIn('mirror a', description)
@@ -324,18 +336,18 @@ class BrowserLab(unittest.TestCase):
                 self.assertIn(data['puzzle'], [0, 1, 2])
                 self.assertEqual(data['attempts'], [0, 0, 0])
                 self.assertEqual(data['solved'], [0] if index == 2 else [])
-                page.locator('#send-light').click()
+                self.activate(page.locator('#send-light'))
                 self.assertEqual(page.locator('.light-goal.lit').count(), 0)
 
     def test_valid_backup_recovers_discovery(self):
         page = self.open()
         self.solve(0)
-        page.locator('#send-light').click()  # both primary and backup now contain discovery
+        self.activate(page.locator('#send-light'))  # both primary and backup now contain discovery
         page.evaluate('(key) => localStorage.setItem(key, "{broken")', KEY)
         page.reload()
         self.assertEqual(self.data()['solved'], [0])
         self.assertIn('Recovered', page.locator('#save-status').inner_text())
-        page.locator('#discoveries').click()
+        self.activate(page.locator('#discoveries'))
         self.assertEqual(page.locator('.discovery').count(), 1)
 
     def test_unavailable_storage_remains_playable(self):
@@ -344,9 +356,9 @@ class BrowserLab(unittest.TestCase):
         self.open()
         self.assertIn('visit only', page.locator('#save-status').inner_text())
         self.solve(0)
-        page.locator('#discoveries').click()
+        self.activate(page.locator('#discoveries'))
         self.assertEqual(page.locator('.discovery').count(), 1)
-        page.get_by_role('button', name='Close dialog').click()
+        self.activate(page.get_by_role('button', name='Close dialog'))
         page.reload()
         self.assertIn('0/6', page.locator('#discoveries').inner_text())
 
@@ -356,7 +368,7 @@ class BrowserLab(unittest.TestCase):
         self.open()
         self.assertIn('cannot save', page.locator('#save-status').inner_text())
         self.solve(1)
-        page.locator('#discoveries').click()
+        self.activate(page.locator('#discoveries'))
         self.assertEqual(page.locator('.discovery').count(), 1)
 
     def test_play_continues_when_browser_is_offline(self):
@@ -365,7 +377,7 @@ class BrowserLab(unittest.TestCase):
         for index in range(3):
             self.solve(index)
         self.assertEqual(self.data()['solved'], [0, 1, 2])
-        page.locator('#discoveries').click()
+        self.activate(page.locator('#discoveries'))
         self.assertEqual(page.locator('.discovery').count(), 3)
 
 

@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: v1 primary migrates every existing field, keeps the legacy schema view and survives reload
+ok 1 - v1 primary migrates every existing field, keeps the legacy schema view and survives reload
+  ---
+  duration_ms: 6.352805
+  type: 'test'
+  ...
+# Subtest: concurrent first migration preserves independent solved facts without reward duplication
+ok 2 - concurrent first migration preserves independent solved facts without reward duplication
+  ---
+  duration_ms: 2.780105
+  type: 'test'
+  ...
+# Subtest: stale same-origin writer merges earned discoveries, reviews, and independent board changes
+ok 3 - stale same-origin writer merges earned discoveries, reviews, and independent board changes
+  ---
+  duration_ms: 1.514797
+  type: 'test'
+  ...
+# Subtest: simultaneous same-solution attempts merge finite rewards once and retain both attempt increments
+ok 4 - simultaneous same-solution attempts merge finite rewards once and retain both attempt increments
+  ---
+  duration_ms: 0.902349
+  type: 'test'
+  ...
+# Subtest: conflicting stale board edits explicitly reject instead of overwriting saved choices
+ok 5 - conflicting stale board edits explicitly reject instead of overwriting saved choices
+  ---
+  duration_ms: 1.672593
+  type: 'test'
+  ...
+# Subtest: an overlapping equipment choice explicitly conflicts while independent slots merge
+ok 6 - an overlapping equipment choice explicitly conflicts while independent slots merge
+  ---
+  duration_ms: 2.819852
+  type: 'test'
+  ...
+# Subtest: attempt reset versus another tab attempt explicitly conflicts
+ok 7 - attempt reset versus another tab attempt explicitly conflicts
+  ---
+  duration_ms: 0.949392
+  type: 'test'
+  ...
+# Subtest: unchanged saves do not create another protected revision or duplicate visits
+ok 8 - unchanged saves do not create another protected revision or duplicate visits
+  ---
+  duration_ms: 0.471316
+  type: 'test'
+  ...
+# Subtest: confirmed erase removes both legacy copies and replaces the protected record with a blank generation
+ok 9 - confirmed erase removes both legacy copies and replaces the protected record with a blank generation
+  ---
+  duration_ms: 0.924737
+  type: 'test'
+  ...
+# Subtest: stale writer cannot restore discoveries after confirmed parent erase
+ok 10 - stale writer cannot restore discoveries after confirmed parent erase
+  ---
+  duration_ms: 1.183145
+  type: 'test'
+  ...
+# Subtest: a tab opened before first migration cannot restore legacy progress after erase
+ok 11 - a tab opened before first migration cannot restore legacy progress after erase
+  ---
+  duration_ms: 1.863484
+  type: 'test'
+  ...
+# Subtest: backup deletion failure reports failure and tombstone prevents reload recovery
+ok 12 - backup deletion failure reports failure and tombstone prevents reload recovery
+  ---
+  duration_ms: 1.580364
+  type: 'test'
+  ...
+# Subtest: failed tombstone write never confirms erasure or silently clears the existing save
+ok 13 - failed tombstone write never confirms erasure or silently clears the existing save
+  ---
+  duration_ms: 0.379943
+  type: 'test'
+  ...
+# Subtest: interruption after tombstone commit leaves no old-generation recovery path
+ok 14 - interruption after tombstone commit leaves no old-generation recovery path
+  ---
+  duration_ms: 0.354703
+  type: 'test'
+  ...
+# Subtest: an older normalizer can overwrite legacy copies without destroying protected progression
+ok 15 - an older normalizer can overwrite legacy copies without destroying protected progression
+  ---
+  duration_ms: 3.642443
+  type: 'test'
+  ...
+# Subtest: a stale old build writing after erase cannot resurrect progress in this build
+ok 16 - a stale old build writing after erase cannot resurrect progress in this build
+  ---
+  duration_ms: 0.56757
+  type: 'test'
+  ...
+# Subtest: legacy corrupt primary recovers backup during first migration; later corruption uses protected save
+ok 17 - legacy corrupt primary recovers backup during first migration; later corruption uses protected save
+  ---
+  duration_ms: 0.923356
+  type: 'test'
+  ...
+# Subtest: embedded same-generation backup recovers damaged data without importing stale legacy fields
+ok 18 - embedded same-generation backup recovers damaged data without importing stale legacy fields
+  ---
+  duration_ms: 0.685806
+  type: 'test'
+  ...
+# Subtest: malformed or future protected records block writes instead of importing an old legacy snapshot
+ok 19 - malformed or future protected records block writes instead of importing an old legacy snapshot
+  ---
+  duration_ms: 1.045771
+  type: 'test'
+  ...
+# Subtest: newer progression data inside the protected schema is preserved without downgrading or writing
+ok 20 - newer progression data inside the protected schema is preserved without downgrading or writing
+  ---
+  duration_ms: 0.379343
+  type: 'test'
+  ...
+# Subtest: incomplete protected data recovers only its same-generation embedded backup
+ok 21 - incomplete protected data recovers only its same-generation embedded backup
+  ---
+  duration_ms: 0.460185
+  type: 'test'
+  ...
+# Subtest: missing locks and denied storage keep play in memory and never claim confirmed erasure
+ok 22 - missing locks and denied storage keep play in memory and never claim confirmed erasure
+  ---
+  duration_ms: 4.732765
+  type: 'test'
+  ...
+# Subtest: quota failure preserves in-memory play and existing durable state
+ok 23 - quota failure preserves in-memory play and existing durable state
+  ---
+  duration_ms: 0.712663
+  type: 'test'
+  ...
+# Subtest: legacy projection failure truthfully distinguishes durable current save from failed old-build copy
+ok 24 - legacy projection failure truthfully distinguishes durable current save from failed old-build copy
+  ---
+  duration_ms: 0.42997
+  type: 'test'
+  ...
+# Subtest: cleared storage invalidates an existing writer instead of recreating its old discoveries
+ok 25 - cleared storage invalidates an existing writer instead of recreating its old discoveries
+  ---
+  duration_ms: 0.235329
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 72.170722

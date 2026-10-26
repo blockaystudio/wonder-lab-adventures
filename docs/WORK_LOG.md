@@ -53,3 +53,59 @@
   12/12 in both system Chromium 154 and pinned Playwright Chromium 145. No browser
   console/page errors or unexpected external requests observed. No child,
   physical-device, demonstrated learning or measured retention tests performed.
+
+
+## 2026-10-26 — REL-01: shipped-build verification and local progress
+
+- Verified correct remote and clean starting `85f0cd7`; read all requested
+  instructions/status/progression/evidence files. PR #1 and PR #2 remain open,
+  unmerged. Created `codex/lab-release01` from PR #2 head, preserving history.
+- Read-only verification of the existing owner-private Site returned 200 and
+  exactly the 114872-byte committed progression HTML. No deployment/access edit.
+- Installed declared dependencies in isolated Python 3.13.5; Node 22.16.0,
+  Playwright 1.58.0 and its Chromium 145.0.7632.6. Baseline verifier 106+6 PASS;
+  existing browser 17 and progression 12 PASS before source edits.
+- Added real-origin regressions first: all five specified defects reproduced
+  (four failed assertions and a lost-focus timeout). Preserved actual logs.
+- Added game-local protected save and Web Lock transactions. Finite earned facts
+  merge, conflicting mutable choices refresh explicitly, erasure invalidates
+  stale writers before deletion, failures remain retryable, and older v1 writers
+  cannot discard protected progression. Shared parent UI awaits truthful results;
+  shared core contracts and all other repositories remain unchanged.
+- Preserved puzzle focus, made pending saves visible without dropping keyboard
+  focus, and handled another-tab board changes without stale path feedback.
+  Existing browser assertions remain; helpers now wait for completed async saves.
+- Added 25 save-model checks and 16 release browser methods, including real lock
+  contention, persistent profile close/relaunch, renderer crash and unfinished
+  experiment recovery. Final 131 Node + 6 Python + 17+12+16 browser PASS locally.
+- Captured/inspected actual phone/tablet, conflict, waiting-save and failed-erase
+  screenshots. No console/page errors or unexpected requests in normal contexts.
+  Expected offline navigation failures/crash diagnostics are separately reported.
+- Cold offline HTTP reload/fresh launch remain BLOCKED; loaded play works offline.
+  Physical devices unavailable, so precise checklist marked BLOCKED. No child,
+  retention, learning, native, public release or platform-certification claims.
+- Reconciled requested ages 7–11, branch/deployment status and save/offline limits.
+  Full commands/evidence/limitations: `evidence/RELEASE01_REPORT.md`.
+
+- Opened PR #3 against `codex/lab-progression`, with PR #2/#1 dependencies stated.
+  Initial CI passed verifier and existing browser suites but exposed a runner
+  difference: `chrome://crash` produced no crash event. Replaced only that test
+  trigger with an explicit CDP target crash, retaining the crash-event and saved
+  recovery assertions. Initial failure evidence retained; current CI outcome is
+  linked on the PR. No gameplay source or deployment changed during this fix.
+
+- A second CI crash-event timeout was retained as evidence. The test harness now
+  disables core dumps before launching Chromium, records inherited limits and
+  direct crash diagnostics, and keeps the same actual-event/recovery assertions.
+  The prior logs do not establish a root cause; no false crash pass is accepted.
+
+- Third CI diagnostics confirmed core limits already zero, ruling out that
+  hypothesis. Removed the core-limit workaround. The final interruption check
+  terminates only renderer PIDs supplied by a dedicated test browser, verifies
+  Linux process ancestry, requires its real crash event, and checks exact recovery.
+  This test harness requires Linux `/proc`; production game behavior is unchanged.
+
+- CI run 40296379011 passed the verifier and all three browser suites on
+  `fffeafc`. Final review then pinned renderer identities with Linux pidfds to
+  close the ancestry-check/signal PID-reuse window. All 16 release tests passed
+  locally again; the final head's CI result is linked on PR #3.

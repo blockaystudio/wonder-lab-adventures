@@ -37,3 +37,6 @@ body[data-theme="greenhouse"]{--paper:#edf7f1;--panel:#fbfffc;--accent:#397a67;-
 
 /* On phones, put the experiment ahead of decorative banner copy. */
 @media(max-width:620px){.wonder-banner{padding:14px 16px;gap:10px}.banner-copy h2,.banner-copy p{display:none}.banner-copy .eyebrow{font-size:9px}.spark-purse{min-height:76px;padding:10px 13px}.spark-purse>#spark-icon{width:45px}.spark-purse strong{font-size:16px}.spark-purse #tier-name{margin:2px 0;font-size:12px}.spark-purse small{font-size:11px}.banner-progress{padding:8px 12px;gap:4px}.banner-progress progress{height:6px}}
+
+/* Keep focus stable while the local save lock is pending. */
+body[data-save-ready="false"] button { cursor: progress; }

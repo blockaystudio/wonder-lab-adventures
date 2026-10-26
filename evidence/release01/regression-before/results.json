@@ -1,0 +1,255 @@
+{
+  "browser": "145.0.7632.6",
+  "python": "3.13.5",
+  "tests_run": 5,
+  "failures": 4,
+  "errors": 1,
+  "success": false,
+  "results": [
+    {
+      "test": "__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_release.py\", line 118, in test_release_backup_delete_failure_is_visible_and_retryable\n    expect(page.locator('[role=\"dialog\"]')).to_contain_text(re.compile(r'could not|cannot|failed|unable', re.I))\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 19313, in to_contain_text\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.to_contain_text(\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<4 lines>...\n        )\n        ^\n    )\n    ^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_assertions.py\", line 229, in to_contain_text\n    await self._expect_impl(\n    ...<9 lines>...\n    )\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_assertions.py\", line 85, in _expect_impl\n    raise AssertionError(\n        f\"{out_message}\\nActual value: {actual}{error_message} {format_call_log(result.get('log'))}\"\n    )\nAssertionError: Locator expected to contain text 're.compile('could not|cannot|failed|unable', re.IGNORECASE)'\nActual value: None\nError: element(s) not found \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\"[role=\\\"dialog\\\"]\")\n\n"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_erasure_invalidates_stale_tab",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_release.py\", line 100, in test_release_erasure_invalidates_stale_tab\n    self.assertEqual(self.data(first)['solved'], [], 'Erased discoveries must not return from an old tab')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [0] != []\n\nFirst list contains 1 additional elements.\nFirst extra element 0:\n0\n\n- [0]\n?  -\n\n+ [] : Erased discoveries must not return from an old tab\n"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order",
+      "status": "error",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_release.py\", line 158, in test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order\n    self.assertEqual(page.locator(':focus').get_attribute('data-puzzle'), '1')\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 16973, in get_attribute\n    self._sync(self._impl_obj.get_attribute(name=name, timeout=timeout))\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_locator.py\", line 444, in get_attribute\n    return await self._frame.get_attribute(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 726, in get_attribute\n    return await self._channel.send(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n        \"getAttribute\", self._timeout, locals_to_params(locals())\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/workspace/wonder-lab-adventures/.venv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.get_attribute: Timeout 3000ms exceeded.\nCall log:\n  - waiting for locator(\":focus\")\n\n"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_rollback_round_trip_preserves_progression",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_release.py\", line 150, in test_release_rollback_round_trip_preserves_progression\n    self.assertEqual(after['progress'], before['progress'])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'ver[17 chars]': [[], [], []], 'reviews': [], 'replays': [],[114 chars]ic'}} != {'ver[17 chars]': [[3], [], []], 'reviews': ['beam'], 'replay[121 chars]ic'}}\n  {'equipped': {'companion': 'classic',\n-               'cosmetic': 'classic',\n?                            ^ ^ ---\n\n+               'cosmetic': 'goggles',\n?                            ^^^^ ^\n\n                'theme': 'classic'},\n   'replayReady': [False, False, False],\n   'replays': [],\n-  'reviews': [],\n+  'reviews': ['beam'],\n?              ++++++\n\n-  'traces': [[], [], []],\n?                ----\n\n+  'traces': [[3], [], []],\n?             +++++\n\n   'version': 1}\n"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_stale_tab_cannot_overwrite_earned_progress",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_release.py\", line 80, in test_release_stale_tab_cannot_overwrite_earned_progress\n    self.assertIn(0, after['solved'], 'A stale tab must not remove another tab\\'s solve')\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 not found in [] : A stale tab must not remove another tab's solve\n"
+    }
+  ],
+  "observations": {
+    "erase_stale_writer": {
+      "points": 30,
+      "data": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [
+          0
+        ],
+        "attempts": [
+          2,
+          0,
+          0
+        ],
+        "visits": 3,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [
+              3
+            ],
+            [],
+            []
+          ],
+          "reviews": [
+            "beam"
+          ],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "goggles",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "stale_status": "Discoveries and rewards saved on this browser only"
+    },
+    "rollback": {
+      "legacy_commit": "80e86ad49d2c8065f4460e9b5b4d49385c6bbfc0",
+      "legacy_sha256": "b9fa3462ca28b7e8c9cf88000c39233593225df41241a7982eaa044b5c7dab11",
+      "before": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [
+          0
+        ],
+        "attempts": [
+          1,
+          0,
+          0
+        ],
+        "visits": 1,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [
+              3
+            ],
+            [],
+            []
+          ],
+          "reviews": [
+            "beam"
+          ],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "goggles",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "after": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [
+          0
+        ],
+        "attempts": [
+          2,
+          0,
+          0
+        ],
+        "visits": 3,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [],
+            [],
+            []
+          ],
+          "reviews": [],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "classic",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "points": 25
+    },
+    "stale_writer": {
+      "points": 2,
+      "data": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "\\",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [],
+        "attempts": [
+          1,
+          0,
+          0
+        ],
+        "visits": 3,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [
+              2
+            ],
+            [],
+            []
+          ],
+          "reviews": [],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "classic",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "stale_status": "Discoveries and rewards saved on this browser only"
+    }
+  },
+  "limits": "Real HTTP origin and browser storage; headless desktop Chromium. Touch and viewports are emulated. No physical iOS/Android, child, learning-outcome or retention test. Cold HTTP offline startup remains unsupported."
+}

@@ -43,6 +43,9 @@ body[data-theme="greenhouse"]{--paper:#edf7f1;--panel:#fbfffc;--accent:#397a67;-
 
 /* On phones, put the experiment ahead of decorative banner copy. */
 @media(max-width:620px){.wonder-banner{padding:14px 16px;gap:10px}.banner-copy h2,.banner-copy p{display:none}.banner-copy .eyebrow{font-size:9px}.spark-purse{min-height:76px;padding:10px 13px}.spark-purse>#spark-icon{width:45px}.spark-purse strong{font-size:16px}.spark-purse #tier-name{margin:2px 0;font-size:12px}.spark-purse small{font-size:11px}.banner-progress{padding:8px 12px;gap:4px}.banner-progress progress{height:6px}}
+
+/* Keep focus stable while the local save lock is pending. */
+body[data-save-ready="false"] button { cursor: progress; }
 </style></head><body><div class="shell">
   <header class="topbar" id="header"></header>
   <div class="intro"><div><div class="eyebrow">The laboratory of little wonders</div><h1 style="margin-top:8px">“What happens when I try this?”</h1><p>Turn a mirror. Follow the light. Find your own way to “aha!”</p></div><span class="badge">Play prototype · Wonder Workshop</span></div>
@@ -56,6 +59,7 @@ body[data-theme="greenhouse"]{--paper:#edf7f1;--panel:#fbfffc;--accent:#397a67;-
     <aside class="panel"><div class="eyebrow">01 / Light & discovery</div><h2>Let’s light things up.</h2><div id="puzzle-list"></div><div class="divider"></div><div class="robot-note"><div id="robot-art" role="img"></div><p id="robot-note" aria-live="polite"></p></div><div class="progress" id="lab-progress"></div><button id="discoveries" class="secondary wide">My discovery book</button><p class="small" style="margin:14px 0 0">No clocks. No lost lives. Hints are free. Your discoveries never expire.</p></aside>
     <div class="stage-wrap">
       <section class="stage lab-stage" aria-label="Interactive light reflection experiment"><div class="stage-top"><span class="stage-tag" id="puzzle-title">A little reflection</span><span class="stage-tag">TURN MIRRORS · SEND LIGHT</span></div><div class="lab-board" id="board"></div><svg class="ray" id="ray" viewBox="0 0 900 600" preserveAspectRatio="none" aria-hidden="true"></svg></section>
+      <p id="save-warning" class="warning" role="status" hidden></p>
       <p id="path-description" class="path-description" role="status" aria-live="polite"></p>
       <div class="toolbar lab-actions"><button class="primary" id="send-light">Send light →</button><button class="secondary" id="hint">A little hint</button><button class="secondary" id="reset-puzzle">↻ Start again</button></div>
       <div class="message" aria-live="polite"><span class="message-icon">✧</span><p id="lab-message"></p></div>
@@ -237,7 +241,16 @@ function mountHeader(game,title,subtitle){document.getElementById('header').inne
 function parentArea(store,stats,onReset,onMotion){
  const a=11+Math.floor(Math.random()*9),b=12+Math.floor(Math.random()*8);
  modal(`<span class="eyebrow">A moment for grown-ups</span><h2 style="margin-top:12px">Parent preview</h2><p>This is a supervised development demo. This checkpoint is not age verification or parental consent.</p><form id="gate-form"><label for="gate-answer">What is ${a} + ${b}?</label><input id="gate-answer" inputmode="numeric" autocomplete="off" aria-describedby="gate-error"><p id="gate-error" role="status" class="small"></p><button class="primary wide" style="margin-top:14px" type="submit">Continue</button></form>`,d=>{d.querySelector('form').onsubmit=e=>{e.preventDefault();if(Number(d.querySelector('input').value)!==a+b){d.querySelector('#gate-error').textContent='Please try again.';return;}show();};});
- function show(){modal(`<span class="eyebrow">For grown-ups</span><h2 style="margin-top:12px">A good place to pause.</h2><p>Progress stays in this browser. No accounts, chat, advertising, purchases, analytics upload, or remote requests run in this demo.</p><div class="stat-grid">${stats.map(s=>`<div class="stat"><strong>${KidsCore.escapeHTML(s.value)}</strong><span>${KidsCore.escapeHTML(s.label)}</span></div>`).join('')}</div><p class="small" style="margin-top:14px">Visit counts describe this browser only, not unique children or retention cohorts. Clearing browser data deletes progress. This is not cloud backup.</p>${store.warning?`<p class="warning">${KidsCore.escapeHTML(store.warning)}</p>`:''}<button id="motion" class="secondary wide" style="margin-top:10px">${store.data.reducedMotion?'Enable':'Reduce'} decorative motion</button><button id="erase" class="secondary wide" style="margin-top:10px">Erase this game’s local progress</button>`,d=>{d.querySelector('#motion').onclick=()=>{onMotion();toast('Motion setting saved');show();};d.querySelector('#erase').onclick=()=>{modal(`<h2>Start this demo again?</h2><p>This removes this game’s saved progress and backup from this browser. The other two games are not changed.</p><div class="toolbar"><button class="secondary" id="cancel">Keep progress</button><button class="primary" id="confirm">Erase progress</button></div>`,m=>{m.querySelector('#cancel').onclick=show;m.querySelector('#confirm').onclick=()=>{store.reset();closeModal();onReset();};});};});}
+ function show(){modal(`<span class="eyebrow">For grown-ups</span><h2 style="margin-top:12px">A good place to pause.</h2><p>Progress stays in this browser. No accounts, chat, advertising, purchases, analytics upload, or remote requests run in this demo.</p><div class="stat-grid">${stats.map(s=>`<div class="stat"><strong>${KidsCore.escapeHTML(s.value)}</strong><span>${KidsCore.escapeHTML(s.label)}</span></div>`).join('')}</div><p class="small" style="margin-top:14px">Visit counts describe this browser only, not unique children or retention cohorts. Clearing browser data deletes progress. This is not cloud backup.</p>${store.warning?`<p class="warning">${KidsCore.escapeHTML(store.warning)}</p>`:''}<button id="motion" class="secondary wide" style="margin-top:10px">${store.data.reducedMotion?'Enable':'Reduce'} decorative motion</button><button id="erase" class="secondary wide" style="margin-top:10px">Erase this game’s local progress</button>`,d=>{d.querySelector('#motion').onclick=async()=>{const saved=await onMotion();toast(saved===false?(store.warning||'Motion changed for this visit only.'):'Motion setting saved');show();};d.querySelector('#erase').onclick=()=>{modal(`<h2>Start this demo again?</h2><p>This removes this game’s saved progress and backup from this browser. The other two games are not changed.</p><p id="erase-error" class="warning" role="status"></p><div class="toolbar"><button class="secondary" id="cancel">Keep progress</button><button class="primary" id="confirm">Erase progress</button></div>`,m=>{m.querySelector('#cancel').onclick=show;m.querySelector('#confirm').onclick=async()=>{
+  const confirm=m.querySelector('#confirm'),cancel=m.querySelector('#cancel');
+  confirm.disabled=true;cancel.disabled=true;
+  try {
+    const erased=await store.reset();
+    if(erased===false){m.querySelector('#erase-error').textContent=store.warning||'Could not erase progress. Please try again.';cancel.textContent='Close';cancel.onclick=closeModal;confirm.textContent='Retry erasing';return;}
+    closeModal();onReset();
+  } catch (_) {m.querySelector('#erase-error').textContent='Could not erase progress. Please try again.';}
+  finally {confirm.disabled=false;cancel.disabled=false;if(m.isConnected)confirm.focus();}
+};});};});}
 }
 root.KidsUI={modal,closeModal,toast,spark,mountHeader,parentArea};
 })(globalThis);
@@ -443,12 +456,250 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
     recordTrace, armReplay, reviewCard, equip};
 });
 
-(function () {
+/* Wonder Lab save protocol v2. Local only; older builds cannot replace this record. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('../shared/core.js'), require('./progression.js'));
+  else root.WonderSave = factory(root.KidsCore, root.WonderProgression);
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (C, P) {
+  'use strict';
+  const KEY = 'kidslab.v2.wonder-lab-adventures';
+  const LEGACY_KEY = 'kidslab.v1.wonder-lab-adventures';
+  const LOCK = 'wonder-lab-adventures:progress';
+  const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const union = (a, b) => [...new Set([...a, ...b])];
+  const fresh = () => C.clone(P.defaults);
+  const complete = data => C.plain(data) && C.plain(data.progress) && data.progress.version === 1
+    && Array.isArray(data.solved) && Array.isArray(data.orientations) && data.orientations.length === 3
+    && Array.isArray(data.attempts) && data.attempts.length === 3;
+
+  // Only earned facts are monotonic. A conflicting board/choice is never silently
+  // resolved by a last-writer-wins snapshot. The caller shows the saved version.
+  function merge(base, local, remote) {
+    base = P.normalize(base); local = P.normalize(local); remote = P.normalize(remote);
+    const next = C.clone(remote);
+    let conflict = false;
+    function choice(before, wanted, saved) {
+      if (equal(wanted, before)) return C.clone(saved);
+      if (equal(saved, before) || equal(wanted, saved)) return C.clone(wanted);
+      conflict = true;
+      return C.clone(saved);
+    }
+    function count(before, wanted, saved) {
+      if (wanted >= before && saved >= before) return saved + wanted - before;
+      return choice(before, wanted, saved);
+    }
+    next.solved = union(remote.solved, local.solved);
+    next.puzzle = choice(base.puzzle, local.puzzle, remote.puzzle);
+    next.reducedMotion = choice(base.reducedMotion, local.reducedMotion, remote.reducedMotion);
+    next.visits = count(base.visits, local.visits, remote.visits);
+    next.orientations = C.PUZZLES.map((_, i) => choice(base.orientations[i], local.orientations[i], remote.orientations[i]));
+    next.attempts = C.PUZZLES.map((_, i) => count(base.attempts[i], local.attempts[i], remote.attempts[i]));
+    next.progress.traces = C.PUZZLES.map((_, i) => union(remote.progress.traces[i], local.progress.traces[i]));
+    next.progress.reviews = union(remote.progress.reviews, local.progress.reviews);
+    next.progress.replays = union(remote.progress.replays, local.progress.replays);
+    next.progress.replayReady = C.PUZZLES.map((_, i) => choice(base.progress.replayReady[i], local.progress.replayReady[i], remote.progress.replayReady[i]));
+    for (const type of ['cosmetic', 'theme', 'companion']) {
+      next.progress.equipped[type] = choice(base.progress.equipped[type], local.progress.equipped[type], remote.progress.equipped[type]);
+    }
+    return {data: P.normalize(next), conflict};
+  }
+
+  class LocalProgress {
+    constructor(options = {}) {
+      this.key = LEGACY_KEY;
+      this.authoritativeKey = KEY;
+      this.warning = ''; this.status = 'loaded'; this.conflict = false;
+      this.generation = null; this.revision = 0;
+      try { this.storage = options.storage === undefined ? globalThis.localStorage : options.storage; }
+      catch (_) { this.storage = null; }
+      this.locks = options.locks === undefined ? globalThis.navigator?.locks : options.locks;
+      this.newGeneration = options.newGeneration || (() => globalThis.crypto.randomUUID());
+      this.data = this.load();
+      this.base = C.clone(this.data);
+    }
+
+    legacy(raw) {
+      if (!raw || raw.length > 150000) return null;
+      try {
+        const value = JSON.parse(raw);
+        return value.schema === 1 && value.game === 'wonder-lab-adventures' && C.plain(value.data)
+          ? P.normalize(value.data) : null;
+      } catch (_) { return null; }
+    }
+
+    read() {
+      const raw = this.storage.getItem(KEY);
+      if (raw === null) return null;
+      // An unrecognized authoritative record must not fall through to an older
+      // projection. That could restore erased data or discard a future schema.
+      if (raw.length > 150000) throw new Error('Protected save is too large');
+      const record = JSON.parse(raw);
+      if (!C.plain(record) || record.schema !== 2 || typeof record.generation !== 'string'
+        || !record.generation || record.generation.length > 100
+        || !Number.isSafeInteger(record.revision) || record.revision < 1
+        || !['migration', 'erase'].includes(record.origin) || typeof record.erasing !== 'boolean') {
+        throw new Error('Protected save is not supported');
+      }
+      if (record.erasing) {
+        // A pending erase is a tombstone, even if its data was damaged.
+        record.data = fresh(); record.backup = null;
+      } else if (C.plain(record.data?.progress) && Number.isInteger(record.data.progress.version)
+        && record.data.progress.version > 1) {
+        throw new Error('Newer progression version is not supported');
+      } else if (!complete(record.data)) {
+        if (!complete(record.backup)) throw new Error('Protected save cannot be recovered');
+        record.data = record.backup;
+        this.warning = 'Recovered the previous protected save.';
+      }
+      record.data = P.normalize(record.data);
+      record.backup = complete(record.backup) ? P.normalize(record.backup) : null;
+      return record;
+    }
+
+    adopt(record) {
+      this.data = C.clone(record.data);
+      this.base = C.clone(record.data);
+      this.generation = record.generation;
+      this.revision = record.revision;
+    }
+
+    load() {
+      if (!this.storage) {
+        this.status = 'visit-only';
+        this.warning = 'Progress lasts for this visit only: browser saving is unavailable.';
+        return fresh();
+      }
+      try {
+        const record = this.read();
+        if (record) {
+          this.adopt(record);
+          if (record.erasing) {
+            this.status = 'erase-pending';
+            this.warning = 'Erasure is unfinished. Old progress is blocked. Ask a grown-up to retry erasing in this build.';
+          } else {
+            const old = this.storage.getItem(LEGACY_KEY);
+            if (old !== null && !this.legacy(old)) this.warning = 'Recovered progress from the protected save; the older save copy was unreadable.';
+          }
+          return record.data;
+        }
+        for (const key of [LEGACY_KEY, LEGACY_KEY + '.backup']) {
+          const raw = this.storage.getItem(key), data = this.legacy(raw);
+          if (data) {
+            if (key.endsWith('.backup')) this.warning = 'Recovered the previous saved visit.';
+            return data;
+          }
+          if (raw !== null) this.warning = 'The previous save could not be read. A safe save was used.';
+        }
+        return fresh();
+      } catch (_) {
+        this.status = 'blocked';
+        this.warning = 'The protected save could not be read. Saving is paused to keep it safe. Ask a grown-up to reload or erase it.';
+        return fresh();
+      }
+    }
+
+    visitOnly(data, message) {
+      this.data = P.normalize(data); this.status = 'visit-only'; this.conflict = false;
+      this.warning = message || 'Your browser cannot save right now. This visit still works.';
+      return false;
+    }
+
+    reject(record, message) {
+      if (record) this.adopt(record);
+      else { this.data = fresh(); this.base = fresh(); this.generation = null; this.revision = 0; }
+      this.conflict = true; this.status = 'conflict'; this.warning = message;
+      return false;
+    }
+
+    async save(data) {
+      const wanted = P.normalize(C.clone(data)), base = C.clone(this.base), generation = this.generation;
+      this.conflict = false;
+      if (!this.storage) return this.visitOnly(wanted, 'Progress lasts for this visit only: browser saving is unavailable.');
+      if (!this.locks?.request) return this.visitOnly(wanted, 'Progress lasts for this visit only: this browser cannot safely coordinate saved tabs.');
+      try {
+        return await this.locks.request(LOCK, async () => {
+          let current;
+          try { current = this.read(); }
+          catch (_) {
+            this.data = wanted; this.status = 'blocked';
+            this.warning = 'The protected save could not be read. Saving is paused to keep it safe. Ask a grown-up to reload or erase it.';
+            return false;
+          }
+          if (current?.erasing) return this.reject(current, 'Erasure is unfinished. Old progress is blocked. Ask a grown-up to retry erasing in this build.');
+          if ((generation !== null && current?.generation !== generation)
+            || (generation === null && current?.origin === 'erase')) {
+            return this.reject(current, 'Progress was erased or replaced in another tab. This action was not saved. The current saved lab is now shown.');
+          }
+          const merged = merge(base, wanted, current?.data || base);
+          if (merged.conflict) return this.reject(current, 'Another tab changed this experiment or choice. This action was not saved. The current saved lab is now shown; try again.');
+          const next = current || {schema: 2, generation: this.newGeneration(), revision: 0,
+            origin: 'migration', erasing: false, data: base, backup: null};
+          if (!current || !equal(merged.data, current.data)) {
+            next.backup = C.clone(next.data);
+            next.data = merged.data;
+            next.revision++;
+            this.storage.setItem(KEY, JSON.stringify(next));
+          }
+          this.adopt(next);
+          this.status = 'saved'; this.conflict = false;
+          const recovered = this.warning.startsWith('Recovered') ? this.warning : '';
+          this.warning = recovered;
+          // The protected write above is the commit. Legacy copies are only a
+          // compatibility view and can never overwrite it on a later load.
+          try {
+            const previous = this.storage.getItem(LEGACY_KEY);
+            if (this.legacy(previous)) this.storage.setItem(LEGACY_KEY + '.backup', previous);
+            this.storage.setItem(LEGACY_KEY, JSON.stringify({schema: 1, game: 'wonder-lab-adventures', data: next.data}));
+          } catch (_) {
+            this.warning = 'Progress is saved in this build. The compatibility copy for older builds could not be updated.';
+          }
+          return true;
+        });
+      } catch (_) { return this.visitOnly(wanted); }
+    }
+
+    async reset() {
+      this.conflict = false;
+      if (!this.storage || !this.locks?.request) {
+        this.warning = 'Erasure could not be completed. Browser storage or safe tab coordination is unavailable. No saved-data deletion is confirmed.';
+        this.status = 'erase-pending'; return false;
+      }
+      try {
+        return await this.locks.request(LOCK, async () => {
+          const blank = {schema: 2, generation: this.newGeneration(), revision: 1,
+            origin: 'erase', erasing: true, data: fresh(), backup: null};
+          // Commit the invalidation before attempting any multi-key deletion.
+          // An interruption or deletion failure leaves a blank tombstone, never
+          // an old backup eligible to restore into this generation.
+          this.storage.setItem(KEY, JSON.stringify(blank));
+          this.adopt(blank);
+          this.status = 'erase-pending';
+          for (const key of [LEGACY_KEY, LEGACY_KEY + '.backup']) this.storage.removeItem(key);
+          if (this.storage.getItem(LEGACY_KEY) !== null || this.storage.getItem(LEGACY_KEY + '.backup') !== null) {
+            throw new Error('Saved copy remains');
+          }
+          blank.erasing = false;
+          this.storage.setItem(KEY, JSON.stringify(blank));
+          this.adopt(blank); this.status = 'erased'; this.warning = '';
+          return true;
+        });
+      } catch (_) {
+        this.status = 'erase-pending';
+        this.warning = 'Erasure could not be completed. A saved copy may remain. Retry erasing in this build; do not reopen an older build yet.';
+        return false;
+      }
+    }
+  }
+
+  return {KEY, LEGACY_KEY, LOCK, merge, LocalProgress};
+});
+
+(async function () {
   'use strict';
   const C = KidsCore, A = KidsArt, U = KidsUI, P = WonderProgression;
   const $ = id => document.getElementById(id);
-  const store = new C.LocalSave('wonder-lab-adventures', P.defaults, P.normalize);
-  let state = store.data, result = null, hinted = -1, savingAvailable = false;
+  const store = new WonderSave.LocalProgress();
+  let state = store.data, result = null, hinted = -1, savingAvailable = false, savingPending = false, viewChanged = false;
   state.visits++;
   const invitation = 'Turn a mirror, then send light to test your idea. Hints are always welcome.';
   const art = (id, cls = '') => `<span class="reward-art ${cls}" aria-hidden="true">${WonderRewardArt[id] || ''}</span>`;
@@ -467,15 +718,38 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
       : 'A fresh question. Turn a mirror, then send the light.';
     $('reward-notice').hidden = true;
   }
-  function save() {
-    savingAvailable = store.save(state);
+  async function save() {
+    const boardBefore = JSON.stringify([state.puzzle, state.orientations[state.puzzle]]);
+    savingPending = true; viewChanged = false;
+    $('save-status').textContent = 'Saving this experiment…';
+    $('save-warning').hidden = false;
+    $('save-warning').textContent = 'Saving this experiment. Please wait a moment.';
+    document.querySelectorAll('button').forEach(button => button.setAttribute('aria-disabled', 'true'));
+    document.body.dataset.saveReady = 'false';
+    document.querySelector('main').setAttribute('aria-busy', 'true');
+    try {
+      savingAvailable = await store.save(state);
+      state = store.data;
+      viewChanged = boardBefore !== JSON.stringify([state.puzzle, state.orientations[state.puzzle]]);
+      if (viewChanged && !store.conflict && savingAvailable) store.warning = 'Another tab updated this experiment. The current saved lab is now shown.';
+      if (store.conflict || viewChanged) {
+        restoreTrace(); freshFeedback();
+      }
+    } finally {
+      savingPending = false;
+      document.querySelectorAll('button[aria-disabled]').forEach(button => button.removeAttribute('aria-disabled'));
+      document.body.dataset.saveReady = 'true';
+      document.querySelector('main').setAttribute('aria-busy', 'false');
+    }
     $('save-status').textContent = store.warning || 'Discoveries and rewards saved on this browser only';
+    $('save-warning').hidden = !store.warning;
+    $('save-warning').textContent = store.warning;
     document.body.classList.toggle('reduced-motion', state.reducedMotion);
     return savingAvailable;
   }
-  function openPuzzle(index) {
+  async function openPuzzle(index) {
     state.puzzle = index;
-    restoreTrace(); freshFeedback(); save(); render();
+    restoreTrace(); freshFeedback(); await save(); render();
   }
   function describePath() {
     if (!result) return 'Light source → mirrors → lamp. Send light to see where your current path goes.';
@@ -508,9 +782,11 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
     $('discoveries').textContent = 'My discovery book · ' + s.cardIds.length + '/6';
   }
   function render() {
+    const focusedPuzzle = document.activeElement?.dataset.puzzle;
     const p = C.PUZZLES[state.puzzle];
     $('puzzle-list').innerHTML = C.PUZZLES.map((p, i) => `<button class="lab-step ${state.puzzle === i ? 'selected' : ''} ${state.solved.includes(i) ? 'solved' : ''}" data-puzzle="${i}" aria-pressed="${state.puzzle === i}"><span class="number">${state.solved.includes(i) ? '✓' : i + 1}</span><div><strong>${p.name}</strong><small>${p.mirrors.length} mirrors · A new idea</small></div></button>`).join('');
     document.querySelectorAll('[data-puzzle]').forEach(b => b.onclick = () => openPuzzle(Number(b.dataset.puzzle)));
+    if (focusedPuzzle !== undefined) document.querySelector(`[data-puzzle="${focusedPuzzle}"]`)?.focus({preventScroll: true});
     $('puzzle-title').textContent = p.name;
     $('concept').textContent = p.concept;
     $('lab-progress').innerHTML = C.PUZZLES.map((_, i) => `<span class="${state.solved.includes(i) ? 'done' : ''}"></span>`).join('');
@@ -524,13 +800,13 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
           : goal ? `<div class="light-goal ${result?.success ? 'lit' : ''}" aria-label="${result?.success ? 'Lamp is lit' : 'Lamp is waiting for light'}"><span class="lamp">✧</span></div>` : '') + '</div>';
     }
     $('board').innerHTML = html;
-    document.querySelectorAll('[data-mirror]').forEach(b => b.onclick = () => {
+    document.querySelectorAll('[data-mirror]').forEach(b => b.onclick = async () => {
       const i = Number(b.dataset.mirror);
       P.armReplay(state, state.puzzle);
       state.orientations[state.puzzle][i] = state.orientations[state.puzzle][i] === '/' ? '\\' : '/';
       result = null; freshFeedback();
       $('lab-message').textContent = 'Mirrors changed. Send light to test this path.';
-      save(); render();
+      await save(); render();
       document.querySelector(`[data-mirror="${i}"]`)?.focus({preventScroll: true});
     });
     $('path-description').textContent = describePath();
@@ -554,7 +830,7 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
       : `Take another look at mirror ${String.fromCharCode(65 + hinted)}. Turn it once, then follow where the light goes.`;
     render();
   }
-  $('send-light').onclick = () => {
+  $('send-light').onclick = async () => {
     const i = state.puzzle, p = C.PUZZLES[i], first = !state.solved.includes(i);
     state.attempts[i]++;
     const delta = P.recordTrace(state, i, state.orientations[i]);
@@ -573,15 +849,15 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
         if (hinted >= 0) $('robot-note').textContent = `Here’s a little help: try turning mirror ${String.fromCharCode(65 + hinted)}. Your hints stay on this browser.`;
       }
     }
-    save(); render(); celebrate(delta, result.success ? 'Discovery made!' : 'Curiosity counts!');
+    await save(); render(); if (!store.conflict && !viewChanged) celebrate(delta, delta.result.success ? 'Discovery made!' : 'Curiosity counts!');
   };
   $('hint').onclick = hint;
-  $('reset-puzzle').onclick = () => {
+  $('reset-puzzle').onclick = async () => {
     P.armReplay(state, state.puzzle);
     state.orientations[state.puzzle] = C.PUZZLES[state.puzzle].initial.slice();
     state.attempts[state.puzzle] = 0; result = null;
-    freshFeedback(); save(); render();
-    $('lab-message').textContent = 'A fresh start. Your cards, Sparks and treasures are still safe.';
+    freshFeedback(); await save(); render();
+    if (!store.conflict) $('lab-message').textContent = 'A fresh start. Your cards, Sparks and treasures are still safe.';
   };
   $('next-puzzle').onclick = () => openPuzzle(Math.min(2, state.puzzle + 1));
 
@@ -597,9 +873,10 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
         : '<span class="collection-lock">Not yet collected · no hurry</span>'}</article>`;
     }).join('')}</div><p class="small">This prototype explores idealized 2D flat-mirror reflection. The ray is a simplified model, not a full description of light or an independently validated learning assessment.</p></div>`, dialog => {
       dialog.querySelector('.modal').classList.add('wonder-modal');
-      dialog.querySelectorAll('[data-review]').forEach(button => button.onclick = () => {
+      dialog.querySelectorAll('[data-review]').forEach(button => button.onclick = async () => {
         const delta = P.reviewCard(state, button.dataset.review);
-        const persisted = save(); render();
+        const persisted = await save(); render();
+        if (store.conflict) { showBook(); return; }
         button.disabled = true; button.textContent = persisted ? 'Reviewed · saved' : 'Reviewed · this visit';
         // Keep keyboard focus in the dialog after the credited button is disabled.
         (dialog.querySelector('[data-review]:not([disabled])') || dialog.querySelector('.modal-close')).focus({preventScroll: true});
@@ -627,15 +904,17 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
     U.modal(`<div class="wonder-hub"><div class="hub-heading">${art('mission')}<div><span class="eyebrow">The Wonder Workshop</span><h2>Your next “what if?”</h2><p>${s.points} lifetime Sparks · ${C.escapeHTML(s.tier.name)}. Nothing expires. Explore at your pace.</p></div></div>${storageNotice()}<div class="hub-columns"><section class="mission-board"><h3>Little goals. Lasting discoveries.</h3><ul class="mission-list">${s.goals.map(g => `<li data-goal="${g.id}" class="${g.done ? 'goal-done' : ''}"><span class="goal-mark" aria-hidden="true">${g.done ? '✓' : '✧'}</span><div><strong>${C.escapeHTML(g.title)}</strong><p>${C.escapeHTML(g.detail)}</p><span class="goal-status">${g.done ? 'Complete' : 'Exploring'} · ${g.current}/${g.target}</span></div></li>`).join('')}</ul></section><section class="reward-rules"><h3>How Wonder Sparks grow</h3><p>These Sparks are progress, not money. You never spend or lose them.</p><dl><dt>First solve of each puzzle</dt><dd>+20</dd><dt>Each different mirror test</dt><dd>+2</dd><dt>Each discovery card</dt><dd>+5</dd><dt>All three puzzles solved</dt><dd>+20</dd><dt>First review of each card</dt><dd>+3</dd><dt>Replay a solved path after changing it</dt><dd>+4 once per puzzle</dd></dl><p class="small">Hints cost nothing and never reduce rewards. Repeating the same test or review does not add more Sparks. There are 188 Sparks to explore in this little lab.</p></section></div><section><div class="collection-heading"><h3>Your lab treasures</h3><span>4 cosmetics · 2 themes · 1 special friend</span></div><p class="small">All treasures are shown from the start. Nova needs 150 Sparks, all 6 cards and 3 card reviews.</p><p id="equip-feedback" role="status"></p><div class="treasure-grid">${P.REWARDS.map(r => `<article class="treasure ${s.unlockedIds.includes(r.id) ? 'earned' : 'locked'}" data-reward="${r.id}">${art(r.id)}<span class="eyebrow">${C.escapeHTML(r.type)}</span><h3>${C.escapeHTML(r.title)}</h3><p>${C.escapeHTML(r.description)}</p><p class="reward-requirement">${C.escapeHTML(r.requirement)}</p><button class="secondary wide" data-equip="${r.id}" aria-label="Use ${C.escapeHTML(r.title)}"></button></article>`).join('')}</div><div class="classic-options"><span>Or keep your familiar lab:</span><button class="secondary" data-equip-default="cosmetic">Classic robot</button><button class="secondary" data-equip-default="theme">Classic lab</button><button class="secondary" data-equip-default="companion">Original helper</button></div></section><section class="collection-preview"><h3>Six cards to wonder about</h3><div class="card-preview-grid">${P.CARDS.map(c => `<div class="card-preview">${art(c.id)}<strong>${C.escapeHTML(c.title)}</strong><span>${s.cardIds.includes(c.id) ? '✓ Collected' : C.escapeHTML(c.condition)}</span></div>`).join('')}</div><button class="primary" id="hub-open-book">Open my discovery book</button></section></div>`, dialog => {
       dialog.querySelector('.modal').classList.add('wonder-modal');
       updateEquipButtons(dialog);
-      dialog.querySelectorAll('[data-equip]').forEach(button => button.onclick = () => {
+      dialog.querySelectorAll('[data-equip]').forEach(button => button.onclick = async () => {
         if (!P.equip(state, button.dataset.equip)) return;
-        const persisted = save(); render(); updateEquipButtons(dialog);
+        const persisted = await save(); render(); updateEquipButtons(dialog);
+        if (store.conflict) { showGoals(); return; }
         dialog.querySelector('#equip-feedback').textContent = rewardName(button.dataset.equip) + (persisted ? ' is now part of your lab. Saved on this browser.' : ' is ready for this visit. ' + store.warning);
       });
-      dialog.querySelectorAll('[data-equip-default]').forEach(button => button.onclick = () => {
+      dialog.querySelectorAll('[data-equip-default]').forEach(button => button.onclick = async () => {
         P.equip(state, 'classic', button.dataset.equipDefault);
-        save(); render(); updateEquipButtons(dialog);
-        dialog.querySelector('#equip-feedback').textContent = 'Your familiar lab style is back. All treasures are still yours.';
+        await save(); render(); updateEquipButtons(dialog);
+        dialog.querySelector('#equip-feedback').textContent = store.conflict ? store.warning
+          : 'Your familiar lab style is back. All treasures are still yours.' + (savingAvailable ? '' : ' ' + store.warning);
       });
       dialog.querySelector('#hub-open-book').onclick = showBook;
     });
@@ -645,9 +924,30 @@ globalThis.WonderRewardArt={"angle": "<svg xmlns=\"http://www.w3.org/2000/svg\" 
   $('spark-icon').innerHTML = art('spark');
   $('open-goals').onclick = showGoals;
   $('discoveries').onclick = showBook;
-  $('parents').onclick = () => U.parentArea(store,
+  // Keep erase feedback and the visible board in sync even when cleanup fails.
+  const parentStore = {
+    get data() { return store.data; },
+    get warning() { return store.warning; },
+    async reset() {
+      const erased = await store.reset();
+      state = store.data; savingAvailable = erased;
+      restoreTrace(); freshFeedback(); render();
+      $('save-status').textContent = store.warning || 'Progress erased on this browser.';
+      $('save-warning').hidden = !store.warning;
+      $('save-warning').textContent = store.warning;
+      document.body.classList.toggle('reduced-motion', state.reducedMotion);
+      return erased;
+    }
+  };
+  // A pending local transaction must finish before another action edits its board.
+  document.addEventListener('click', event => {
+    if (savingPending && event.target.closest('button')) {
+      event.preventDefault(); event.stopImmediatePropagation();
+    }
+  }, true);
+  $('parents').onclick = () => U.parentArea(parentStore,
     [{value: state.solved.length, label: 'Experiments solved'}, {value: P.snapshot(state).points, label: 'Local Wonder Sparks'}],
-    () => location.reload(), () => {state.reducedMotion = !state.reducedMotion; save();});
-  restoreTrace(); freshFeedback(); save(); render();
+    () => location.reload(), async () => {state.reducedMotion = !state.reducedMotion; return await save();});
+  restoreTrace(); freshFeedback(); await save(); render();
 })();
 </script></body></html>

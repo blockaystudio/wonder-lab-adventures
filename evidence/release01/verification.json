@@ -1,0 +1,32 @@
+{
+  "base_commit": "85f0cd7b5f0e314d27086facc99b0f11bcd29771",
+  "branch": "codex/lab-release01",
+  "generated_html_sha256": "9bd9e13f5dce364b7e5e13ef01cf2f792dde248f6b5b83806cc1de7071ae67f0",
+  "generated_pages_equal": true,
+  "node_tests": 131,
+  "python_signer_tests": 6,
+  "browser": "145.0.7632.6",
+  "browser_suites": {
+    "puzzles": {
+      "tests_run": 17,
+      "failures": 0,
+      "errors": 0,
+      "success": true
+    },
+    "progression": {
+      "tests_run": 12,
+      "failures": 0,
+      "errors": 0,
+      "success": true
+    },
+    "release": {
+      "tests_run": 16,
+      "failures": 0,
+      "errors": 0,
+      "success": true
+    }
+  },
+  "physical_devices": "BLOCKED: unavailable",
+  "cold_offline_startup": "BLOCKED: ERR_INTERNET_DISCONNECTED",
+  "deployment_changed": false
+}

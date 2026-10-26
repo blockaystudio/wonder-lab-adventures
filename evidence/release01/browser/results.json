@@ -1,0 +1,435 @@
+{
+  "browser": "145.0.7632.6",
+  "python": "3.13.5",
+  "tests_run": 16,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "results": [
+    {
+      "test": "__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_conflicting_mirror_changes_refresh_and_can_retry",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_erasure_invalidates_stale_tab",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_offline_continuation_and_cold_start_are_distinct",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_page_close_during_unfinished_experiment_recovers_last_action",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_persistent_browser_close_relaunch",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_phone_tablet_targets_and_reduced_motion",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_queued_erase_invalidates_waiting_native_writer",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_queued_native_lock_writers_keep_both_solves",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_rollback_round_trip_preserves_progression",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_stale_tab_cannot_overwrite_earned_progress",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_stale_trace_after_other_tab_selects_another_puzzle",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_two_tabs_keep_both_puzzle_discoveries",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ReleaseBrowser.test_release_without_write_locks_is_explicitly_visit_only",
+      "status": "passed"
+    }
+  ],
+  "observations": {
+    "failed_erase": {
+      "dialog": "\u00d7\nStart this demo again?\n\nThis removes this game\u2019s saved progress and backup from this browser. The other two games are not changed.\n\nErasure could not be completed. A saved copy may remain. Retry erasing in this build; do not reopen an older build yet.\n\nClose\nRetry erasing",
+      "points": 0
+    },
+    "ordinary_browser_events": {
+      "test_release_backup_delete_failure_is_visible_and_retryable": {
+        "local_requests": 3,
+        "errors": []
+      },
+      "test_release_conflicting_mirror_changes_refresh_and_can_retry": {
+        "local_requests": 3,
+        "errors": []
+      },
+      "test_release_erasure_invalidates_stale_tab": {
+        "local_requests": 4,
+        "errors": []
+      },
+      "test_release_offline_continuation_and_cold_start_are_distinct": {
+        "local_requests": 0,
+        "errors": []
+      },
+      "test_release_page_close_during_unfinished_experiment_recovers_last_action": {
+        "local_requests": 2,
+        "errors": []
+      },
+      "test_release_persistent_browser_close_relaunch": {
+        "local_requests": 2,
+        "errors": []
+      },
+      "test_release_phone_tablet_targets_and_reduced_motion": {
+        "local_requests": 5,
+        "errors": []
+      },
+      "test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order": {
+        "local_requests": 1,
+        "errors": []
+      },
+      "test_release_queued_erase_invalidates_waiting_native_writer": {
+        "local_requests": 4,
+        "errors": []
+      },
+      "test_release_queued_native_lock_writers_keep_both_solves": {
+        "local_requests": 4,
+        "errors": []
+      },
+      "test_release_renderer_crash_recovers_committed_progress": {
+        "local_requests": 2,
+        "errors": []
+      },
+      "test_release_rollback_round_trip_preserves_progression": {
+        "local_requests": 3,
+        "errors": []
+      },
+      "test_release_stale_tab_cannot_overwrite_earned_progress": {
+        "local_requests": 4,
+        "errors": []
+      },
+      "test_release_stale_trace_after_other_tab_selects_another_puzzle": {
+        "local_requests": 2,
+        "errors": []
+      },
+      "test_release_two_tabs_keep_both_puzzle_discoveries": {
+        "local_requests": 4,
+        "errors": []
+      },
+      "test_release_without_write_locks_is_explicitly_visit_only": {
+        "local_requests": 2,
+        "errors": []
+      }
+    },
+    "choice_conflict": {
+      "rejected_visibly": true,
+      "retry_applied": true
+    },
+    "erase_stale_writer": {
+      "points": 0,
+      "data": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "\\",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [],
+        "attempts": [
+          0,
+          0,
+          0
+        ],
+        "visits": 2,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [],
+            [],
+            []
+          ],
+          "reviews": [],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "classic",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "stale_status": "Progress was erased or replaced in another tab. This action was not saved. The current saved lab is now shown."
+    },
+    "offline": {
+      "continued_play": "passed",
+      "cold_reload": "blocked: Page.reload: net::ERR_INTERNET_DISCONNECTED",
+      "fresh_context_start": "blocked: Page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:42659/"
+    },
+    "interrupted_experiment": {
+      "uncompleted_solve_not_invented": true,
+      "last_rotation_recovered": true
+    },
+    "persistent_relaunch": {
+      "before_points": 30,
+      "after_points": 30,
+      "progress_equal": true
+    },
+    "layouts": {
+      "viewports": [
+        "320x740",
+        "390x844",
+        "844x390",
+        "768x1024",
+        "1024x768"
+      ],
+      "touch": "emulated",
+      "motion_preference": "reduce"
+    },
+    "keyboard_selection": {
+      "focus": "1",
+      "selected": 2
+    },
+    "native_erase_contention": {
+      "waiting_old_writer_rejected": true,
+      "points": 0
+    },
+    "native_write_contention": {
+      "queued_writes": 2,
+      "solved": [
+        0,
+        1
+      ],
+      "points": 54
+    },
+    "renderer_crash": {
+      "trigger": "SIGKILL via pidfd of verified dedicated-browser renderer descendants",
+      "renderer_processes_terminated": 1,
+      "crash_event_observed": true,
+      "committed_progress_recovered": true,
+      "limit": "Linux Chromium renderer-process termination, not OS power loss or mobile process eviction"
+    },
+    "rollback": {
+      "legacy_commit": "80e86ad49d2c8065f4460e9b5b4d49385c6bbfc0",
+      "legacy_sha256": "b9fa3462ca28b7e8c9cf88000c39233593225df41241a7982eaa044b5c7dab11",
+      "before": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [
+          0
+        ],
+        "attempts": [
+          1,
+          0,
+          0
+        ],
+        "visits": 1,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [
+              3
+            ],
+            [],
+            []
+          ],
+          "reviews": [
+            "beam"
+          ],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "goggles",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "after": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [
+          0
+        ],
+        "attempts": [
+          1,
+          0,
+          0
+        ],
+        "visits": 2,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [
+              3
+            ],
+            [],
+            []
+          ],
+          "reviews": [
+            "beam"
+          ],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "goggles",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "points": 30
+    },
+    "stale_writer": {
+      "points": 32,
+      "data": {
+        "puzzle": 0,
+        "orientations": [
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "/",
+            "\\",
+            "/",
+            "\\"
+          ]
+        ],
+        "solved": [
+          0
+        ],
+        "attempts": [
+          2,
+          0,
+          0
+        ],
+        "visits": 4,
+        "reducedMotion": false,
+        "progress": {
+          "version": 1,
+          "traces": [
+            [
+              2,
+              3
+            ],
+            [],
+            []
+          ],
+          "reviews": [
+            "beam"
+          ],
+          "replays": [],
+          "replayReady": [
+            false,
+            false,
+            false
+          ],
+          "equipped": {
+            "cosmetic": "goggles",
+            "theme": "classic",
+            "companion": "classic"
+          }
+        }
+      },
+      "stale_status": "Another tab updated this experiment. The current saved lab is now shown."
+    },
+    "stale_different_board_trace": {
+      "current_puzzle": 1,
+      "earned_trace_puzzle": 0,
+      "points": 2
+    },
+    "two_tab_discoveries": {
+      "solved": [
+        0,
+        1
+      ],
+      "points": 54
+    },
+    "unsupported_lock_api": {
+      "persistent_write": "disabled",
+      "continued_play": "passed"
+    }
+  },
+  "limits": "Real HTTP origin and browser storage; headless desktop Chromium. Touch and viewports are emulated. No physical iOS/Android, child, learning-outcome or retention test. Cold HTTP offline startup remains unsupported."
+}

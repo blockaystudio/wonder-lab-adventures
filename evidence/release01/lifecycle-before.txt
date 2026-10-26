@@ -1,0 +1,10 @@
+test_release_persistent_browser_close_relaunch (browser_release.ReleaseBrowser.test_release_persistent_browser_close_relaunch) ... ok
+test_release_page_close_during_unfinished_experiment_recovers_last_action (browser_release.ReleaseBrowser.test_release_page_close_during_unfinished_experiment_recovers_last_action) ... ok
+test_release_renderer_crash_recovers_committed_progress (browser_release.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress) ... ok
+test_release_offline_continuation_and_cold_start_are_distinct (browser_release.ReleaseBrowser.test_release_offline_continuation_and_cold_start_are_distinct) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 4.692s
+
+OK
+Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5

@@ -6,4 +6,8 @@ The only change to existing text files is a CI guard that skips the initial boot
 
 See `evidence/import-verification.json` and the source-import workflow run for evidence. Earlier upload-status documents describe the pre-import package and are superseded by this file for upload status only.
 
-Start Codex using `CODEX_START_PROMPT.txt` on `main`. Review `AGENTS.md` first. No Codex optimization task, public deployment, store submission, or advertising activation has been started.
+The import above is historical. Source is present; do not import or recreate it.
+Read `AGENTS.md` and `docs/GITHUB_CODEX_STATUS.md` before selecting a branch.
+OPT-01 and progression are implemented in open stacked PRs; the private mobile
+site serves progression commit `85f0cd7`. REL-01 is a separate, undeployed branch.
+No native/store release or advertising activation has occurred.

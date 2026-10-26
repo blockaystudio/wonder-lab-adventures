@@ -1,5 +1,10 @@
 # Wonder Workshop — progression and artwork implementation
 
+Historical feature-task report. A later authorized hosting update deployed this
+progression build (`85f0cd7`) to the existing owner-private Site. Hosting statements
+below describe the end of the feature task and are superseded by
+`docs/GITHUB_CODEX_STATUS.md`. Current durability evidence: `RELEASE01_REPORT.md`.
+
 2026-10-25. Bounded repository task; no measured retention claim.
 
 ## Source and baseline
