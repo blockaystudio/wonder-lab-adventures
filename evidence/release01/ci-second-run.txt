@@ -1,0 +1,56 @@
+CI run: https://github.com/blockaystudio/wonder-lab-adventures/actions/runs/40294296675
+Head: d80a14791e8152f46058120eec97bb9305560734
+Verifier, generated pages, existing17+12 and15/16 release checks passed.
+Explicit CDP trigger still timed out awaiting the actual crash event on CI.
+
+##[group]Run python tests/browser_release.py
+2026-10-26T08:45:16.4231994Z [36;1mpython tests/browser_release.py[0m
+2026-10-26T08:45:16.4294190Z shell: /usr/bin/bash -e {0}
+2026-10-26T08:45:16.4294443Z env:
+2026-10-26T08:45:16.4294703Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:45:16.4295156Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.5/x64/lib/pkgconfig
+2026-10-26T08:45:16.4295596Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:45:16.4295985Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:45:16.4296361Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:45:16.4296737Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.5/x64/lib
+2026-10-26T08:45:16.4297054Z ##[endgroup]
+2026-10-26T08:45:18.6312249Z test_release_backup_delete_failure_is_visible_and_retryable (__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable) ... ok
+2026-10-26T08:45:19.6176641Z test_release_conflicting_mirror_changes_refresh_and_can_retry (__main__.ReleaseBrowser.test_release_conflicting_mirror_changes_refresh_and_can_retry) ... ok
+2026-10-26T08:45:21.1206758Z test_release_erasure_invalidates_stale_tab (__main__.ReleaseBrowser.test_release_erasure_invalidates_stale_tab) ... ok
+2026-10-26T08:45:21.5754098Z test_release_offline_continuation_and_cold_start_are_distinct (__main__.ReleaseBrowser.test_release_offline_continuation_and_cold_start_are_distinct) ... ok
+2026-10-26T08:45:22.9532654Z test_release_page_close_during_unfinished_experiment_recovers_last_action (__main__.ReleaseBrowser.test_release_page_close_during_unfinished_experiment_recovers_last_action) ... ok
+2026-10-26T08:45:24.1924644Z test_release_persistent_browser_close_relaunch (__main__.ReleaseBrowser.test_release_persistent_browser_close_relaunch) ... ok
+2026-10-26T08:45:29.8950253Z test_release_phone_tablet_targets_and_reduced_motion (__main__.ReleaseBrowser.test_release_phone_tablet_targets_and_reduced_motion) ... ok
+2026-10-26T08:45:30.3111580Z test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order (__main__.ReleaseBrowser.test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order) ... ok
+2026-10-26T08:45:31.7280470Z test_release_queued_erase_invalidates_waiting_native_writer (__main__.ReleaseBrowser.test_release_queued_erase_invalidates_waiting_native_writer) ... ok
+2026-10-26T08:45:32.7090409Z test_release_queued_native_lock_writers_keep_both_solves (__main__.ReleaseBrowser.test_release_queued_native_lock_writers_keep_both_solves) ... ok
+2026-10-26T08:45:38.4948579Z test_release_renderer_crash_recovers_committed_progress (__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress) ... ERROR
+2026-10-26T08:45:39.7260183Z test_release_rollback_round_trip_preserves_progression (__main__.ReleaseBrowser.test_release_rollback_round_trip_preserves_progression) ... ok
+2026-10-26T08:45:41.1840126Z test_release_stale_tab_cannot_overwrite_earned_progress (__main__.ReleaseBrowser.test_release_stale_tab_cannot_overwrite_earned_progress) ... ok
+2026-10-26T08:45:41.8464809Z test_release_stale_trace_after_other_tab_selects_another_puzzle (__main__.ReleaseBrowser.test_release_stale_trace_after_other_tab_selects_another_puzzle) ... ok
+2026-10-26T08:45:42.8098639Z test_release_two_tabs_keep_both_puzzle_discoveries (__main__.ReleaseBrowser.test_release_two_tabs_keep_both_puzzle_discoveries) ... ok
+2026-10-26T08:45:43.1896037Z test_release_without_write_locks_is_explicitly_visit_only (__main__.ReleaseBrowser.test_release_without_write_locks_is_explicitly_visit_only) ... ok
+2026-10-26T08:45:43.2504497Z
+2026-10-26T08:45:43.2509319Z ======================================================================
+2026-10-26T08:45:43.2510965Z ERROR: test_release_renderer_crash_recovers_committed_progress (__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress)
+2026-10-26T08:45:43.2512361Z ----------------------------------------------------------------------
+2026-10-26T08:45:43.2513606Z Traceback (most recent call last):
+2026-10-26T08:45:43.2514519Z   File "/home/runner/work/wonder-lab-adventures/wonder-lab-adventures/tests/browser_release.py", line 378, in test_release_renderer_crash_recovers_committed_progress
+2026-10-26T08:45:43.2515340Z     with page.expect_event('crash', timeout=5000):
+2026-10-26T08:45:43.2515724Z          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-26T08:45:43.2516415Z   File "/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 85, in __exit__
+2026-10-26T08:45:43.2517001Z     self._event.value
+2026-10-26T08:45:43.2517598Z   File "/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 59, in value
+2026-10-26T08:45:43.2518682Z     raise exception
+2026-10-26T08:45:43.2519609Z playwright._impl._errors.TimeoutError: Timeout 5000ms exceeded while waiting for event "crash"
+2026-10-26T08:45:43.2520609Z =========================== logs ===========================
+2026-10-26T08:45:43.2521155Z waiting for event "crash"
+2026-10-26T08:45:43.2521700Z ============================================================
+2026-10-26T08:45:43.2522048Z
+2026-10-26T08:45:43.2522454Z ----------------------------------------------------------------------
+2026-10-26T08:45:43.2522945Z Ran 16 tests in 26.681s
+2026-10-26T08:45:43.2523095Z
+2026-10-26T08:45:43.2523196Z FAILED (errors=1)
+2026-10-26T08:45:43.2523589Z Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5
+2026-10-26T08:45:43.2935224Z ##[error]Process completed with exit code 1.
+2026-10-26T08:45:43.3114541Z

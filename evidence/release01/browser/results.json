@@ -72,6 +72,22 @@
     }
   ],
   "observations": {
+    "crash_core_limits": {
+      "resource_limits_supported": true,
+      "original": [
+        0,
+        -1
+      ],
+      "effective": [
+        0,
+        -1
+      ],
+      "python_child": [
+        0,
+        -1
+      ],
+      "browser_core_limit": "Max core file size        0                    unlimited            bytes"
+    },
     "failed_erase": {
       "dialog": "\u00d7\nStart this demo again?\n\nThis removes this game\u2019s saved progress and backup from this browser. The other two games are not changed.\n\nErasure could not be completed. A saved copy may remain. Retry erasing in this build; do not reopen an older build yet.\n\nClose\nRetry erasing",
       "points": 0
@@ -200,7 +216,7 @@
     "offline": {
       "continued_play": "passed",
       "cold_reload": "blocked: Page.reload: net::ERR_INTERNET_DISCONNECTED",
-      "fresh_context_start": "blocked: Page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:38915/"
+      "fresh_context_start": "blocked: Page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:36885/"
     },
     "interrupted_experiment": {
       "uncompleted_solve_not_invented": true,
@@ -238,6 +254,18 @@
       ],
       "points": 54
     },
+    "crash_protocol_messages": [
+      {
+        "method": "Inspector.targetCrashed",
+        "params": {}
+      }
+    ],
+    "crash_target_events": [
+      {
+        "status": "crashed",
+        "errorCode": 5
+      }
+    ],
     "renderer_crash": {
       "trigger": "CDP Page.crash via non-flattened Target session",
       "crash_event_observed": true,

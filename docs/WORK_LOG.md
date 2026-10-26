@@ -93,3 +93,8 @@
   trigger with an explicit CDP target crash, retaining the crash-event and saved
   recovery assertions. Initial failure evidence retained; current CI outcome is
   linked on the PR. No gameplay source or deployment changed during this fix.
+
+- A second CI crash-event timeout was retained as evidence. The test harness now
+  disables core dumps before launching Chromium, records inherited limits and
+  direct crash diagnostics, and keeps the same actual-event/recovery assertions.
+  The prior logs do not establish a root cause; no false crash pass is accepted.

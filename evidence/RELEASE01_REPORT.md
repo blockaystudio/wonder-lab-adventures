@@ -124,7 +124,12 @@ but its intentional `chrome://crash` navigation produced no crash event on the
 runner. The test now sends Chromium's explicit `Page.crash` command through a
 separate target session, avoiding a command that waits for its own crashed target.
 It still requires an actual crash event and full saved-progress recovery; no
-assertion was skipped or weakened. [Original CI failure](release01/ci-first-run.txt).
+assertion was skipped or weakened. The second CI attempt also reached the crash
+event deadline; [both](release01/ci-first-run.txt) [failures](release01/ci-second-run.txt)
+are preserved. The harness now explicitly disables core dumps before launching
+Chromium and records original/effective/inherited limits plus direct CDP crash
+diagnostics. This avoids memory dumps during intentional crashes; the earlier
+logs alone do not establish that dump handling caused the timeout.
 The current remote run result/link is recorded on PR #3; local passes alone do
 not establish CI success.
 

@@ -19,6 +19,11 @@ import sys
 import tempfile
 import unittest
 
+try:
+    import resource
+except ImportError:  # Windows has no POSIX resource limits.
+    resource = None
+
 from playwright.sync_api import Error, expect
 
 import browser_lab as base
@@ -32,6 +37,52 @@ OBSERVATIONS = {}
 
 class ReleaseBrowser(ProgressionBrowser):
     """Only test_release_* methods are selected by this file's runner."""
+
+    @classmethod
+    def setUpClass(cls):
+        # Deliberate crash tests must not create memory dumps or wait for a large
+        # dump to finish before Chromium reports renderer termination. Configure
+        # this before Playwright launches its driver and browser child processes.
+        cls.original_core_limit = None
+        diagnostics = {'resource_limits_supported': resource is not None}
+        if resource is not None:
+            cls.original_core_limit = resource.getrlimit(resource.RLIMIT_CORE)
+            resource.setrlimit(resource.RLIMIT_CORE, (0, cls.original_core_limit[1]))
+            diagnostics.update({
+                'original': list(cls.original_core_limit),
+                'effective': list(resource.getrlimit(resource.RLIMIT_CORE)),
+                'python_child': json.loads(subprocess.check_output([
+                    sys.executable, '-c',
+                    'import json,resource; print(json.dumps(resource.getrlimit(resource.RLIMIT_CORE)))'], text=True))})
+        OBSERVATIONS['crash_core_limits'] = diagnostics
+        print('Crash harness core limits: ' + json.dumps(diagnostics), flush=True)
+        try:
+            super().setUpClass()
+            # On Linux, verify the browser actually inherited the same limit.
+            # This is diagnostic only; the actual crash event is always required.
+            session = cls.browser.new_browser_cdp_session()
+            try:
+                processes = session.send('SystemInfo.getProcessInfo')['processInfo']
+                browser_pid = next(process['id'] for process in processes if process['type'] == 'browser')
+                limits = Path(f'/proc/{browser_pid}/limits')
+                diagnostics['browser_core_limit'] = next(
+                    (line.strip() for line in limits.read_text().splitlines() if line.startswith('Max core file size')),
+                    'unavailable') if limits.exists() else 'unavailable on this platform'
+                print('Crash harness browser limit: ' + diagnostics['browser_core_limit'], flush=True)
+            finally:
+                session.detach()
+        except BaseException:
+            if cls.original_core_limit is not None:
+                resource.setrlimit(resource.RLIMIT_CORE, cls.original_core_limit)
+            raise
+
+    @classmethod
+    def tearDownClass(cls):
+        try:
+            super().tearDownClass()
+        finally:
+            if cls.original_core_limit is not None:
+                resource.setrlimit(resource.RLIMIT_CORE, cls.original_core_limit)
 
     def open(self, page=None):
         page = super().open(page)
@@ -373,13 +424,29 @@ class ReleaseBrowser(ProgressionBrowser):
         target_id = target_session.send('Target.getTargetInfo')['targetInfo']['targetId']
         target_session.detach()
         browser_session = self.browser.new_browser_cdp_session()
+        crash_messages, target_crashes = [], []
         try:
+            def target_crashed(event):
+                if event.get('targetId') == target_id:
+                    target_crashes.append({'status': event.get('status'), 'errorCode': event.get('errorCode')})
+            browser_session.on('Target.targetCrashed', target_crashed)
+            browser_session.send('Target.setDiscoverTargets', {'discover': True})
             attached = browser_session.send('Target.attachToTarget', {'targetId': target_id, 'flatten': False})
+            def received(message):
+                if message.get('sessionId') == attached['sessionId']:
+                    payload = json.loads(message['message'])
+                    if payload.get('id') == 1 or payload.get('method') == 'Inspector.targetCrashed':
+                        crash_messages.append(payload)
+            browser_session.on('Target.receivedMessageFromTarget', received)
             with page.expect_event('crash', timeout=5000):
                 browser_session.send('Target.sendMessageToTarget', {
                     'sessionId': attached['sessionId'],
                     'message': json.dumps({'id': 1, 'method': 'Page.crash'})})
         finally:
+            OBSERVATIONS['crash_protocol_messages'] = crash_messages
+            OBSERVATIONS['crash_target_events'] = target_crashes
+            print('Crash harness protocol messages: ' + json.dumps(crash_messages), flush=True)
+            print('Crash harness target events: ' + json.dumps(target_crashes), flush=True)
             browser_session.detach()
         recovered = self.watch_page(page.context.new_page())
         self.open(recovered)
