@@ -1,0 +1,61 @@
+CI run: https://github.com/blockaystudio/wonder-lab-adventures/actions/runs/40295288321
+Head: b37302139e9b4ea06ea60fbbc26010b066e44e1d
+Verifier, generated pages, existing 17+12 and 15/16 release checks passed.
+Core limits were already zero; this does not explain the crash-event timeout.
+Neither CDP target crash notifications nor Playwright crash event arrived.
+
+##[group]Run python tests/browser_release.py
+2026-10-26T08:53:36.1350861Z [36;1mpython tests/browser_release.py[0m
+2026-10-26T08:53:36.1402046Z shell: /usr/bin/bash -e {0}
+2026-10-26T08:53:36.1402192Z env:
+2026-10-26T08:53:36.1402346Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:53:36.1402587Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.5/x64/lib/pkgconfig
+2026-10-26T08:53:36.1402822Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:53:36.1403029Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:53:36.1403234Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.5/x64
+2026-10-26T08:53:36.1403441Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.5/x64/lib
+2026-10-26T08:53:36.1403622Z ##[endgroup]
+2026-10-26T08:53:36.2536086Z Crash harness core limits: {"resource_limits_supported": true, "original": [0, -1], "effective": [0, -1], "python_child": [0, -1]}
+2026-10-26T08:53:36.6233108Z Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5
+2026-10-26T08:53:36.6248008Z Crash harness browser limit: Max core file size        0                    unlimited            bytes
+2026-10-26T08:53:37.9029592Z test_release_backup_delete_failure_is_visible_and_retryable (__main__.ReleaseBrowser.test_release_backup_delete_failure_is_visible_and_retryable) ... ok
+2026-10-26T08:53:38.7702437Z test_release_conflicting_mirror_changes_refresh_and_can_retry (__main__.ReleaseBrowser.test_release_conflicting_mirror_changes_refresh_and_can_retry) ... ok
+2026-10-26T08:53:40.0247795Z test_release_erasure_invalidates_stale_tab (__main__.ReleaseBrowser.test_release_erasure_invalidates_stale_tab) ... ok
+2026-10-26T08:53:40.4133886Z test_release_offline_continuation_and_cold_start_are_distinct (__main__.ReleaseBrowser.test_release_offline_continuation_and_cold_start_are_distinct) ... ok
+2026-10-26T08:53:41.5535502Z test_release_page_close_during_unfinished_experiment_recovers_last_action (__main__.ReleaseBrowser.test_release_page_close_during_unfinished_experiment_recovers_last_action) ... ok
+2026-10-26T08:53:42.5441507Z test_release_persistent_browser_close_relaunch (__main__.ReleaseBrowser.test_release_persistent_browser_close_relaunch) ... ok
+2026-10-26T08:53:47.6459231Z test_release_phone_tablet_targets_and_reduced_motion (__main__.ReleaseBrowser.test_release_phone_tablet_targets_and_reduced_motion) ... ok
+2026-10-26T08:53:47.8913414Z test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order (__main__.ReleaseBrowser.test_release_puzzle_keyboard_selection_keeps_focus_and_tab_order) ... ok
+2026-10-26T08:53:48.9871108Z test_release_queued_erase_invalidates_waiting_native_writer (__main__.ReleaseBrowser.test_release_queued_erase_invalidates_waiting_native_writer) ... ok
+2026-10-26T08:53:49.6797176Z test_release_queued_native_lock_writers_keep_both_solves (__main__.ReleaseBrowser.test_release_queued_native_lock_writers_keep_both_solves) ... ok
+2026-10-26T08:53:55.3316686Z Crash harness protocol messages: []
+2026-10-26T08:53:55.3324408Z Crash harness target events: []
+2026-10-26T08:53:55.3337867Z test_release_renderer_crash_recovers_committed_progress (__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress) ... ERROR
+2026-10-26T08:53:56.2676259Z test_release_rollback_round_trip_preserves_progression (__main__.ReleaseBrowser.test_release_rollback_round_trip_preserves_progression) ... ok
+2026-10-26T08:53:57.4188536Z test_release_stale_tab_cannot_overwrite_earned_progress (__main__.ReleaseBrowser.test_release_stale_tab_cannot_overwrite_earned_progress) ... ok
+2026-10-26T08:53:57.8767346Z test_release_stale_trace_after_other_tab_selects_another_puzzle (__main__.ReleaseBrowser.test_release_stale_trace_after_other_tab_selects_another_puzzle) ... ok
+2026-10-26T08:53:58.6082206Z test_release_two_tabs_keep_both_puzzle_discoveries (__main__.ReleaseBrowser.test_release_two_tabs_keep_both_puzzle_discoveries) ... ok
+2026-10-26T08:53:58.8436181Z test_release_without_write_locks_is_explicitly_visit_only (__main__.ReleaseBrowser.test_release_without_write_locks_is_explicitly_visit_only) ... ok
+2026-10-26T08:53:58.8774924Z
+2026-10-26T08:53:58.8775399Z ======================================================================
+2026-10-26T08:53:58.8775917Z ERROR: test_release_renderer_crash_recovers_committed_progress (__main__.ReleaseBrowser.test_release_renderer_crash_recovers_committed_progress)
+2026-10-26T08:53:58.8776330Z ----------------------------------------------------------------------
+2026-10-26T08:53:58.8776551Z Traceback (most recent call last):
+2026-10-26T08:53:58.8777757Z   File "/home/runner/work/wonder-lab-adventures/wonder-lab-adventures/tests/browser_release.py", line 441, in test_release_renderer_crash_recovers_committed_progress
+2026-10-26T08:53:58.8778190Z     with page.expect_event('crash', timeout=5000):
+2026-10-26T08:53:58.8778389Z          ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-26T08:53:58.8778797Z   File "/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 85, in __exit__
+2026-10-26T08:53:58.8779113Z     self._event.value
+2026-10-26T08:53:58.8779422Z   File "/opt/hostedtoolcache/Python/3.13.5/x64/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 59, in value
+2026-10-26T08:53:58.8779715Z     raise exception
+2026-10-26T08:53:58.8779998Z playwright._impl._errors.TimeoutError: Timeout 5000ms exceeded while waiting for event "crash"
+2026-10-26T08:53:58.8780290Z =========================== logs ===========================
+2026-10-26T08:53:58.8780467Z waiting for event "crash"
+2026-10-26T08:53:58.8780642Z ============================================================
+2026-10-26T08:53:58.8780750Z
+2026-10-26T08:53:58.8780872Z ----------------------------------------------------------------------
+2026-10-26T08:53:58.8781060Z Ran 16 tests in 22.638s
+2026-10-26T08:53:58.8781139Z
+2026-10-26T08:53:58.8781194Z FAILED (errors=1)
+2026-10-26T08:53:58.9063602Z ##[error]Process completed with exit code 1.
+2026-10-26T08:53:58.9150948Z

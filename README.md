@@ -44,7 +44,9 @@ real localStorage, and writes JSON results/screenshots to `test-results/browser-
 scenarios deliberately deny storage; successful persistence uses the browser's own storage.
 
 The release suite needs Git history including `80e86ad` to test the actual older
-build (use a full checkout). Safe cross-tab persistence requires Web Locks on
+build (use a full checkout). Its deliberate renderer-process termination check
+requires Linux `/proc` to verify that only the dedicated test browser is affected.
+Safe cross-tab persistence requires Web Locks on
 HTTPS or localhost; unsupported contexts explicitly use visit-only progress.
 Continued loaded play works offline, but cold HTTP launch/reload is not an
 offline-startup guarantee. See `docs/RELEASE01_DEVICE_CHECKLIST.md` for blockers.

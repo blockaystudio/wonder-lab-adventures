@@ -98,3 +98,9 @@
   disables core dumps before launching Chromium, records inherited limits and
   direct crash diagnostics, and keeps the same actual-event/recovery assertions.
   The prior logs do not establish a root cause; no false crash pass is accepted.
+
+- Third CI diagnostics confirmed core limits already zero, ruling out that
+  hypothesis. Removed the core-limit workaround. The final interruption check
+  terminates only renderer PIDs supplied by a dedicated test browser, verifies
+  Linux process ancestry, requires its real crash event, and checks exact recovery.
+  This test harness requires Linux `/proc`; production game behavior is unchanged.

@@ -14,15 +14,11 @@ import json
 import os
 from pathlib import Path
 import re
+import signal
 import subprocess
 import sys
 import tempfile
 import unittest
-
-try:
-    import resource
-except ImportError:  # Windows has no POSIX resource limits.
-    resource = None
 
 from playwright.sync_api import Error, expect
 
@@ -37,52 +33,6 @@ OBSERVATIONS = {}
 
 class ReleaseBrowser(ProgressionBrowser):
     """Only test_release_* methods are selected by this file's runner."""
-
-    @classmethod
-    def setUpClass(cls):
-        # Deliberate crash tests must not create memory dumps or wait for a large
-        # dump to finish before Chromium reports renderer termination. Configure
-        # this before Playwright launches its driver and browser child processes.
-        cls.original_core_limit = None
-        diagnostics = {'resource_limits_supported': resource is not None}
-        if resource is not None:
-            cls.original_core_limit = resource.getrlimit(resource.RLIMIT_CORE)
-            resource.setrlimit(resource.RLIMIT_CORE, (0, cls.original_core_limit[1]))
-            diagnostics.update({
-                'original': list(cls.original_core_limit),
-                'effective': list(resource.getrlimit(resource.RLIMIT_CORE)),
-                'python_child': json.loads(subprocess.check_output([
-                    sys.executable, '-c',
-                    'import json,resource; print(json.dumps(resource.getrlimit(resource.RLIMIT_CORE)))'], text=True))})
-        OBSERVATIONS['crash_core_limits'] = diagnostics
-        print('Crash harness core limits: ' + json.dumps(diagnostics), flush=True)
-        try:
-            super().setUpClass()
-            # On Linux, verify the browser actually inherited the same limit.
-            # This is diagnostic only; the actual crash event is always required.
-            session = cls.browser.new_browser_cdp_session()
-            try:
-                processes = session.send('SystemInfo.getProcessInfo')['processInfo']
-                browser_pid = next(process['id'] for process in processes if process['type'] == 'browser')
-                limits = Path(f'/proc/{browser_pid}/limits')
-                diagnostics['browser_core_limit'] = next(
-                    (line.strip() for line in limits.read_text().splitlines() if line.startswith('Max core file size')),
-                    'unavailable') if limits.exists() else 'unavailable on this platform'
-                print('Crash harness browser limit: ' + diagnostics['browser_core_limit'], flush=True)
-            finally:
-                session.detach()
-        except BaseException:
-            if cls.original_core_limit is not None:
-                resource.setrlimit(resource.RLIMIT_CORE, cls.original_core_limit)
-            raise
-
-    @classmethod
-    def tearDownClass(cls):
-        try:
-            super().tearDownClass()
-        finally:
-            if cls.original_core_limit is not None:
-                resource.setrlimit(resource.RLIMIT_CORE, cls.original_core_limit)
 
     def open(self, page=None):
         page = super().open(page)
@@ -413,50 +363,63 @@ class ReleaseBrowser(ProgressionBrowser):
                                                  'last_rotation_recovered': True}
 
     def test_release_renderer_crash_recovers_committed_progress(self):
-        page = self.open()
-        self.earn_review_and_goggles(page)
-        before = self.data(page)
-        # Debug-URL navigation can be disabled by the browser environment.
-        # Send Page.crash through a separate non-flattened target session: the
-        # outer command acknowledges delivery without awaiting the reply from
-        # the renderer it just killed. Still require the real crash event.
-        target_session = page.context.new_cdp_session(page)
-        target_id = target_session.send('Target.getTargetInfo')['targetInfo']['targetId']
-        target_session.detach()
-        browser_session = self.browser.new_browser_cdp_session()
-        crash_messages, target_crashes = [], []
+        self.assertEqual(sys.platform, 'linux', 'This interruption check requires Linux process ancestry verification')
+        options = {'headless': True, 'args': ['--no-sandbox']}
+        if os.environ.get('CHROMIUM_EXECUTABLE'):
+            options['executable_path'] = os.environ['CHROMIUM_EXECUTABLE']
+        # This browser belongs only to this test and has one context/page. Query
+        # its own CDP process list, then verify renderer ancestry before sending
+        # a signal. Never select processes by name or affect another browser.
+        dedicated = self.playwright.chromium.launch(**options)
         try:
-            def target_crashed(event):
-                if event.get('targetId') == target_id:
-                    target_crashes.append({'status': event.get('status'), 'errorCode': event.get('errorCode')})
-            browser_session.on('Target.targetCrashed', target_crashed)
-            browser_session.send('Target.setDiscoverTargets', {'discover': True})
-            attached = browser_session.send('Target.attachToTarget', {'targetId': target_id, 'flatten': False})
-            def received(message):
-                if message.get('sessionId') == attached['sessionId']:
-                    payload = json.loads(message['message'])
-                    if payload.get('id') == 1 or payload.get('method') == 'Inspector.targetCrashed':
-                        crash_messages.append(payload)
-            browser_session.on('Target.receivedMessageFromTarget', received)
+            context = self.watch_context(dedicated.new_context(reduced_motion='reduce'))
+            page = self.watch_page(context.new_page())
+            self.open(page)
+            self.earn_review_and_goggles(page)
+            before = self.data(page)
+            session = dedicated.new_browser_cdp_session()
+            processes = session.send('SystemInfo.getProcessInfo')['processInfo']
+            browser_pid = int(next(process['id'] for process in processes if process['type'] == 'browser'))
+            renderers = [int(process['id']) for process in processes if process['type'] == 'renderer']
+            self.assertTrue(renderers, 'The dedicated browser must expose its renderer process')
+
+            def owned_renderer(pid):
+                seen = set()
+                while pid > 1 and pid not in seen:
+                    if pid == browser_pid:
+                        return True
+                    seen.add(pid)
+                    status = Path(f'/proc/{pid}/status').read_text()
+                    pid = int(re.search(r'^PPid:\s+(\d+)', status, re.M)[1])
+                return False
+
+            for pid in renderers:
+                self.assertTrue(owned_renderer(pid), 'Only a renderer descended from this dedicated test browser may be killed')
+            killed = 0
             with page.expect_event('crash', timeout=5000):
-                browser_session.send('Target.sendMessageToTarget', {
-                    'sessionId': attached['sessionId'],
-                    'message': json.dumps({'id': 1, 'method': 'Page.crash'})})
+                for pid in renderers:
+                    try:
+                        os.kill(pid, signal.SIGKILL)
+                        killed += 1
+                    except ProcessLookupError:
+                        pass  # A spare renderer may have exited independently.
+            self.assertGreater(killed, 0)
+            recovered = self.watch_page(context.new_page())
+            self.open(recovered)
+            after = self.data(recovered)
+            self.assertEqual({key: value for key, value in after.items() if key != 'visits'},
+                             {key: value for key, value in before.items() if key != 'visits'})
+            self.assertEqual(after['visits'], before['visits'] + 1)
+            self.assertEqual(self.points(recovered), 30)
+            OBSERVATIONS['renderer_crash'] = {
+                'trigger': 'SIGKILL of verified dedicated-browser renderer descendants',
+                'renderer_processes_terminated': killed, 'crash_event_observed': True,
+                'committed_progress_recovered': True,
+                'limit': 'Linux Chromium renderer-process termination, not OS power loss or mobile process eviction'}
+            print('Renderer interruption: ' + json.dumps(OBSERVATIONS['renderer_crash']), flush=True)
+            session.detach()
         finally:
-            OBSERVATIONS['crash_protocol_messages'] = crash_messages
-            OBSERVATIONS['crash_target_events'] = target_crashes
-            print('Crash harness protocol messages: ' + json.dumps(crash_messages), flush=True)
-            print('Crash harness target events: ' + json.dumps(target_crashes), flush=True)
-            browser_session.detach()
-        recovered = self.watch_page(page.context.new_page())
-        self.open(recovered)
-        after = self.data(recovered)
-        self.assertEqual(after['solved'], before['solved'])
-        self.assertEqual(after['progress'], before['progress'])
-        self.assertEqual(self.points(recovered), 30)
-        OBSERVATIONS['renderer_crash'] = {'trigger': 'CDP Page.crash via non-flattened Target session',
-                                          'crash_event_observed': True, 'committed_progress_recovered': True,
-                                          'limit': 'Chromium renderer crash, not OS power loss or mobile process eviction'}
+            dedicated.close()
 
     def test_release_without_write_locks_is_explicitly_visit_only(self):
         page = self.page

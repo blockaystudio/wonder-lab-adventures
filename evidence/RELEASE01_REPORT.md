@@ -119,19 +119,21 @@ environment; direct suite runs above additionally record each individual check.
 Existing browser assertions were preserved. Input/read helpers now await the
 visible completed-save state before checking asynchronous results. CI includes
 all three browser suites and full Git history for the real old-build rollback
-fixture. The first remote run passed the verifier and existing 17 + 12 browser suites,
-but its intentional `chrome://crash` navigation produced no crash event on the
-runner. The test now sends Chromium's explicit `Page.crash` command through a
-separate target session, avoiding a command that waits for its own crashed target.
-It still requires an actual crash event and full saved-progress recovery; no
-assertion was skipped or weakened. The second CI attempt also reached the crash
-event deadline; [both](release01/ci-first-run.txt) [failures](release01/ci-second-run.txt)
-are preserved. The harness now explicitly disables core dumps before launching
-Chromium and records original/effective/inherited limits plus direct CDP crash
-diagnostics. This avoids memory dumps during intentional crashes; the earlier
-logs alone do not establish that dump handling caused the timeout.
-The current remote run result/link is recorded on PR #3; local passes alone do
-not establish CI success.
+fixture. Three initial CI attempts passed the verifier, existing browser suites and 15
+release checks, but Chromium's internal deliberate-crash triggers did not emit
+an observable crash event on the runner. Explicit core-limit diagnostics ruled
+out the proposed dump-limit explanation. Original logs are retained:
+[first](release01/ci-first-run.txt), [second](release01/ci-second-run.txt),
+[third](release01/ci-third-run.txt).
+
+The final interruption test launches a dedicated browser, obtains renderer PIDs
+from that browser's CDP connection, verifies their Linux process ancestry, then
+terminates only those test-owned renderers with SIGKILL. It still requires the
+actual Playwright crash event and exact saved-progress recovery; no assertion is
+skipped or weakened. This process-termination check currently requires Linux
+`/proc`; it does not claim a portable device-kill implementation. The obsolete
+core-limit workaround was removed. Current remote run outcome/link is recorded
+on PR #3; local passes alone do not establish CI success.
 
 The new suite uses real HTTP-origin localStorage, fresh contexts and native
 Web Locks. It queues simultaneous writers behind a held browser lock and verifies
@@ -141,7 +143,7 @@ reject, refresh and can be retried. Actual `80e86ad` HTML is served at the same
 origin for rollback, rather than simulating an old normalizer as browser proof.
 
 Persistent Chromium profile close/relaunch retains 30 Sparks, review, equipment,
-orientations and the solved beam. A deliberate renderer crash recovers committed
+orientations and the solved beam. An abrupt renderer-process termination recovers committed
 progress; closing an unfinished experiment recovers its last committed rotation
 without inventing a solve. Injected write/delete failures test interrupted save
 and erase ordering. These do not certify OS power loss, storage eviction or a
