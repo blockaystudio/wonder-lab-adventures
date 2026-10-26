@@ -127,7 +127,7 @@ out the proposed dump-limit explanation. Original logs are retained:
 [third](release01/ci-third-run.txt).
 
 The final interruption test launches a dedicated browser, obtains renderer PIDs
-from that browser's CDP connection, verifies their Linux process ancestry, then
+from that browser's CDP connection, verifies their Linux process ancestry, pins their identity using pidfds, then
 terminates only those test-owned renderers with SIGKILL. It still requires the
 actual Playwright crash event and exact saved-progress recovery; no assertion is
 skipped or weakened. This process-termination check currently requires Linux

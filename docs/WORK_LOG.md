@@ -104,3 +104,8 @@
   terminates only renderer PIDs supplied by a dedicated test browser, verifies
   Linux process ancestry, requires its real crash event, and checks exact recovery.
   This test harness requires Linux `/proc`; production game behavior is unchanged.
+
+- CI run 40296379011 passed the verifier and all three browser suites on
+  `fffeafc`. Final review then pinned renderer identities with Linux pidfds to
+  close the ancestry-check/signal PID-reuse window. All 16 release tests passed
+  locally again; the final head's CI result is linked on PR #3.

@@ -393,17 +393,37 @@ class ReleaseBrowser(ProgressionBrowser):
                     pid = int(re.search(r'^PPid:\s+(\d+)', status, re.M)[1])
                 return False
 
-            for pid in renderers:
-                self.assertTrue(owned_renderer(pid), 'Only a renderer descended from this dedicated test browser may be killed')
+            handles = []
             killed = 0
-            with page.expect_event('crash', timeout=5000):
+            try:
                 for pid in renderers:
                     try:
-                        os.kill(pid, signal.SIGKILL)
-                        killed += 1
+                        handle = os.pidfd_open(pid)
                     except ProcessLookupError:
-                        pass  # A spare renderer may have exited independently.
-            self.assertGreater(killed, 0)
+                        continue  # A spare renderer may have exited independently.
+                    try:
+                        self.assertTrue(owned_renderer(pid), 'Only a renderer descended from this dedicated test browser may be killed')
+                    except FileNotFoundError:
+                        os.close(handle)
+                        continue
+                    except BaseException:
+                        os.close(handle)
+                        raise
+                    handles.append(handle)
+                self.assertTrue(handles, 'At least one verified renderer must still exist')
+                # A pidfd pins process identity across the ancestry check and
+                # signal, so PID reuse cannot target an unrelated process.
+                with page.expect_event('crash', timeout=5000):
+                    for handle in handles:
+                        try:
+                            signal.pidfd_send_signal(handle, signal.SIGKILL)
+                            killed += 1
+                        except ProcessLookupError:
+                            pass
+                self.assertGreater(killed, 0)
+            finally:
+                for handle in handles:
+                    os.close(handle)
             recovered = self.watch_page(context.new_page())
             self.open(recovered)
             after = self.data(recovered)
@@ -412,7 +432,7 @@ class ReleaseBrowser(ProgressionBrowser):
             self.assertEqual(after['visits'], before['visits'] + 1)
             self.assertEqual(self.points(recovered), 30)
             OBSERVATIONS['renderer_crash'] = {
-                'trigger': 'SIGKILL of verified dedicated-browser renderer descendants',
+                'trigger': 'SIGKILL via pidfd of verified dedicated-browser renderer descendants',
                 'renderer_processes_terminated': killed, 'crash_event_observed': True,
                 'committed_progress_recovered': True,
                 'limit': 'Linux Chromium renderer-process termination, not OS power loss or mobile process eviction'}

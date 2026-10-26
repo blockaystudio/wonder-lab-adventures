@@ -45,7 +45,7 @@ scenarios deliberately deny storage; successful persistence uses the browser's o
 
 The release suite needs Git history including `80e86ad` to test the actual older
 build (use a full checkout). Its deliberate renderer-process termination check
-requires Linux `/proc` to verify that only the dedicated test browser is affected.
+requires Linux `/proc` and pidfds to verify that only the dedicated test browser is affected.
 Safe cross-tab persistence requires Web Locks on
 HTTPS or localhost; unsupported contexts explicitly use visit-only progress.
 Continued loaded play works offline, but cold HTTP launch/reload is not an
