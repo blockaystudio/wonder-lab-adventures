@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: Catalog has six original concept rewards, four cosmetics, two themes and one companion
+ok 1 - Catalog has six original concept rewards, four cosmetics, two themes and one companion
+  ---
+  duration_ms: 3.605226
+  type: 'test'
+  ...
+# Subtest: Fresh progress has no rewards, shared references or editable point balance
+ok 2 - Fresh progress has no rewards, shared references or editable point balance
+  ---
+  duration_ms: 1.281133
+  type: 'test'
+  ...
+# Subtest: First distinct failed experiment earns two sparks; repetition cannot farm
+ok 3 - First distinct failed experiment earns two sparks; repetition cannot farm
+  ---
+  duration_ms: 22.942721
+  type: 'test'
+  ...
+# Subtest: First solve independently verifies ray and awards solve, trace, concept card and goggles
+ok 4 - First solve independently verifies ray and awards solve, trace, concept card and goggles
+  ---
+  duration_ms: 0.422908
+  type: 'test'
+  ...
+# Subtest: Three solved puzzles grant one section bonus, independent of solve order
+ok 5 - Three solved puzzles grant one section bonus, independent of solve order
+  ---
+  duration_ms: 0.35143
+  type: 'test'
+  ...
+# Subtest: Explorer card compare requires 3 distinct arrangements, not repeated sends
+ok 6 - Explorer card compare requires 3 distinct arrangements, not repeated sends
+  ---
+  duration_ms: 0.706472
+  type: 'test'
+  ...
+# Subtest: Explorer card angle requires 3 distinct arrangements, not repeated sends
+ok 7 - Explorer card angle requires 3 distinct arrangements, not repeated sends
+  ---
+  duration_ms: 1.154611
+  type: 'test'
+  ...
+# Subtest: Explorer card model requires 5 distinct arrangements, not repeated sends
+ok 8 - Explorer card model requires 5 distinct arrangements, not repeated sends
+  ---
+  duration_ms: 0.852933
+  type: 'test'
+  ...
+# Subtest: Card reviews are available only after discovery and award once per card
+ok 9 - Card reviews are available only after discovery and award once per card
+  ---
+  duration_ms: 0.71094
+  type: 'test'
+  ...
+# Subtest: Replays require changing or resetting a previously solved experiment and award only once
+ok 10 - Replays require changing or resetting a previously solved experiment and award only once
+  ---
+  duration_ms: 0.83067
+  type: 'test'
+  ...
+# Subtest: Failed replay experiment does not consume replay readiness
+ok 11 - Failed replay experiment does not consume replay readiness
+  ---
+  duration_ms: 0.543724
+  type: 'test'
+  ...
+# Subtest: All rewards are reachable with the three puzzles at a finite maximum of 188 sparks
+ok 12 - All rewards are reachable with the three puzzles at a finite maximum of 188 sparks
+  ---
+  duration_ms: 4.379579
+  type: 'test'
+  ...
+# Subtest: Nova requires both its displayed sparks threshold and collection/review conditions
+ok 13 - Nova requires both its displayed sparks threshold and collection/review conditions
+  ---
+  duration_ms: 1.811187
+  type: 'test'
+  ...
+# Subtest: Locked rewards cannot be equipped and available slots stay independent
+ok 14 - Locked rewards cannot be equipped and available slots stay independent
+  ---
+  duration_ms: 2.346245
+  type: 'test'
+  ...
+# Subtest: Legacy saves retain discoveries, attempts, orientations and motion while receiving earned rewards
+ok 15 - Legacy saves retain discoveries, attempts, orientations and motion while receiving earned rewards
+  ---
+  duration_ms: 0.402957
+  type: 'test'
+  ...
+# Subtest: Same v1 LocalSave key round-trips progression, unlocks and all equipment slots
+ok 16 - Same v1 LocalSave key round-trips progression, unlocks and all equipment slots
+  ---
+  duration_ms: 3.066718
+  type: 'test'
+  ...
+# Subtest: Legacy v1 envelope migrates through LocalSave without replacing the save key
+ok 17 - Legacy v1 envelope migrates through LocalSave without replacing the save key
+  ---
+  duration_ms: 0.241197
+  type: 'test'
+  ...
+# Subtest: Corrupted primary recovers full progression and cosmetics from the valid backup
+ok 18 - Corrupted primary recovers full progression and cosmetics from the valid backup
+  ---
+  duration_ms: 2.881738
+  type: 'test'
+  ...
+# Subtest: Malformed facts are bounded, deduplicated and filtered; fabricated balances and unlocks are ignored
+ok 19 - Malformed facts are bounded, deduplicated and filtered; fabricated balances and unlocks are ignored
+  ---
+  duration_ms: 0.665025
+  type: 'test'
+  ...
+# Subtest: Normalization rejects reviews/replays/selected items without the prerequisite facts
+ok 20 - Normalization rejects reviews/replays/selected items without the prerequisite facts
+  ---
+  duration_ms: 0.227343
+  type: 'test'
+  ...
+# Subtest: Unknown progression versions reset only progression, preserving existing solved discoveries
+ok 21 - Unknown progression versions reset only progression, preserving existing solved discoveries
+  ---
+  duration_ms: 0.248918
+  type: 'test'
+  ...
+# Subtest: Invalid trace and review events neither grant points nor mutate valid state
+ok 22 - Invalid trace and review events neither grant points nor mutate valid state
+  ---
+  duration_ms: 0.347993
+  type: 'test'
+  ...
+# Subtest: Hints and attempt counts have no effect on sparks, cards, unlocks or finite goals
+ok 23 - Hints and attempt counts have no effect on sparks, cards, unlocks or finite goals
+  ---
+  duration_ms: 5.214787
+  type: 'test'
+  ...
+# Subtest: All-progress replay and new browser visits cannot mint more points or reset earned collections
+ok 24 - All-progress replay and new browser visits cannot mint more points or reset earned collections
+  ---
+  duration_ms: 14.906309
+  type: 'test'
+  ...
+# Subtest: Unavailable storage remains playable in memory and reset removes the complete progression
+ok 25 - Unavailable storage remains playable in memory and reset removes the complete progression
+  ---
+  duration_ms: 2.097127
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91.296159

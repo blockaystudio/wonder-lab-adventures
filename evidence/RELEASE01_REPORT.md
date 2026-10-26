@@ -90,7 +90,11 @@ Using the same PATH, isolated environment and browser-path settings above:
 
 ```sh
 python scripts/verify.py
-node --test tests/save.test.cjs
+node tests/core.test.cjs
+node tests/remote.test.cjs
+node tests/lab.test.cjs
+node tests/progression.test.cjs
+node tests/save.test.cjs
 python tests/browser_lab.py --output evidence/release01/browser-lab
 python tests/browser_progression.py --output evidence/release01/browser-progression
 python tests/browser_release.py --output evidence/release01/browser
@@ -101,13 +105,15 @@ git diff --check
 | Check | Actual result | Evidence |
 |---|---|---|
 | Build, syntax, metadata, generated-page equality and disabled network policy | PASS | [final verifier](release01/final-verifier.txt) |
-| Node suites | 131 PASS: 51 core + 12 remote + 18 puzzle + 25 progression + 25 save | Same verifier; [new save-model TAP](release01/save-model.tap) |
+| Node suites | 131 PASS: 51 core + 12 remote + 18 puzzle + 25 progression + 25 save | [core](release01/core-model.tap), [remote](release01/remote-model.tap), [puzzle](release01/lab-model.tap), [progression](release01/progression-model.tap), [save](release01/save-model.tap) |
 | Python signer | 6 PASS | Same verifier |
 | Existing puzzle browser | 17/17 PASS | [log](release01/final-browser-lab.txt), [JSON](release01/browser-lab/results.json) |
 | Existing progression browser | 12/12 PASS | [log](release01/final-browser-progression.txt), [JSON](release01/browser-progression/results.json) |
 | New release browser | 16/16 PASS | [log](release01/browser.txt), [JSON](release01/browser/results.json) |
 | Normal browser console/page errors and unexpected requests | Zero observed | Browser reports; expected crash/offline diagnostics separated |
 
+The verifier's Node test runner reports file-level aggregate results in this
+environment; direct suite runs above additionally record each individual check.
 Existing browser assertions were preserved. Input/read helpers now await the
 visible completed-save state before checking asynchronous results. CI includes
 all three browser suites and full Git history for the real old-build rollback
