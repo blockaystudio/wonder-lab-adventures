@@ -48,3 +48,23 @@ Browser prototypes were used to make the three core loops immediately inspectabl
 
 ## Completion convention
 “Done” means a tangible artifact exists with the stated verification. “Tested” only means the evidence described in the report. A prototype screenshot, HTML page, signing utility or green unit test is never evidence of store acceptance, legal compliance, product-market fit or revenue.
+
+## 2026-10-25 — Wonder Lab Adventures OPT-01 checkpoint
+
+This repository contains Wonder Lab Adventures only. Earlier portfolio rows and
+absence-of-repository statements above are historical preparation context.
+
+| Task | State | Actual evidence |
+|---|---|---|
+| Verify existing source and baseline | Verified | main `12716c4`; clean `codex/lab-opt01`; baseline verifier passed |
+| Prove three puzzle solutions and bounded failure paths | Verified | `tests/lab.test.cjs`: independent oracle across all 24 arrangements; 18 passing tests |
+| Complete HTTP-origin input/discovery/reload loop | Verified automated | `tests/browser_lab.py`: 17 passing Chromium methods, all 3 puzzles × mouse/touch/keyboard |
+| Repair reproduced discovery-flow defects | Verified automated | stale hint/win feedback, saved beam restoration, noncolor route text, 44 px controls |
+| Generated pages and model/policy/signer checks | Verified | 81 Node + 6 Python checks; `python scripts/verify.py` passes |
+| Child usability, physical devices, learning outcomes | Not tested | Separate supervised/device milestones remain |
+
+Full evidence, actual screenshots, commands and limitations:
+`evidence/OPT01_REPORT.md`. OPT-01 implementation is ready for owner review;
+no merge/publication authorization is assumed. Keep clearer onboarding, deeper
+hints, further path readability, discovery-book presentation, measured performance,
+original final storefront art and native Godot implementation in the backlog.

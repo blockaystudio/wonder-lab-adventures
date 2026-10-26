@@ -24,3 +24,13 @@ reviewable PR. Do not merge, publish, activate monetization, or rewrite the engi
 Run OPT-02 in a separate task after review. Repeat for bounded tasks; no endless
 "optimize everything" loop and no automatic public release. Synthetic tests do
 not establish retention or purchase intent.
+
+## 2026-10-25 checkpoint
+
+OPT-01 implemented and locally verified; pending owner review. See
+`evidence/OPT01_REPORT.md` for exact baseline failures, fixes, 81 model/policy
+checks, 6 signer tests, 17 browser methods and actual screenshots. The requested
+correctness/discovery scope included targeted input, hints, save failures and
+small-screen regressions; this does not complete the broader OPT-02/03/05
+backlog. Clearer onboarding, richer hints, book presentation, measured performance,
+original final art and native Godot remain separate tasks. Stop after this PR.

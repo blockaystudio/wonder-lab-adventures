@@ -1,0 +1,79 @@
+{
+  "browser": "154.0.8037.57",
+  "python": "3.13.5",
+  "tests_run": 17,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "results": [
+    {
+      "test": "__main__.BrowserLab.test_fresh_context_has_no_saved_profile",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_hint_text_clears_on_reset",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_hint_text_matches_current_puzzle_and_rotation",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_keyboard_space_and_focus_survive_repeated_rotations",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_local_attempt_hint_and_reset",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_keyboard_all_three_puzzles",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_mouse_all_three_puzzles",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_touch_all_three_puzzles",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_malformed_unknown_and_invalid_saves",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_next_puzzle_resets_feedback",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_noncolor_path_description_and_reduced_motion",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_phone_tablet_layout_and_controls",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_play_continues_when_browser_is_offline",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_rotation_clears_stale_win_but_keeps_discovery",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_storage_quota_failure_remains_playable",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_unavailable_storage_remains_playable",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_valid_backup_recovers_discovery",
+      "status": "passed"
+    }
+  ],
+  "limits": "Desktop headless Chromium and emulated touch only. No physical device, child usability or learning-outcome testing."
+}

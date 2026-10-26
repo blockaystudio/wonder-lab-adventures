@@ -27,7 +27,7 @@ def main():
             ast.parse(p.read_text(encoding='utf-8'),filename=str(p))
     for p in sorted((ROOT/'storefronts').glob('*.json')):
         json.loads(p.read_text(encoding='utf-8'))
-    run(['node','--test','tests/core.test.cjs','tests/remote.test.cjs'])
+    run(['node','--test','tests/core.test.cjs','tests/remote.test.cjs','tests/lab.test.cjs'])
     run([sys.executable,'tests/test_signer.py'])
     project=json.loads((ROOT/'project.json').read_text(encoding='utf-8'))
     page=ROOT/'play'/f"{project['slug']}.html"
@@ -35,7 +35,7 @@ def main():
         raise RuntimeError('Generated index differs from game page.')
     if "connect-src 'none'" not in page.read_text(encoding='utf-8'):
         raise RuntimeError('Offline prototype network-denial policy is missing.')
-    print('PASS: build, syntax, metadata, 63 Node tests, 6 Python tests, and offline-page checks.')
+    print('PASS: build, syntax, metadata, 81 Node tests, 6 Python tests, and offline-page checks.')
     print('This is not browser interaction, physical-device, native-export, store, or compliance validation.')
 if __name__=='__main__':
     try: main()

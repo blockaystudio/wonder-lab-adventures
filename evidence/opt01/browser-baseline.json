@@ -1,0 +1,133 @@
+{
+  "browser": "154.0.8037.57",
+  "python": "3.13.5",
+  "tests_run": 17,
+  "failures": 18,
+  "errors": 0,
+  "success": false,
+  "results": [
+    {
+      "test": "__main__.BrowserLab.test_fresh_context_has_no_saved_profile",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_hint_text_clears_on_reset",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 227, in test_hint_text_clears_on_reset\n    self.assertNotEqual(page.locator('#robot-note').inner_text(), hint)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'Take another look at mirror A. Turn it once, then follow where the light goes.' == 'Take another look at mirror A. Turn it once, then follow where the light goes.'\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_hint_text_matches_current_puzzle_and_rotation",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 238, in test_hint_text_matches_current_puzzle_and_rotation\n    self.assertNotIn('mirror D', page.locator('#robot-note').inner_text())\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'mirror D' unexpectedly found in 'Take another look at mirror D. Turn it once, then follow where the light goes.'\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_keyboard_space_and_focus_survive_repeated_rotations",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_local_attempt_hint_and_reset",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_keyboard_all_three_puzzles (puzzle=1, input='keyboard')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_keyboard_all_three_puzzles (puzzle=2, input='keyboard')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_keyboard_all_three_puzzles (puzzle=3, input='keyboard')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_mouse_all_three_puzzles (puzzle=1, input='mouse')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_mouse_all_three_puzzles (puzzle=2, input='mouse')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_mouse_all_three_puzzles (puzzle=3, input='mouse')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_touch_all_three_puzzles (puzzle=1, input='touch')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_touch_all_three_puzzles (puzzle=2, input='touch')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_loop_touch_all_three_puzzles (puzzle=3, input='touch')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 170, in complete_loop\n    self.assertTrue(page.locator('.light-goal.lit').is_visible(), 'Recovered solved board should show its traced path')\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Recovered solved board should show its traced path\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_malformed_unknown_and_invalid_saves",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_next_puzzle_resets_feedback",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 265, in test_next_puzzle_resets_feedback\n    self.assertNotEqual(page.locator('#robot-note').inner_text(), message)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'You found a path! A fresh experiment is waiting whenever you are ready.' == 'You found a path! A fresh experiment is waiting whenever you are ready.'\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_noncolor_path_description_and_reduced_motion",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 270, in test_noncolor_path_description_and_reduced_motion\n    self.assertTrue(page.locator('#path-description').is_visible())\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_phone_tablet_layout_and_controls (viewport='320x740')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 295, in test_phone_tablet_layout_and_controls\n    self.assertGreaterEqual(bounds['width'], 44)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 30 not greater than or equal to 44\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_phone_tablet_layout_and_controls (viewport='390x844')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 295, in test_phone_tablet_layout_and_controls\n    self.assertGreaterEqual(bounds['width'], 44)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 32.328125 not greater than or equal to 44\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_phone_tablet_layout_and_controls (viewport='768x1024')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 295, in test_phone_tablet_layout_and_controls\n    self.assertGreaterEqual(bounds['width'], 44)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 40.71875 not greater than or equal to 44\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_phone_tablet_layout_and_controls (viewport='1024x768')",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 296, in test_phone_tablet_layout_and_controls\n    self.assertGreaterEqual(bounds['height'], 44)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 42.34375 not greater than or equal to 44\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_play_continues_when_browser_is_offline",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_rotation_clears_stale_win_but_keeps_discovery",
+      "status": "failed",
+      "detail": "Traceback (most recent call last):\n  File \"/workspace/wonder-lab-adventures/tests/browser_lab.py\", line 251, in test_rotation_clears_stale_win_but_keeps_discovery\n    self.assertNotIn('Aha!', page.locator('#lab-message').inner_text())\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'Aha!' unexpectedly found in 'Aha! You lit the lamp. Light moves in straight lines until a mirror changes its direction.'\n"
+    },
+    {
+      "test": "__main__.BrowserLab.test_storage_quota_failure_remains_playable",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_unavailable_storage_remains_playable",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.BrowserLab.test_valid_backup_recovers_discovery",
+      "status": "passed"
+    }
+  ],
+  "limits": "Desktop headless Chromium and emulated touch only. No physical device, child usability or learning-outcome testing."
+}

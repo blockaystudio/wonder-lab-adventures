@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: Puzzle 1: exact expected solution visits mirrors and ends at lamp
+ok 1 - Puzzle 1: exact expected solution visits mirrors and ends at lamp
+  ---
+  duration_ms: 3.885238
+  type: 'test'
+  ...
+# Subtest: Puzzle 1: every orientation agrees with independent ray oracle
+ok 2 - Puzzle 1: every orientation agrees with independent ray oracle
+  ---
+  duration_ms: 0.830731
+  type: 'test'
+  ...
+# Subtest: Puzzle 1: tracing is deterministic without mutating puzzle or orientations
+ok 3 - Puzzle 1: tracing is deterministic without mutating puzzle or orientations
+  ---
+  duration_ms: 3.429043
+  type: 'test'
+  ...
+# Subtest: Puzzle 2: exact expected solution visits mirrors and ends at lamp
+ok 4 - Puzzle 2: exact expected solution visits mirrors and ends at lamp
+  ---
+  duration_ms: 0.113152
+  type: 'test'
+  ...
+# Subtest: Puzzle 2: every orientation agrees with independent ray oracle
+ok 5 - Puzzle 2: every orientation agrees with independent ray oracle
+  ---
+  duration_ms: 0.163774
+  type: 'test'
+  ...
+# Subtest: Puzzle 2: tracing is deterministic without mutating puzzle or orientations
+ok 6 - Puzzle 2: tracing is deterministic without mutating puzzle or orientations
+  ---
+  duration_ms: 2.962301
+  type: 'test'
+  ...
+# Subtest: Puzzle 3: exact expected solution visits mirrors and ends at lamp
+ok 7 - Puzzle 3: exact expected solution visits mirrors and ends at lamp
+  ---
+  duration_ms: 0.194746
+  type: 'test'
+  ...
+# Subtest: Puzzle 3: every orientation agrees with independent ray oracle
+ok 8 - Puzzle 3: every orientation agrees with independent ray oracle
+  ---
+  duration_ms: 1.37547
+  type: 'test'
+  ...
+# Subtest: Puzzle 3: tracing is deterministic without mutating puzzle or orientations
+ok 9 - Puzzle 3: tracing is deterministic without mutating puzzle or orientations
+  ---
+  duration_ms: 3.399849
+  type: 'test'
+  ...
+# Subtest: Board east edge: exits once without false success or loop
+ok 10 - Board east edge: exits once without false success or loop
+  ---
+  duration_ms: 0.478205
+  type: 'test'
+  ...
+# Subtest: Board north edge: exits once without false success or loop
+ok 11 - Board north edge: exits once without false success or loop
+  ---
+  duration_ms: 0.137876
+  type: 'test'
+  ...
+# Subtest: Board south edge: exits once without false success or loop
+ok 12 - Board south edge: exits once without false success or loop
+  ---
+  duration_ms: 0.072047
+  type: 'test'
+  ...
+# Subtest: Board west edge: exits once without false success or loop
+ok 13 - Board west edge: exits once without false success or loop
+  ---
+  duration_ms: 0.068038
+  type: 'test'
+  ...
+# Subtest: A boundary lamp is reached, but a lamp outside the board never wins
+ok 14 - A boundary lamp is reached, but a lamp outside the board never wins
+  ---
+  duration_ms: 0.117816
+  type: 'test'
+  ...
+# Subtest: A mirror before the lamp diverts the path; sharing a row is not success
+ok 15 - A mirror before the lamp diverts the path; sharing a row is not success
+  ---
+  duration_ms: 0.133797
+  type: 'test'
+  ...
+# Subtest: Closed light-path cycle terminates on the first repeated directional state
+ok 16 - Closed light-path cycle terminates on the first repeated directional state
+  ---
+  duration_ms: 0.517776
+  type: 'test'
+  ...
+# Subtest: Repeated crossings in different directions are not mistaken for a loop
+ok 17 - Repeated crossings in different directions are not mistaken for a loop
+  ---
+  duration_ms: 0.112013
+  type: 'test'
+  ...
+# Subtest: Malformed lab progress normalizes to playable finite state while retaining valid discoveries
+ok 18 - Malformed lab progress normalizes to playable finite state while retaining valid discoveries
+  ---
+  duration_ms: 2.511021
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 34.576325
