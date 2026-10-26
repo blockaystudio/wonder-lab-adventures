@@ -1,12 +1,20 @@
-CURRENT CHECKPOINT — 2026-10-26
-The original OPT-01 brief below is historical. OPT-01 and progression are already
-implemented in open, stacked PRs #1 and #2. REL-01 hardens the verified progression
-build on codex/lab-release01. Read docs/GITHUB_CODEX_STATUS.md, docs/MASTER_TRACKER.md,
-evidence/RELEASE01_REPORT.md and the current user request before selecting work.
-Do not blindly start from main, merge dependencies, deploy, or expand content.
-The requested audience is ages 7–11; no child validation is claimed.
+CURRENT CHECKPOINT — ROLLOUT-01, 2026-10-26
+PRs #1 (OPT-01), #2 (progression) and #3 (REL-01) are merged into main in that
+dependency order. Main game revision: 5ecf177d7b283799f7513ae0f4573ede5309f67b;
+its source tree matches tested REL-01 revision 690fefd. Read
+docs/GITHUB_CODEX_STATUS.md, docs/MASTER_TRACKER.md, evidence/ROLLOUT01_REPORT.md
+and the current user request before selecting bounded work. Source is present;
+do not repeat import, OPT-01 or REL-01. Verify current remote/working tree first.
+The user grants standing authorization for routine verified merges and updates
+to the existing owner-private Site. Preserve audience/origin and all safety
+boundaries; never roll back to pre-REL-01 code after protected saves exist.
+Deployment status is recorded in docs/GITHUB_CODEX_STATUS.md; do not infer it
+from a merge. Cold offline startup and physical-device checks remain blockers
+to a broad child-facing release. Ages 7–11 is a target, not validated usability.
 
 HISTORICAL OPT-01 BRIEF
+The approval restrictions in this completed brief describe that historical task;
+the current checkpoint and AGENTS.md govern subsequent authorized rollout work.
 
 PROJECT: Wonder Lab Adventures
 REPOSITORY: blockaystudio/wonder-lab-adventures
