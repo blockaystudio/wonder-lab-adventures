@@ -1,6 +1,7 @@
 # AGENTS.md — Wonder Lab Adventures
 
 ## Product and current state
+Design audience: ages 7–11 (not a validated child-usability claim).
 This repository contains a playable browser prototype: three light-reflection puzzles, local adaptive hints, and discovery cards.
 Production goal: an original child-appropriate iOS/Android game, with a native Godot
 implementation still to be built. Do not present HTML as a finished native app.
@@ -15,8 +16,9 @@ The original master plan describes intended scope, not delivered features.
 - Rebuild: `python build.py`.
 - Verify: `python scripts/verify.py`.
 - Local preview: `python server/serve_preview.py` (serves only `play/` on loopback).
-- Browser/UI tests are not included in this standalone initial test harness. Add
-  real browser tests as task OPT-01; do not mislabel Node tests as UI/device testing.
+- Browser/UI tests: `python tests/browser_lab.py`, `python tests/browser_progression.py`,
+  and `python tests/browser_release.py`; install `tests/browser-requirements.txt`
+  and Playwright Chromium. Desktop emulation is not physical-device testing.
 
 ## Source map and editing rules
 - `games/lab.js`, `.css`, `.body.html`: this game's source.
@@ -42,7 +44,8 @@ visibility changes, deletion of history or changes to unrelated repositories.
 
 ## Workflow and evidence
 Use a separate `codex/<short-task>` branch and one bounded task per pull request.
-Start with OPT-01 and OPT-02; do not perform an unrequested engine rewrite.
+Verify the current branch and PR dependencies in `docs/GITHUB_CODEX_STATUS.md`;
+do not restart completed tasks or perform an unrequested engine rewrite.
 For this game: Improve mirror interaction, readable light paths, hint usefulness, keyboard access, and local puzzle progress. Prove all solutions and avoid unverified learning claims.
 Preserve compatible shared behavior. Document shared changes in
 `docs/SHARED_CHANGES.md`; do not edit the other game repositories without scope.

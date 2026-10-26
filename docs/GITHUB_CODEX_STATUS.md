@@ -1,30 +1,39 @@
 # GitHub/Codex status — Wonder Lab Adventures
 
-Observed 2026-10-25 during OPT-01 implementation. Supersedes the package's
-2026-10-24 preparation status; older handoff statements remain historical.
+Verified 2026-10-26 for REL-01.
 
-- Repository verified: https://github.com/blockaystudio/wonder-lab-adventures
-- Existing full source read at main `12716c4962dd597dba4e50c502073eaf3bf2d063`;
-  all source blobs verified and Git history fetched. No source import needed.
-- Isolated branch: `codex/lab-opt01`; baseline working tree was clean.
-- Required instructions/handoff/status/tracker/QA documents read before editing.
-- Actual implementation and tests performed; see `evidence/OPT01_REPORT.md` and
-  `docs/WORK_LOG.md`. PR requires owner review; no merge or auto-merge.
-- Local verification: pinned runtimes, isolated Python environment, 81 model/policy
-  checks + 6 signer tests; 17 real HTTP browser methods pass in system Chromium 154.
-- CI now includes browser regressions; local passes alone do not claim a GitHub
-  Actions result. Inspect the PR checks for the actual remote run state.
-- Repository visibility was observed as public and was not changed.
-- No native export, store submission, monetization, deployment or profile upload.
+- Repository: https://github.com/blockaystudio/wonder-lab-adventures
+- Clean starting branch `codex/lab-progression`, commit
+  `85f0cd7b5f0e314d27086facc99b0f11bcd29771`; existing full source, no import.
+- [PR #1](https://github.com/blockaystudio/wonder-lab-adventures/pull/1): open,
+  unmerged; `codex/lab-opt01` → `main`; head `80e86ad`.
+- [PR #2](https://github.com/blockaystudio/wonder-lab-adventures/pull/2): open,
+  unmerged; `codex/lab-progression` → `codex/lab-opt01`; head `85f0cd7`.
+- REL-01 branch: `codex/lab-release01`, based on verified PR #2 head. The review
+  PR targets `codex/lab-progression`; neither dependency is merged by this task.
+- Audience: requested ages 7–11, pending supervised comprehension testing.
 
-## Wonder Workshop progression checkpoint
+## Deployed source (unchanged during REL-01)
 
-- Branch `codex/lab-progression` builds on `80e86ad`, the OPT-01 PR #1 head.
-  PR #1 was still open when this task began; the new PR is stacked on it.
-- Requested progression, compatible local saves and original artwork are
-  implemented. Current rules: `docs/PROGRESSION.md`; executed test evidence:
-  `evidence/PROGRESSION_REPORT.md`.
-- A private mobile playtest site was created in the intervening user-requested
-  hosting task. This repository task does not redeploy it; that site continues
-  serving the OPT-01 snapshot until an explicitly authorized hosting update.
-- No merge, visibility change, analytics, monetization, account or profile upload.
+https://wonder-lab-adventures-mobile.wholeclock.chatgpt.site
+
+Owner-private Site, active version 2, zero external visitors. Shipped game commit
+`85f0cd7b5f0e314d27086facc99b0f11bcd29771`; hosting-source commit
+`f609ef5b5c060bfd7b68ba89424b375b98cdc6c5`. The authorized update happened
+2026-10-25 after the progression implementation task. Historical statements that
+the Site still serves OPT-01 are superseded.
+
+REL-01 read-only HTTP verification: 200; 114872 bytes; SHA-256
+`baa4cb6fc20a432471a10c70b99fa80f4df25f6068ae8cd013367c38f6b37430`,
+exactly equal to committed `85f0cd7:play/index.html`.
+Evidence: `evidence/release01/shipped-identity.json`. No credentials are stored.
+
+## Evidence and release limits
+
+See `evidence/RELEASE01_REPORT.md` for baselines, reproduced defects, fixes and
+final results; `docs/RELEASE01_DEVICE_CHECKLIST.md` for blocked device checks.
+REL-01 is not deployed. Native Godot work, full cold offline startup, physical
+mobile QA and supervised child testing remain outstanding. There is no measured
+retention or learning outcome, no native/store release, and no ads, analytics,
+purchases, game accounts or profile uploads. The Site's owner sign-in gate is
+hosting access control, not a game account or child distribution system.

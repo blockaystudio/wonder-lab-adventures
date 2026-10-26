@@ -1,0 +1,23 @@
+test_fresh_context_has_no_saved_profile (__main__.BrowserLab.test_fresh_context_has_no_saved_profile) ... ok
+test_hint_text_clears_on_reset (__main__.BrowserLab.test_hint_text_clears_on_reset) ... ok
+test_hint_text_matches_current_puzzle_and_rotation (__main__.BrowserLab.test_hint_text_matches_current_puzzle_and_rotation) ... ok
+test_keyboard_space_and_focus_survive_repeated_rotations (__main__.BrowserLab.test_keyboard_space_and_focus_survive_repeated_rotations) ... ok
+test_local_attempt_hint_and_reset (__main__.BrowserLab.test_local_attempt_hint_and_reset) ... ok
+test_loop_keyboard_all_three_puzzles (__main__.BrowserLab.test_loop_keyboard_all_three_puzzles) ... ok
+test_loop_mouse_all_three_puzzles (__main__.BrowserLab.test_loop_mouse_all_three_puzzles) ... ok
+test_loop_touch_all_three_puzzles (__main__.BrowserLab.test_loop_touch_all_three_puzzles) ... ok
+test_malformed_unknown_and_invalid_saves (__main__.BrowserLab.test_malformed_unknown_and_invalid_saves) ... ok
+test_next_puzzle_resets_feedback (__main__.BrowserLab.test_next_puzzle_resets_feedback) ... ok
+test_noncolor_path_description_and_reduced_motion (__main__.BrowserLab.test_noncolor_path_description_and_reduced_motion) ... ok
+test_phone_tablet_layout_and_controls (__main__.BrowserLab.test_phone_tablet_layout_and_controls) ... ok
+test_play_continues_when_browser_is_offline (__main__.BrowserLab.test_play_continues_when_browser_is_offline) ... ok
+test_rotation_clears_stale_win_but_keeps_discovery (__main__.BrowserLab.test_rotation_clears_stale_win_but_keeps_discovery) ... ok
+test_storage_quota_failure_remains_playable (__main__.BrowserLab.test_storage_quota_failure_remains_playable) ... ok
+test_unavailable_storage_remains_playable (__main__.BrowserLab.test_unavailable_storage_remains_playable) ... ok
+test_valid_backup_recovers_discovery (__main__.BrowserLab.test_valid_backup_recovers_discovery) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 23.511s
+
+OK
+Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5

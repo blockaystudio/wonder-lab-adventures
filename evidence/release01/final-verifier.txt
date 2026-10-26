@@ -1,0 +1,71 @@
++ /workspace/wonder-lab-adventures/.venv/bin/python build.py
+Built Wonder Lab Adventures standalone prototype.
++ node --check games/lab.js
++ node --check games/progression.js
++ node --check games/save.js
++ node --check shared/art.js
++ node --check shared/core.js
++ node --check shared/remote-config.js
++ node --check shared/ui.js
++ node --check tests/core.test.cjs
++ node --check tests/lab.test.cjs
++ node --check tests/progression.test.cjs
++ node --check tests/remote.test.cjs
++ node --check tests/save.test.cjs
++ node --test tests/core.test.cjs tests/remote.test.cjs tests/lab.test.cjs tests/progression.test.cjs tests/save.test.cjs
+TAP version 13
+# Subtest: tests/core.test.cjs
+ok 1 - tests/core.test.cjs
+  ---
+  duration_ms: 114.578926
+  type: 'test'
+  ...
+# Subtest: tests/lab.test.cjs
+ok 2 - tests/lab.test.cjs
+  ---
+  duration_ms: 58.219664
+  type: 'test'
+  ...
+# Subtest: tests/progression.test.cjs
+ok 3 - tests/progression.test.cjs
+  ---
+  duration_ms: 133.260571
+  type: 'test'
+  ...
+# Subtest: tests/remote.test.cjs
+ok 4 - tests/remote.test.cjs
+  ---
+  duration_ms: 524.529481
+  type: 'test'
+  ...
+# Subtest: tests/save.test.cjs
+ok 5 - tests/save.test.cjs
+  ---
+  duration_ms: 74.2063
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 595.038084
++ /workspace/wonder-lab-adventures/.venv/bin/python tests/test_signer.py
+test_disabled_default_valid (__main__.SigningTests.test_disabled_default_valid) ... ok
+test_enabled_policy_rejected (__main__.SigningTests.test_enabled_policy_rejected) ... ok
+test_expired_rejected (__main__.SigningTests.test_expired_rejected) ... ok
+test_missing_app_rejected (__main__.SigningTests.test_missing_app_rejected) ... ok
+test_rollout_rejected_in_build01 (__main__.SigningTests.test_rollout_rejected_in_build01) ... ok
+test_signatures_and_key_permissions (__main__.SigningTests.test_signatures_and_key_permissions) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.344s
+
+OK
+Keypair created. Never distribute or serve the private key.
+Signed disabled policy revision 1; payload SHA256 3433ce57f4201ff66ea1246d8b851bebad269ba2ae1f469e35b685b32b7a38f5
+PASS: build, syntax, metadata, 131 Node tests, 6 Python tests, and offline-page checks.
+This is not browser interaction, physical-device, native-export, store, or compliance validation.

@@ -1,5 +1,31 @@
 # Master Tracker — Authoritative Current State
-Version 1.1 • October 24, 2026 • Build 01
+Current checkpoint: REL-01 • October 26, 2026 • browser prototype, ages 7–11
+
+## REL-01 current state
+
+The historical Build 01 portfolio tables below are not current repository or
+hosting status. This repository contains Wonder Lab Adventures only.
+
+| Task | State | Evidence |
+|---|---|---|
+| Verify source, PR dependencies and deployed bytes | Verified | Clean `85f0cd7`; PR #1/#2 open and unmerged; private Site v2 matches that HTML exactly |
+| Record baseline and reproduce five defects before fixes | Verified | 106 Node + 6 signer; 17 + 12 browser baseline; all five new defect tests failed before changes |
+| Protect concurrent saves, erasure and rollback | Implemented / automated verification | `games/save.js`, 25 model tests; lock contention, generations, explicit conflicts, protected copy |
+| Fix keyboard puzzle focus | Verified automated | Enter/Space/Tab/Shift+Tab in release browser suite |
+| Save/relaunch/crash/interruption and mobile layouts | Verified automated, desktop only | 16 release browser methods; persistent profile, renderer crash, five emulated viewports |
+| Final regression checks | Passed locally | 131 Node + 6 signer + 17 puzzle + 12 progression + 16 release browser methods |
+| Physical iOS Safari / Android Chrome | BLOCKED | No devices; `docs/RELEASE01_DEVICE_CHECKLIST.md` |
+| Cold offline URL launch/reload | BLOCKED | Both fail with network disconnected; continued loaded play passes |
+| Production rollback to pre-REL-01 code | BLOCKED | Old builds cannot honor v2 erase; collection survives return to REL-01 but old-build actions are not imported |
+| Merge/deploy/native/store release | Not performed | `codex/lab-release01` stacks on PR #2; no deployment or access change |
+
+Current report: `evidence/RELEASE01_REPORT.md`. The existing owner-private Site
+serves `85f0cd7`, not REL-01. No retention, learning or child-comprehension outcome
+has been measured. Prioritize remaining release/device/offline acceptance before
+new content. Onboarding, deeper hints, book presentation, measured performance,
+final storefront artwork and Godot remain bounded future work.
+
+## Historical Build 01 preparation (October 24, 2026)
 
 ## Completed in this work session
 | ID | Task | Evidence | Status |

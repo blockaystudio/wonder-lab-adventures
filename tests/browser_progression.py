@@ -27,24 +27,25 @@ class ProgressionBrowser(base.BrowserLab):
     """Reuse HTTP/context/error helpers; the runner selects only new methods."""
 
     def points(self, page=None):
+        self.idle(page)
         text = (page or self.page).locator('#spark-count').inner_text()
         self.assertRegex(text, r'\d+')
         return int(re.search(r'\d+', text).group())
 
     def close_dialog(self, page=None):
         page = page or self.page
-        page.get_by_role('button', name='Close dialog', exact=True).click()
+        self.activate(page.get_by_role('button', name='Close dialog', exact=True))
         self.assertEqual(page.locator('[role="dialog"]').count(), 0)
 
     def hub(self, page=None):
         page = page or self.page
-        page.locator('#open-goals').click()
+        self.activate(page.locator('#open-goals'))
         self.assertTrue(page.locator('.wonder-hub').is_visible())
         return page.locator('.wonder-hub')
 
     def notebook(self, page=None):
         page = page or self.page
-        page.locator('#discoveries').click()
+        self.activate(page.locator('#discoveries'))
         self.assertEqual(page.locator('[data-card]').count(), 6)
         return page.locator('[role="dialog"]')
 
@@ -64,11 +65,11 @@ class ProgressionBrowser(base.BrowserLab):
         for puzzle, count in enumerate([4, 4, 16]):
             for mask in range(count):
                 self.orient(puzzle, mask, page)
-                page.locator('#send-light').click()
+                self.activate(page.locator('#send-light'))
         self.notebook(page)
         self.assertEqual(page.locator('.discovery').count(), 6)
         for card in CARD_IDS:
-            page.locator(f'[data-review="{card}"]').click()
+            self.activate(page.locator(f'[data-review="{card}"]'))
         self.close_dialog(page)
 
     def test_progression_initial_collection_and_visible_goals(self):
@@ -95,24 +96,24 @@ class ProgressionBrowser(base.BrowserLab):
 
     def test_progression_rewards_experimentation_without_hint_cost_or_farming(self):
         page = self.open()
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), 2, 'First distinct experiment earns two Sparks')
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), 2, 'Repeated identical traces earn no extra Sparks')
         for _ in range(3):
-            page.locator('#hint').click()
+            self.activate(page.locator('#hint'))
         self.assertEqual(self.points(), 2, 'Hints are free')
         self.align(0)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), 29, 'Two unique tests + first solve + first card')
         self.assertTrue(page.locator('#reward-notice').is_visible())
         self.assertGreaterEqual(page.locator('#reward-notice svg').count(), 1)
         self.assertIn('goggles', page.locator('#reward-notice').inner_text().lower())
         page.screenshot(path=str(OUTPUT / 'first-discovery-success.png'), full_page=True)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), 29)
         self.notebook()
-        page.locator('[data-review="beam"]').click()
+        self.activate(page.locator('[data-review="beam"]'))
         self.assertEqual(self.points(), 32)
         self.assertTrue(page.locator('[data-review="beam"]').is_disabled())
         self.close_dialog()
@@ -123,9 +124,9 @@ class ProgressionBrowser(base.BrowserLab):
         self.assertEqual(self.points(), 32)
         other = self.new_page()
         self.open(other)
-        other.locator('#send-light').click()
+        self.activate(other.locator('#send-light'))
         self.align(0, other)
-        other.locator('#send-light').click()
+        self.activate(other.locator('#send-light'))
         self.assertEqual(self.points(other), 29, 'Using hints and discovering unaided receive equal rewards')
         self.assertEqual(self.data(other)['progress']['reviews'], [])
 
@@ -134,18 +135,18 @@ class ProgressionBrowser(base.BrowserLab):
         self.solve(0)
         first = self.points()
         self.assertEqual(first, 27)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), first)
-        page.locator('#reset-puzzle').click()
+        self.activate(page.locator('#reset-puzzle'))
         self.assertEqual(self.points(), first)
         self.assertEqual(self.data()['solved'], [0])
         self.align(0)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), first + 4, 'A changed/reset known path earns one replay reward')
         self.assertEqual(self.data()['progress']['replays'], [0])
-        page.locator('#reset-puzzle').click()
+        self.activate(page.locator('#reset-puzzle'))
         self.align(0)
-        page.locator('#send-light').click()
+        self.activate(page.locator('#send-light'))
         self.assertEqual(self.points(), first + 4, 'Replays are finite collection goals, not endless currency')
         page.reload()
         self.assertEqual(self.points(), first + 4)
@@ -166,9 +167,9 @@ class ProgressionBrowser(base.BrowserLab):
         page.screenshot(path=str(OUTPUT / 'goals-complete-desktop.png'))
         for reward in REWARD_IDS:
             self.assertTrue(page.locator(f'[data-equip="{reward}"]').is_enabled(), reward)
-        page.locator('[data-equip="bot-plum"]').click()
-        page.locator('[data-equip="greenhouse"]').click()
-        page.locator('[data-equip="nova"]').click()
+        self.activate(page.locator('[data-equip="bot-plum"]'))
+        self.activate(page.locator('[data-equip="greenhouse"]'))
+        self.activate(page.locator('[data-equip="nova"]'))
         self.assertEqual(page.locator('body').get_attribute('data-theme'), 'greenhouse')
         self.assertEqual(page.locator('#robot-art').get_attribute('data-cosmetic'), 'bot-plum')
         self.assertEqual(page.locator('#robot-art').get_attribute('data-companion'), 'nova')
@@ -189,7 +190,7 @@ class ProgressionBrowser(base.BrowserLab):
         self.assertEqual(self.data()['progress']['equipped'], {
             'cosmetic': 'bot-plum', 'theme': 'greenhouse', 'companion': 'nova'})
         self.hub()
-        page.locator('[data-equip="moonlit"]').click()
+        self.activate(page.locator('[data-equip="moonlit"]'))
         self.close_dialog()
         page.reload()
         self.assertEqual(page.locator('body').get_attribute('data-theme'), 'moonlit')
@@ -244,9 +245,9 @@ class ProgressionBrowser(base.BrowserLab):
         page = self.open()
         self.solve(0)
         self.hub()
-        page.locator('[data-equip="goggles"]').click()
+        self.activate(page.locator('[data-equip="goggles"]'))
         self.close_dialog()
-        page.locator('#send-light').click()  # both save copies now include equipped goggles
+        self.activate(page.locator('#send-light'))  # both save copies now include equipped goggles
         saved_points = self.points()
         page.evaluate('(key) => localStorage.setItem(key,"{broken")', KEY)
         page.reload()
@@ -261,7 +262,7 @@ class ProgressionBrowser(base.BrowserLab):
         self.solve(0)
         self.assertEqual(self.points(), 27)
         self.hub()
-        page.locator('[data-equip="goggles"]').click()
+        self.activate(page.locator('[data-equip="goggles"]'))
         self.close_dialog()
         self.assertEqual(page.locator('#robot-art').get_attribute('data-cosmetic'), 'goggles')
         self.assertIn('visit only', page.locator('#save-status').inner_text())
@@ -283,7 +284,7 @@ class ProgressionBrowser(base.BrowserLab):
                 self.assertEqual(self.points(page), 27)
                 self.notebook(page)
                 self.assertIn(warning, page.locator('.wonder-book .warning').inner_text())
-                page.locator('[data-review="beam"]').click()
+                self.activate(page.locator('[data-review="beam"]'))
                 self.assertEqual(self.points(page), 30)
                 self.assertEqual(page.locator('[data-review="beam"]').inner_text(), 'Reviewed · this visit')
                 feedback = page.locator('#book-feedback').inner_text()
@@ -295,7 +296,7 @@ class ProgressionBrowser(base.BrowserLab):
                 self.close_dialog(page)
                 self.hub(page)
                 self.assertIn(warning, page.locator('.wonder-hub .warning').inner_text())
-                page.locator('[data-equip="goggles"]').click()
+                self.activate(page.locator('[data-equip="goggles"]'))
                 equipment_feedback = page.locator('#equip-feedback').inner_text()
                 self.assertIn('ready for this visit', equipment_feedback)
                 self.assertIn(warning, equipment_feedback)
@@ -315,11 +316,11 @@ class ProgressionBrowser(base.BrowserLab):
         page.context.set_offline(True)
         self.solve(0)
         self.notebook()
-        page.locator('[data-review="beam"]').click()
+        self.activate(page.locator('[data-review="beam"]'))
         self.close_dialog()
         self.assertEqual(self.points(), 30)
         self.hub()
-        page.locator('[data-equip="goggles"]').click()
+        self.activate(page.locator('[data-equip="goggles"]'))
         self.close_dialog()
         self.assertEqual(page.locator('#robot-art').get_attribute('data-cosmetic'), 'goggles')
 
@@ -329,15 +330,18 @@ class ProgressionBrowser(base.BrowserLab):
         self.notebook()
         page.locator('[data-review="beam"]').focus()
         page.keyboard.press('Enter')
+        self.idle(page)
         self.assertEqual(self.points(), 30)
         self.assertTrue(page.locator('[role="dialog"]').evaluate(
             '(el) => el.contains(document.activeElement) && !document.activeElement.disabled'),
             'Reviewing must move focus away from the newly disabled button inside the book')
         for key in ['Tab', 'Shift+Tab']:
             page.keyboard.press(key)
+            self.idle(page)
             self.assertTrue(page.locator('[role="dialog"]').evaluate(
                 '(el) => el.contains(document.activeElement)'), 'Keyboard focus must remain in the book')
         page.keyboard.press('Escape')
+        self.idle(page)
         self.assertEqual(page.locator('[role="dialog"]').count(), 0)
         self.assertEqual(page.locator(':focus').get_attribute('id'), 'discoveries')
 
@@ -349,10 +353,13 @@ class ProgressionBrowser(base.BrowserLab):
                 self.assertLessEqual(page.evaluate('document.documentElement.scrollWidth'), width)
                 page.locator('#open-goals').focus()
                 page.keyboard.press('Enter')
+                self.idle(page)
                 self.assertTrue(page.locator('.wonder-hub').is_visible())
                 page.keyboard.press('Shift+Tab')
+                self.idle(page)
                 self.assertEqual(page.locator(':focus').get_attribute('id'), 'hub-open-book')
                 page.keyboard.press('Tab')
+                self.idle(page)
                 self.assertEqual(page.locator(':focus').get_attribute('aria-label'), 'Close dialog')
                 dialog = page.locator('[role="dialog"]')
                 self.assertLessEqual(dialog.evaluate('(el) => el.scrollWidth'), dialog.evaluate('(el) => el.clientWidth'))
@@ -364,6 +371,7 @@ class ProgressionBrowser(base.BrowserLab):
                 dialog.evaluate('(el) => {el.scrollTop = 0}')
                 page.screenshot(path=str(OUTPUT / f'goals-{width}x{height}.png'))
                 page.keyboard.press('Escape')
+                self.idle(page)
                 self.assertEqual(page.locator('[role="dialog"]').count(), 0)
                 self.assertEqual(page.locator(':focus').get_attribute('id'), 'open-goals')
                 self.solve(0, page, 'touch')
@@ -373,6 +381,7 @@ class ProgressionBrowser(base.BrowserLab):
                                      page.locator('[role="dialog"]').evaluate('(el) => el.clientWidth'))
                 page.locator('[data-review="beam"]').tap()
                 page.keyboard.press('Escape')
+                self.idle(page)
                 self.assertEqual(self.points(page), 30)
 
 

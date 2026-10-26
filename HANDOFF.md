@@ -1,7 +1,15 @@
 # Wonder Lab Adventures — Work Chat Handoff
-**Checkpoint:** Build 01, October 24, 2026  
-**Primary audience:** ages 9–11  
+**Checkpoint:** REL-01, October 26, 2026
+**Primary audience:** ages 7–11 (design target; not child-tested)
 **Current status:** Playable browser prototype; native/store release pending.
+
+## Current continuation
+The tested progression source is `85f0cd7` on `codex/lab-progression`. PR #2
+stacks on still-open OPT-01 PR #1. REL-01 is developed separately on
+`codex/lab-release01`; see `evidence/RELEASE01_REPORT.md` for current evidence.
+Do not begin from main without checking those dependencies. The owner-private
+mobile site serves the progression build; REL-01 does not deploy or merge.
+Prior Build 01 native acceptance below remains future work, not this task.
 
 ## Mission
 Continue this game as an original, polished, child-appropriate iOS/Android product. Prioritize the actual play loop, distinctive store presentation, and retention before monetization. Start with no advertising; any eventual ad tests must be controlled, policy-eligible, disclosed, and reversible.
@@ -61,4 +69,6 @@ Sixteen original SVGs are integrated into the standalone build. The three
 experiments and free local hints remain. See `docs/PROGRESSION.md` for rules,
 `evidence/PROGRESSION_REPORT.md` for executed verification and actual screenshots.
 OPT-01 PR #1 remains the dependency; the progression PR awaits owner review.
-No retention outcome, child playtest, native build or hosted update is claimed.
+No retention outcome, child playtest or native build is claimed. A later authorized
+hosting task updated the private site to `85f0cd7`; REL-01 verifies that identity
+without deploying its changes.

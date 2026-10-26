@@ -1,3 +1,14 @@
+# 2026-10-26 — REL-01 checkpoint
+
+Current automated evidence: [RELEASE01_REPORT.md](RELEASE01_REPORT.md).
+131 Node + 6 signer checks, 17 puzzle + 12 progression + 16 release browser
+methods pass locally in pinned Chromium145. New tests cover concurrent saves,
+erase failure/retry, old-build rollback and browser lifecycle. Cold offline
+HTTP startup and physical iOS/Android acceptance remain BLOCKED; no child,
+retention, learning-outcome, native/store or full accessibility validation.
+
+---
+
 # 2026-10-25 — Wonder Workshop progression checkpoint
 
 Current evidence: [PROGRESSION_REPORT.md](PROGRESSION_REPORT.md). The repository

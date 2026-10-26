@@ -1,3 +1,13 @@
+CURRENT CHECKPOINT — 2026-10-26
+The original OPT-01 brief below is historical. OPT-01 and progression are already
+implemented in open, stacked PRs #1 and #2. REL-01 hardens the verified progression
+build on codex/lab-release01. Read docs/GITHUB_CODEX_STATUS.md, docs/MASTER_TRACKER.md,
+evidence/RELEASE01_REPORT.md and the current user request before selecting work.
+Do not blindly start from main, merge dependencies, deploy, or expand content.
+The requested audience is ages 7–11; no child validation is claimed.
+
+HISTORICAL OPT-01 BRIEF
+
 PROJECT: Wonder Lab Adventures
 REPOSITORY: blockaystudio/wonder-lab-adventures
 
@@ -8,7 +18,7 @@ Confirm the repository and inspect its working tree. Read AGENTS.md, HANDOFF.md,
 If the repository has only a README, import the matching wonder-lab-adventures source package only when its files are actually accessible in this workspace. Put its contents at repository root, including hidden configuration files. Preserve .git and existing work; do not import another game's folder. Make a separate baseline-import commit after review of the files. If the source is unavailable, report the exact missing input and stop; do not invent the existing code or recreate it from the app name.
 
 PRODUCT GOAL
-Build an original, offline-first discovery game for ages 9–11. Protect the two distinguishing features: hands-on experiments instead of quizzes, and locally adaptive hints with saved discoveries.
+Build an original, offline-first discovery game for ages 7–11. Protect the two distinguishing features: hands-on experiments instead of quizzes, and locally adaptive hints with saved discoveries.
 Visual quality and an original, coherent interface are priorities. Do not substitute a generic template or copy another game's artwork.
 
 FIRST TASK: OPT-01 — REPRODUCIBLE BASELINE AND CORE-LOOP REGRESSION TESTS

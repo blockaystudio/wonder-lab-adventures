@@ -1,7 +1,8 @@
 # Wonder Lab Adventures
 
 **Working browser prototype; not a finished iOS/Android game.**
-Source repository: `blockaystudio/wonder-lab-adventures`; bounded OPT-01 work is documented in `evidence/OPT01_REPORT.md`.
+Source repository: `blockaystudio/wonder-lab-adventures`; current REL-01 work is documented in `evidence/RELEASE01_REPORT.md`.
+Requested audience: ages 7–11; physical-device and child usability tests remain pending.
 
 ## Start here
 Read `AGENTS.md`, `HANDOFF.md`, `docs/GITHUB_CODEX_STATUS.md` and
@@ -21,7 +22,7 @@ python server/serve_preview.py
 
 Open the local address printed by the preview server. The pages are also standalone
 HTML, but local HTTP is preferred for meaningful storage tests. The verifier runs
-106 Node tests and 6 Python tests plus build/syntax/static-page checks. The tests
+131 Node tests and 6 Python tests plus build/syntax/static-page checks. The tests
 include shared reference logic for all three games; these are model/policy checks, separate from browser interaction tests. Physical-device, native-export and store tests remain pending.
 
 ## Browser regressions
@@ -33,6 +34,7 @@ python -m pip install -r tests/browser-requirements.txt
 python -m playwright install chromium
 python tests/browser_lab.py
 python tests/browser_progression.py
+python tests/browser_release.py
 ```
 
 For an installed Chromium, use `CHROMIUM_EXECUTABLE=/usr/bin/chromium python tests/browser_lab.py`.
@@ -40,6 +42,12 @@ The harness starts/stops a loopback HTTP preview, uses fresh browser contexts an
 real localStorage, and writes JSON results/screenshots to `test-results/browser-lab/`.
 `--root /path/to/checkout` permits comparing an unchanged baseline. Storage failure
 scenarios deliberately deny storage; successful persistence uses the browser's own storage.
+
+The release suite needs Git history including `80e86ad` to test the actual older
+build (use a full checkout). Safe cross-tab persistence requires Web Locks on
+HTTPS or localhost; unsupported contexts explicitly use visit-only progress.
+Continued loaded play works offline, but cold HTTP launch/reload is not an
+offline-startup guarantee. See `docs/RELEASE01_DEVICE_CHECKLIST.md` for blockers.
 
 ## Gameplay
 Three light-reflection puzzles, local adaptive hints, and six illustrated science cards.

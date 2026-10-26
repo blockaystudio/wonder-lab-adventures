@@ -1,9 +1,9 @@
-(function () {
+(async function () {
   'use strict';
   const C = KidsCore, A = KidsArt, U = KidsUI, P = WonderProgression;
   const $ = id => document.getElementById(id);
-  const store = new C.LocalSave('wonder-lab-adventures', P.defaults, P.normalize);
-  let state = store.data, result = null, hinted = -1, savingAvailable = false;
+  const store = new WonderSave.LocalProgress();
+  let state = store.data, result = null, hinted = -1, savingAvailable = false, savingPending = false, viewChanged = false;
   state.visits++;
   const invitation = 'Turn a mirror, then send light to test your idea. Hints are always welcome.';
   const art = (id, cls = '') => `<span class="reward-art ${cls}" aria-hidden="true">${WonderRewardArt[id] || ''}</span>`;
@@ -22,15 +22,38 @@
       : 'A fresh question. Turn a mirror, then send the light.';
     $('reward-notice').hidden = true;
   }
-  function save() {
-    savingAvailable = store.save(state);
+  async function save() {
+    const boardBefore = JSON.stringify([state.puzzle, state.orientations[state.puzzle]]);
+    savingPending = true; viewChanged = false;
+    $('save-status').textContent = 'Saving this experiment…';
+    $('save-warning').hidden = false;
+    $('save-warning').textContent = 'Saving this experiment. Please wait a moment.';
+    document.querySelectorAll('button').forEach(button => button.setAttribute('aria-disabled', 'true'));
+    document.body.dataset.saveReady = 'false';
+    document.querySelector('main').setAttribute('aria-busy', 'true');
+    try {
+      savingAvailable = await store.save(state);
+      state = store.data;
+      viewChanged = boardBefore !== JSON.stringify([state.puzzle, state.orientations[state.puzzle]]);
+      if (viewChanged && !store.conflict && savingAvailable) store.warning = 'Another tab updated this experiment. The current saved lab is now shown.';
+      if (store.conflict || viewChanged) {
+        restoreTrace(); freshFeedback();
+      }
+    } finally {
+      savingPending = false;
+      document.querySelectorAll('button[aria-disabled]').forEach(button => button.removeAttribute('aria-disabled'));
+      document.body.dataset.saveReady = 'true';
+      document.querySelector('main').setAttribute('aria-busy', 'false');
+    }
     $('save-status').textContent = store.warning || 'Discoveries and rewards saved on this browser only';
+    $('save-warning').hidden = !store.warning;
+    $('save-warning').textContent = store.warning;
     document.body.classList.toggle('reduced-motion', state.reducedMotion);
     return savingAvailable;
   }
-  function openPuzzle(index) {
+  async function openPuzzle(index) {
     state.puzzle = index;
-    restoreTrace(); freshFeedback(); save(); render();
+    restoreTrace(); freshFeedback(); await save(); render();
   }
   function describePath() {
     if (!result) return 'Light source → mirrors → lamp. Send light to see where your current path goes.';
@@ -63,9 +86,11 @@
     $('discoveries').textContent = 'My discovery book · ' + s.cardIds.length + '/6';
   }
   function render() {
+    const focusedPuzzle = document.activeElement?.dataset.puzzle;
     const p = C.PUZZLES[state.puzzle];
     $('puzzle-list').innerHTML = C.PUZZLES.map((p, i) => `<button class="lab-step ${state.puzzle === i ? 'selected' : ''} ${state.solved.includes(i) ? 'solved' : ''}" data-puzzle="${i}" aria-pressed="${state.puzzle === i}"><span class="number">${state.solved.includes(i) ? '✓' : i + 1}</span><div><strong>${p.name}</strong><small>${p.mirrors.length} mirrors · A new idea</small></div></button>`).join('');
     document.querySelectorAll('[data-puzzle]').forEach(b => b.onclick = () => openPuzzle(Number(b.dataset.puzzle)));
+    if (focusedPuzzle !== undefined) document.querySelector(`[data-puzzle="${focusedPuzzle}"]`)?.focus({preventScroll: true});
     $('puzzle-title').textContent = p.name;
     $('concept').textContent = p.concept;
     $('lab-progress').innerHTML = C.PUZZLES.map((_, i) => `<span class="${state.solved.includes(i) ? 'done' : ''}"></span>`).join('');
@@ -79,13 +104,13 @@
           : goal ? `<div class="light-goal ${result?.success ? 'lit' : ''}" aria-label="${result?.success ? 'Lamp is lit' : 'Lamp is waiting for light'}"><span class="lamp">✧</span></div>` : '') + '</div>';
     }
     $('board').innerHTML = html;
-    document.querySelectorAll('[data-mirror]').forEach(b => b.onclick = () => {
+    document.querySelectorAll('[data-mirror]').forEach(b => b.onclick = async () => {
       const i = Number(b.dataset.mirror);
       P.armReplay(state, state.puzzle);
       state.orientations[state.puzzle][i] = state.orientations[state.puzzle][i] === '/' ? '\\' : '/';
       result = null; freshFeedback();
       $('lab-message').textContent = 'Mirrors changed. Send light to test this path.';
-      save(); render();
+      await save(); render();
       document.querySelector(`[data-mirror="${i}"]`)?.focus({preventScroll: true});
     });
     $('path-description').textContent = describePath();
@@ -109,7 +134,7 @@
       : `Take another look at mirror ${String.fromCharCode(65 + hinted)}. Turn it once, then follow where the light goes.`;
     render();
   }
-  $('send-light').onclick = () => {
+  $('send-light').onclick = async () => {
     const i = state.puzzle, p = C.PUZZLES[i], first = !state.solved.includes(i);
     state.attempts[i]++;
     const delta = P.recordTrace(state, i, state.orientations[i]);
@@ -128,15 +153,15 @@
         if (hinted >= 0) $('robot-note').textContent = `Here’s a little help: try turning mirror ${String.fromCharCode(65 + hinted)}. Your hints stay on this browser.`;
       }
     }
-    save(); render(); celebrate(delta, result.success ? 'Discovery made!' : 'Curiosity counts!');
+    await save(); render(); if (!store.conflict && !viewChanged) celebrate(delta, delta.result.success ? 'Discovery made!' : 'Curiosity counts!');
   };
   $('hint').onclick = hint;
-  $('reset-puzzle').onclick = () => {
+  $('reset-puzzle').onclick = async () => {
     P.armReplay(state, state.puzzle);
     state.orientations[state.puzzle] = C.PUZZLES[state.puzzle].initial.slice();
     state.attempts[state.puzzle] = 0; result = null;
-    freshFeedback(); save(); render();
-    $('lab-message').textContent = 'A fresh start. Your cards, Sparks and treasures are still safe.';
+    freshFeedback(); await save(); render();
+    if (!store.conflict) $('lab-message').textContent = 'A fresh start. Your cards, Sparks and treasures are still safe.';
   };
   $('next-puzzle').onclick = () => openPuzzle(Math.min(2, state.puzzle + 1));
 
@@ -152,9 +177,10 @@
         : '<span class="collection-lock">Not yet collected · no hurry</span>'}</article>`;
     }).join('')}</div><p class="small">This prototype explores idealized 2D flat-mirror reflection. The ray is a simplified model, not a full description of light or an independently validated learning assessment.</p></div>`, dialog => {
       dialog.querySelector('.modal').classList.add('wonder-modal');
-      dialog.querySelectorAll('[data-review]').forEach(button => button.onclick = () => {
+      dialog.querySelectorAll('[data-review]').forEach(button => button.onclick = async () => {
         const delta = P.reviewCard(state, button.dataset.review);
-        const persisted = save(); render();
+        const persisted = await save(); render();
+        if (store.conflict) { showBook(); return; }
         button.disabled = true; button.textContent = persisted ? 'Reviewed · saved' : 'Reviewed · this visit';
         // Keep keyboard focus in the dialog after the credited button is disabled.
         (dialog.querySelector('[data-review]:not([disabled])') || dialog.querySelector('.modal-close')).focus({preventScroll: true});
@@ -182,15 +208,17 @@
     U.modal(`<div class="wonder-hub"><div class="hub-heading">${art('mission')}<div><span class="eyebrow">The Wonder Workshop</span><h2>Your next “what if?”</h2><p>${s.points} lifetime Sparks · ${C.escapeHTML(s.tier.name)}. Nothing expires. Explore at your pace.</p></div></div>${storageNotice()}<div class="hub-columns"><section class="mission-board"><h3>Little goals. Lasting discoveries.</h3><ul class="mission-list">${s.goals.map(g => `<li data-goal="${g.id}" class="${g.done ? 'goal-done' : ''}"><span class="goal-mark" aria-hidden="true">${g.done ? '✓' : '✧'}</span><div><strong>${C.escapeHTML(g.title)}</strong><p>${C.escapeHTML(g.detail)}</p><span class="goal-status">${g.done ? 'Complete' : 'Exploring'} · ${g.current}/${g.target}</span></div></li>`).join('')}</ul></section><section class="reward-rules"><h3>How Wonder Sparks grow</h3><p>These Sparks are progress, not money. You never spend or lose them.</p><dl><dt>First solve of each puzzle</dt><dd>+20</dd><dt>Each different mirror test</dt><dd>+2</dd><dt>Each discovery card</dt><dd>+5</dd><dt>All three puzzles solved</dt><dd>+20</dd><dt>First review of each card</dt><dd>+3</dd><dt>Replay a solved path after changing it</dt><dd>+4 once per puzzle</dd></dl><p class="small">Hints cost nothing and never reduce rewards. Repeating the same test or review does not add more Sparks. There are 188 Sparks to explore in this little lab.</p></section></div><section><div class="collection-heading"><h3>Your lab treasures</h3><span>4 cosmetics · 2 themes · 1 special friend</span></div><p class="small">All treasures are shown from the start. Nova needs 150 Sparks, all 6 cards and 3 card reviews.</p><p id="equip-feedback" role="status"></p><div class="treasure-grid">${P.REWARDS.map(r => `<article class="treasure ${s.unlockedIds.includes(r.id) ? 'earned' : 'locked'}" data-reward="${r.id}">${art(r.id)}<span class="eyebrow">${C.escapeHTML(r.type)}</span><h3>${C.escapeHTML(r.title)}</h3><p>${C.escapeHTML(r.description)}</p><p class="reward-requirement">${C.escapeHTML(r.requirement)}</p><button class="secondary wide" data-equip="${r.id}" aria-label="Use ${C.escapeHTML(r.title)}"></button></article>`).join('')}</div><div class="classic-options"><span>Or keep your familiar lab:</span><button class="secondary" data-equip-default="cosmetic">Classic robot</button><button class="secondary" data-equip-default="theme">Classic lab</button><button class="secondary" data-equip-default="companion">Original helper</button></div></section><section class="collection-preview"><h3>Six cards to wonder about</h3><div class="card-preview-grid">${P.CARDS.map(c => `<div class="card-preview">${art(c.id)}<strong>${C.escapeHTML(c.title)}</strong><span>${s.cardIds.includes(c.id) ? '✓ Collected' : C.escapeHTML(c.condition)}</span></div>`).join('')}</div><button class="primary" id="hub-open-book">Open my discovery book</button></section></div>`, dialog => {
       dialog.querySelector('.modal').classList.add('wonder-modal');
       updateEquipButtons(dialog);
-      dialog.querySelectorAll('[data-equip]').forEach(button => button.onclick = () => {
+      dialog.querySelectorAll('[data-equip]').forEach(button => button.onclick = async () => {
         if (!P.equip(state, button.dataset.equip)) return;
-        const persisted = save(); render(); updateEquipButtons(dialog);
+        const persisted = await save(); render(); updateEquipButtons(dialog);
+        if (store.conflict) { showGoals(); return; }
         dialog.querySelector('#equip-feedback').textContent = rewardName(button.dataset.equip) + (persisted ? ' is now part of your lab. Saved on this browser.' : ' is ready for this visit. ' + store.warning);
       });
-      dialog.querySelectorAll('[data-equip-default]').forEach(button => button.onclick = () => {
+      dialog.querySelectorAll('[data-equip-default]').forEach(button => button.onclick = async () => {
         P.equip(state, 'classic', button.dataset.equipDefault);
-        save(); render(); updateEquipButtons(dialog);
-        dialog.querySelector('#equip-feedback').textContent = 'Your familiar lab style is back. All treasures are still yours.';
+        await save(); render(); updateEquipButtons(dialog);
+        dialog.querySelector('#equip-feedback').textContent = store.conflict ? store.warning
+          : 'Your familiar lab style is back. All treasures are still yours.' + (savingAvailable ? '' : ' ' + store.warning);
       });
       dialog.querySelector('#hub-open-book').onclick = showBook;
     });
@@ -200,8 +228,29 @@
   $('spark-icon').innerHTML = art('spark');
   $('open-goals').onclick = showGoals;
   $('discoveries').onclick = showBook;
-  $('parents').onclick = () => U.parentArea(store,
+  // Keep erase feedback and the visible board in sync even when cleanup fails.
+  const parentStore = {
+    get data() { return store.data; },
+    get warning() { return store.warning; },
+    async reset() {
+      const erased = await store.reset();
+      state = store.data; savingAvailable = erased;
+      restoreTrace(); freshFeedback(); render();
+      $('save-status').textContent = store.warning || 'Progress erased on this browser.';
+      $('save-warning').hidden = !store.warning;
+      $('save-warning').textContent = store.warning;
+      document.body.classList.toggle('reduced-motion', state.reducedMotion);
+      return erased;
+    }
+  };
+  // A pending local transaction must finish before another action edits its board.
+  document.addEventListener('click', event => {
+    if (savingPending && event.target.closest('button')) {
+      event.preventDefault(); event.stopImmediatePropagation();
+    }
+  }, true);
+  $('parents').onclick = () => U.parentArea(parentStore,
     [{value: state.solved.length, label: 'Experiments solved'}, {value: P.snapshot(state).points, label: 'Local Wonder Sparks'}],
-    () => location.reload(), () => {state.reducedMotion = !state.reducedMotion; save();});
-  restoreTrace(); freshFeedback(); save(); render();
+    () => location.reload(), async () => {state.reducedMotion = !state.reducedMotion; return await save();});
+  restoreTrace(); freshFeedback(); await save(); render();
 })();

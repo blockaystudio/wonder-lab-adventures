@@ -1,3 +1,17 @@
+# Current checkpoint — REL-01 (2026-10-26)
+
+REL-01 implements local-progress durability on `codex/lab-release01`, stacked on
+progression PR #2 and OPT-01 PR #1. Neither dependency is merged. See
+`evidence/RELEASE01_REPORT.md` and `docs/MASTER_TRACKER.md`. Do not restart the
+historical OPT-01 brief below or expand the game without a new bounded request.
+
+Next release work: review dependencies, verify on actual iOS/Android devices,
+resolve the offline-startup delivery decision, and enforce a compatible rollback
+policy. Child-informed onboarding/hints, book polish, performance, original final
+store artwork and native Godot remain backlog. No deployment in REL-01.
+
+---
+
 # Wonder Lab Adventures — Codex optimization queue
 
 These are prepared work items, not running jobs or existing GitHub issues.
