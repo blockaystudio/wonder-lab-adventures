@@ -1,0 +1,63 @@
++ /workspace/wonder-lab-adventures/.venv/bin/python build.py
+Built Wonder Lab Adventures standalone prototype.
++ node --check games/lab.js
++ node --check games/progression.js
++ node --check shared/art.js
++ node --check shared/core.js
++ node --check shared/remote-config.js
++ node --check shared/ui.js
++ node --check tests/core.test.cjs
++ node --check tests/lab.test.cjs
++ node --check tests/progression.test.cjs
++ node --check tests/remote.test.cjs
++ node --test tests/core.test.cjs tests/remote.test.cjs tests/lab.test.cjs tests/progression.test.cjs
+TAP version 13
+# Subtest: tests/core.test.cjs
+ok 1 - tests/core.test.cjs
+  ---
+  duration_ms: 250.606476
+  type: 'test'
+  ...
+# Subtest: tests/lab.test.cjs
+ok 2 - tests/lab.test.cjs
+  ---
+  duration_ms: 64.731496
+  type: 'test'
+  ...
+# Subtest: tests/progression.test.cjs
+ok 3 - tests/progression.test.cjs
+  ---
+  duration_ms: 271.590176
+  type: 'test'
+  ...
+# Subtest: tests/remote.test.cjs
+ok 4 - tests/remote.test.cjs
+  ---
+  duration_ms: 1038.455024
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1115.191487
++ /workspace/wonder-lab-adventures/.venv/bin/python tests/test_signer.py
+test_disabled_default_valid (__main__.SigningTests.test_disabled_default_valid) ... ok
+test_enabled_policy_rejected (__main__.SigningTests.test_enabled_policy_rejected) ... ok
+test_expired_rejected (__main__.SigningTests.test_expired_rejected) ... ok
+test_missing_app_rejected (__main__.SigningTests.test_missing_app_rejected) ... ok
+test_rollout_rejected_in_build01 (__main__.SigningTests.test_rollout_rejected_in_build01) ... ok
+test_signatures_and_key_permissions (__main__.SigningTests.test_signatures_and_key_permissions) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.328s
+
+OK
+Keypair created. Never distribute or serve the private key.
+Signed disabled policy revision 1; payload SHA256 b5c7d525a34d97044096b53d11db131f5adbd3002a9f57c30110bd39ab7482a2
+PASS: build, syntax, metadata, 106 Node tests, 6 Python tests, and offline-page checks.
+This is not browser interaction, physical-device, native-export, store, or compliance validation.

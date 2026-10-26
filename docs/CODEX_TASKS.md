@@ -34,3 +34,11 @@ correctness/discovery scope included targeted input, hints, save failures and
 small-screen regressions; this does not complete the broader OPT-02/03/05
 backlog. Clearer onboarding, richer hints, book presentation, measured performance,
 original final art and native Godot remain separate tasks. Stop after this PR.
+
+## Wonder Workshop progression request
+
+Implemented as a new bounded branch after OPT-01 at the user's request. See
+`docs/PROGRESSION.md` and `evidence/PROGRESSION_REPORT.md`. This does not complete
+native implementation or establish measured retention. Preserve the separate
+backlog for child-informed onboarding, richer content/hints, performance,
+production artwork review, accessibility/device QA and Godot work.

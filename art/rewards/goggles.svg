@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 100" role="img">
+  <title>Inventor goggles</title>
+  <desc>Two golden-rimmed goggles with cool blue lenses and a plum strap, drawn as an original transparent lab accessory for layering.</desc>
+  <path d="M15 29Q90 7 165 29L160 49Q90 33 20 49Z" fill="#97769C" stroke="#1B304A" stroke-width="5"/>
+  <rect x="15" y="24" width="67" height="58" rx="22" fill="#FFD987" stroke="#1B304A" stroke-width="5"/>
+  <rect x="98" y="24" width="67" height="58" rx="22" fill="#FFD987" stroke="#1B304A" stroke-width="5"/>
+  <path d="M82 50Q90 42 98 50" fill="none" stroke="#1B304A" stroke-width="5"/>
+  <rect x="26" y="35" width="45" height="36" rx="14" fill="#8ACED1" fill-opacity=".8"/>
+  <rect x="109" y="35" width="45" height="36" rx="14" fill="#8ACED1" fill-opacity=".8"/>
+  <path d="M34 50L45 39M117 50L128 39" stroke="#EFFFF4" stroke-width="4" stroke-linecap="round"/>
+</svg>

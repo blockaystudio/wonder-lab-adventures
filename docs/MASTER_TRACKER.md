@@ -68,3 +68,23 @@ Full evidence, actual screenshots, commands and limitations:
 no merge/publication authorization is assumed. Keep clearer onboarding, deeper
 hints, further path readability, discovery-book presentation, measured performance,
 original final storefront art and native Godot implementation in the backlog.
+
+## 2026-10-25 — Wonder Workshop progression checkpoint
+
+Requested audience for this feature: ages 7–11. This is a design target, not a
+child-usability or learning-outcome validation. The existing game still contains
+three hands-on reflection puzzles.
+
+| Deliverable | State | Source/evidence |
+|---|---|---|
+| Finite deterministic reward progression | Implemented | `games/progression.js`; Wonder Sparks from distinct experiments, solves, collections, reviews and replays |
+| Collection and visible goals | Implemented | 6 science cards, 8 goals, 4 cosmetics, 2 themes, Nova companion |
+| Original artwork integrated offline | Implemented | 16 SVGs in `art/rewards/`; build embeds them into standalone pages |
+| Compatible local saves and selection persistence | Automated verification | Legacy schema-1 migration, bounded facts, backups, denied/full storage; `tests/progression.test.cjs`, `tests/browser_progression.py` |
+| New progression and original puzzle regressions | Automated verification | See `evidence/PROGRESSION_REPORT.md` for exact executed counts, results and screenshots |
+| Improved real-user retention / child comprehension | Not measured | Supervised playtesting remains separate; no telemetry added |
+| Native app / hosted update | Outside this task | No native export or deployment; owner review required for PR |
+
+The progression branch depends on the still-open OPT-01 PR #1. No merge is
+performed. Further content should reward new discoveries rather than increase
+repetition requirements; a three-puzzle prototype is a finite first version.

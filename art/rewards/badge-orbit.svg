@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img">
+  <title>Orbit Maker badge</title>
+  <desc>A scalloped navy and gold science badge with an original mint orbit emblem and coral ribbons.</desc>
+  <path d="M54 107L41 157L65 146L82 162L92 112M126 107L139 157L115 146L98 162L88 112" fill="#F6A798" stroke="#1B304A" stroke-width="4" stroke-linejoin="round"/><path d="M90 18L104 27L121 27L130 42L145 51L145 68L154 82L145 97L145 114L130 123L121 138L104 138L90 147L76 138L59 138L50 123L35 114L35 97L26 82L35 68L35 51L50 42L59 27L76 27Z" fill="#FFD987" stroke="#1B304A" stroke-width="4"/><circle cx="90" cy="83" r="44" fill="#223A5A"/><g fill="none" stroke="#B7F1D8" stroke-width="3"><ellipse cx="90" cy="83" rx="33" ry="12" transform="rotate(-34 90 83)"/><ellipse cx="90" cy="83" rx="33" ry="12" transform="rotate(34 90 83)"/></g><circle cx="90" cy="83" r="8" fill="#FFD987"/><circle cx="114" cy="58" r="5" fill="#F6A798"/><path d="M29 22 Q30 28 36 29 Q30 30 29 36 Q28 30 22 29 Q28 28 29 22Z" fill="#72D6D2"/>
+</svg>

@@ -1,0 +1,18 @@
+test_progression_all_cards_unlocks_equipment_and_reload (__main__.ProgressionBrowser.test_progression_all_cards_unlocks_equipment_and_reload) ... ok
+test_progression_backup_recovers_rewards_and_equipment (__main__.ProgressionBrowser.test_progression_backup_recovers_rewards_and_equipment) ... ok
+test_progression_initial_collection_and_visible_goals (__main__.ProgressionBrowser.test_progression_initial_collection_and_visible_goals) ... ok
+test_progression_legacy_save_migrates_without_losing_discoveries (__main__.ProgressionBrowser.test_progression_legacy_save_migrates_without_losing_discoveries) ... ok
+test_progression_malformed_save_cannot_grant_unknown_unlocks (__main__.ProgressionBrowser.test_progression_malformed_save_cannot_grant_unknown_unlocks) ... ok
+test_progression_mobile_goals_and_keyboard_access (__main__.ProgressionBrowser.test_progression_mobile_goals_and_keyboard_access) ... ok
+test_progression_offline_points_and_collection_work_after_load (__main__.ProgressionBrowser.test_progression_offline_points_and_collection_work_after_load) ... ok
+test_progression_replay_and_puzzle_reset_preserve_collection (__main__.ProgressionBrowser.test_progression_replay_and_puzzle_reset_preserve_collection) ... ok
+test_progression_review_keyboard_focus_stays_in_book (__main__.ProgressionBrowser.test_progression_review_keyboard_focus_stays_in_book) ... ok
+test_progression_rewards_experimentation_without_hint_cost_or_farming (__main__.ProgressionBrowser.test_progression_rewards_experimentation_without_hint_cost_or_farming) ... ok
+test_progression_storage_failures_show_visit_only_review_and_equipment (__main__.ProgressionBrowser.test_progression_storage_failures_show_visit_only_review_and_equipment) ... ok
+test_progression_unavailable_storage_still_rewards_this_visit (__main__.ProgressionBrowser.test_progression_unavailable_storage_still_rewards_this_visit) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 37.804s
+
+OK
+Chromium 154.0.8037.57; real HTTP preview; Python 3.13.5

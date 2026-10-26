@@ -21,7 +21,7 @@ python server/serve_preview.py
 
 Open the local address printed by the preview server. The pages are also standalone
 HTML, but local HTTP is preferred for meaningful storage tests. The verifier runs
-81 Node tests and 6 Python tests plus build/syntax/static-page checks. The tests
+106 Node tests and 6 Python tests plus build/syntax/static-page checks. The tests
 include shared reference logic for all three games; these are model/policy checks, separate from browser interaction tests. Physical-device, native-export and store tests remain pending.
 
 ## Browser regressions
@@ -32,6 +32,7 @@ After activating the isolated Python environment and selecting the pinned runtim
 python -m pip install -r tests/browser-requirements.txt
 python -m playwright install chromium
 python tests/browser_lab.py
+python tests/browser_progression.py
 ```
 
 For an installed Chromium, use `CHROMIUM_EXECUTABLE=/usr/bin/chromium python tests/browser_lab.py`.
@@ -41,7 +42,11 @@ real localStorage, and writes JSON results/screenshots to `test-results/browser-
 scenarios deliberately deny storage; successful persistence uses the browser's own storage.
 
 ## Gameplay
-Three light-reflection puzzles, local adaptive hints, and discovery cards.
+Three light-reflection puzzles, local adaptive hints, and six illustrated science cards.
+The Wonder Workshop adds permanent Wonder Sparks, eight collection goals, four
+cosmetics, two lab themes and Nova, a special robot companion. Hints are always
+free. No random drops, streaks, deadlines or lost rewards. Progress stays local.
+See [progression rules and save compatibility](docs/PROGRESSION.md).
 Next focused improvements: Improve mirror interaction, readable light paths, hint usefulness, keyboard access, and local puzzle progress. Prove all solutions and avoid unverified learning claims.
 
 ## Source and generated output

@@ -348,7 +348,7 @@ class BrowserLab(unittest.TestCase):
         self.assertEqual(page.locator('.discovery').count(), 1)
         page.get_by_role('button', name='Close dialog').click()
         page.reload()
-        self.assertIn('0/3', page.locator('#discoveries').inner_text())
+        self.assertIn('0/6', page.locator('#discoveries').inner_text())
 
     def test_storage_quota_failure_remains_playable(self):
         page = self.page
