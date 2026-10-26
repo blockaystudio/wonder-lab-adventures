@@ -365,20 +365,30 @@ class ReleaseBrowser(ProgressionBrowser):
         page = self.open()
         self.earn_review_and_goggles(page)
         before = self.data(page)
-        # Require the actual renderer-crash event; an error mentioning the URL
-        # alone is not proof that a crash occurred.
-        with page.expect_event('crash', timeout=5000):
-            try:
-                page.goto('chrome://crash', timeout=3000)
-            except Error:
-                pass
+        # Debug-URL navigation can be disabled by the browser environment.
+        # Send Page.crash through a separate non-flattened target session: the
+        # outer command acknowledges delivery without awaiting the reply from
+        # the renderer it just killed. Still require the real crash event.
+        target_session = page.context.new_cdp_session(page)
+        target_id = target_session.send('Target.getTargetInfo')['targetInfo']['targetId']
+        target_session.detach()
+        browser_session = self.browser.new_browser_cdp_session()
+        try:
+            attached = browser_session.send('Target.attachToTarget', {'targetId': target_id, 'flatten': False})
+            with page.expect_event('crash', timeout=5000):
+                browser_session.send('Target.sendMessageToTarget', {
+                    'sessionId': attached['sessionId'],
+                    'message': json.dumps({'id': 1, 'method': 'Page.crash'})})
+        finally:
+            browser_session.detach()
         recovered = self.watch_page(page.context.new_page())
         self.open(recovered)
         after = self.data(recovered)
         self.assertEqual(after['solved'], before['solved'])
         self.assertEqual(after['progress'], before['progress'])
         self.assertEqual(self.points(recovered), 30)
-        OBSERVATIONS['renderer_crash'] = {'crash_event_observed': True, 'committed_progress_recovered': True,
+        OBSERVATIONS['renderer_crash'] = {'trigger': 'CDP Page.crash via non-flattened Target session',
+                                          'crash_event_observed': True, 'committed_progress_recovered': True,
                                           'limit': 'Chromium renderer crash, not OS power loss or mobile process eviction'}
 
     def test_release_without_write_locks_is_explicitly_visit_only(self):

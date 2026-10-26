@@ -1,6 +1,8 @@
 # REL-01 — shipped-build verification and local-progress hardening
 
 2026-10-26. Bounded repository task, no merge or deployment.
+Review: [PR #3](https://github.com/blockaystudio/wonder-lab-adventures/pull/3),
+stacked on PR #2 and PR #1.
 
 ## Source and shipped identity
 
@@ -117,7 +119,14 @@ environment; direct suite runs above additionally record each individual check.
 Existing browser assertions were preserved. Input/read helpers now await the
 visible completed-save state before checking asynchronous results. CI includes
 all three browser suites and full Git history for the real old-build rollback
-fixture. Final local results do not by themselves claim a remote CI result.
+fixture. The first remote run passed the verifier and existing 17 + 12 browser suites,
+but its intentional `chrome://crash` navigation produced no crash event on the
+runner. The test now sends Chromium's explicit `Page.crash` command through a
+separate target session, avoiding a command that waits for its own crashed target.
+It still requires an actual crash event and full saved-progress recovery; no
+assertion was skipped or weakened. [Original CI failure](release01/ci-first-run.txt).
+The current remote run result/link is recorded on PR #3; local passes alone do
+not establish CI success.
 
 The new suite uses real HTTP-origin localStorage, fresh contexts and native
 Web Locks. It queues simultaneous writers behind a held browser lock and verifies

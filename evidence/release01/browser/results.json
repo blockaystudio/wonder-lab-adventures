@@ -200,7 +200,7 @@
     "offline": {
       "continued_play": "passed",
       "cold_reload": "blocked: Page.reload: net::ERR_INTERNET_DISCONNECTED",
-      "fresh_context_start": "blocked: Page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:56885/"
+      "fresh_context_start": "blocked: Page.goto: net::ERR_INTERNET_DISCONNECTED at http://127.0.0.1:38915/"
     },
     "interrupted_experiment": {
       "uncompleted_solve_not_invented": true,
@@ -239,6 +239,7 @@
       "points": 54
     },
     "renderer_crash": {
+      "trigger": "CDP Page.crash via non-flattened Target session",
       "crash_event_observed": true,
       "committed_progress_recovered": true,
       "limit": "Chromium renderer crash, not OS power loss or mobile process eviction"

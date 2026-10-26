@@ -86,3 +86,10 @@
   retention, learning, native, public release or platform-certification claims.
 - Reconciled requested ages 7–11, branch/deployment status and save/offline limits.
   Full commands/evidence/limitations: `evidence/RELEASE01_REPORT.md`.
+
+- Opened PR #3 against `codex/lab-progression`, with PR #2/#1 dependencies stated.
+  Initial CI passed verifier and existing browser suites but exposed a runner
+  difference: `chrome://crash` produced no crash event. Replaced only that test
+  trigger with an explicit CDP target crash, retaining the crash-event and saved
+  recovery assertions. Initial failure evidence retained; current CI outcome is
+  linked on the PR. No gameplay source or deployment changed during this fix.

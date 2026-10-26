@@ -16,7 +16,7 @@ test_release_two_tabs_keep_both_puzzle_discoveries (__main__.ReleaseBrowser.test
 test_release_without_write_locks_is_explicitly_visit_only (__main__.ReleaseBrowser.test_release_without_write_locks_is_explicitly_visit_only) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 22.300s
+Ran 16 tests in 23.065s
 
 OK
 Chromium 145.0.7632.6; real HTTP preview; Python 3.13.5

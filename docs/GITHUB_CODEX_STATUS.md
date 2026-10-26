@@ -9,8 +9,8 @@ Verified 2026-10-26 for REL-01.
   unmerged; `codex/lab-opt01` → `main`; head `80e86ad`.
 - [PR #2](https://github.com/blockaystudio/wonder-lab-adventures/pull/2): open,
   unmerged; `codex/lab-progression` → `codex/lab-opt01`; head `85f0cd7`.
-- REL-01 branch: `codex/lab-release01`, based on verified PR #2 head. The review
-  PR targets `codex/lab-progression`; neither dependency is merged by this task.
+- [REL-01 PR #3](https://github.com/blockaystudio/wonder-lab-adventures/pull/3)
+  is open on `codex/lab-release01`, based on verified PR #2 head. It targets `codex/lab-progression`; neither dependency is merged by this task.
 - Audience: requested ages 7–11, pending supervised comprehension testing.
 
 ## Deployed source (unchanged during REL-01)
