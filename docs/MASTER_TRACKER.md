@@ -1,29 +1,37 @@
 # Master Tracker — Authoritative Current State
-Current checkpoint: REL-01 • October 26, 2026 • browser prototype, ages 7–11
+Current checkpoint: ROLLOUT-01 • October 26, 2026 • private browser prototype, ages 7–11
 
-## REL-01 current state
+## Current merged build and private rollout
 
 The historical Build 01 portfolio tables below are not current repository or
 hosting status. This repository contains Wonder Lab Adventures only.
 
 | Task | State | Evidence |
 |---|---|---|
-| Verify source, PR dependencies and deployed bytes | Verified | Clean `85f0cd7`; PR #1/#2 open and unmerged; private Site v2 matches that HTML exactly |
+| Verify source and dependency order | Verified / merged | PRs #1, #2, #3 merged into main in order; `5ecf177` source tree equals tested `690fefd` |
 | Record baseline and reproduce five defects before fixes | Verified | 106 Node + 6 signer; 17 + 12 browser baseline; all five new defect tests failed before changes |
 | Protect concurrent saves, erasure and rollback | Implemented / automated verification | `games/save.js`, 25 model tests; lock contention, generations, explicit conflicts, protected copy |
 | Fix keyboard puzzle focus | Verified automated | Enter/Space/Tab/Shift+Tab in release browser suite |
 | Save/relaunch/crash/interruption and mobile layouts | Verified automated, desktop only | 16 release browser methods; persistent profile, renderer crash, five emulated viewports |
-| Final regression checks | Passed locally | 131 Node + 6 signer + 17 puzzle + 12 progression + 16 release browser methods |
+| Fresh rollout regression checks | Passed locally | 131 Node + 6 signer + 17 puzzle + 12 progression + 16 release browser methods; `evidence/rollout01/` |
 | Physical iOS Safari / Android Chrome | BLOCKED | No devices; `docs/RELEASE01_DEVICE_CHECKLIST.md` |
 | Cold offline URL launch/reload | BLOCKED | Both fail with network disconnected; continued loaded play passes |
 | Production rollback to pre-REL-01 code | BLOCKED | Old builds cannot honor v2 erase; collection survives return to REL-01 but old-build actions are not imported |
-| Merge/deploy/native/store release | Not performed | `codex/lab-release01` stacks on PR #2; no deployment or access change |
+| Merge dependencies | Complete | PR #1 `f0b581c`, PR #2 `a670a64`, PR #3 `5ecf177`; no force-push |
+| Deploy existing owner-private Site | Succeeded | Native Sites terminal result, 2026-10-26 20:54 UTC; game `5ecf177`, hosting `a5508d7`; `evidence/rollout01/deployment.json` |
+| Merged-main CI | Final outcome unobserved | Run 40398943729 last observed installing Chromium at user wrap-up; identical pre-merge tree passed run 40296893640 and fresh local checks |
+| Native/store/public child-facing release | Not performed | Private prototype update does not establish this acceptance |
 
-Current report: `evidence/RELEASE01_REPORT.md`. The existing owner-private Site
-serves `85f0cd7`, not REL-01. No retention, learning or child-comprehension outcome
-has been measured. Prioritize remaining release/device/offline acceptance before
+Current report: `evidence/ROLLOUT01_REPORT.md`; authoritative hosted identity is
+in `docs/GITHUB_CODEX_STATUS.md`. The original REL-01 report remains historical
+implementation evidence. Routine verified merges/deployments to the existing
+private Site have standing authorization; its access and origin remain unchanged.
+REL-01 is the minimum compatible rollback floor. No retention, learning or
+child-comprehension outcome has been measured. Prioritize device/offline acceptance before
 new content. Onboarding, deeper hints, book presentation, measured performance,
 final storefront artwork and Godot remain bounded future work.
+Publication is confirmed by the native Sites result. No post-deployment HTTP
+checksum or browser smoke check was performed after the user requested wrap-up.
 
 ## Historical Build 01 preparation (October 24, 2026)
 

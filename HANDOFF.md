@@ -1,15 +1,20 @@
 # Wonder Lab Adventures — Work Chat Handoff
-**Checkpoint:** REL-01, October 26, 2026
+**Checkpoint:** ROLLOUT-01, October 26, 2026
 **Primary audience:** ages 7–11 (design target; not child-tested)
 **Current status:** Playable browser prototype; native/store release pending.
 
 ## Current continuation
-The tested progression source is `85f0cd7` on `codex/lab-progression`. PR #2
-stacks on still-open OPT-01 PR #1. REL-01 is developed separately on
-`codex/lab-release01`; see `evidence/RELEASE01_REPORT.md` for current evidence.
-Do not begin from main without checking those dependencies. The owner-private
-mobile site serves the progression build; REL-01 does not deploy or merge.
-Prior Build 01 native acceptance below remains future work, not this task.
+PRs #1 (OPT-01), #2 (progression) and #3 (REL-01) are merged into main in order.
+Game revision `5ecf177d7b283799f7513ae0f4573ede5309f67b` has the same source tree
+as tested REL-01 `690fefd`. Verify the current remote and working tree before
+branching. `docs/GITHUB_CODEX_STATUS.md` records deployment identity;
+`evidence/ROLLOUT01_REPORT.md` records fresh rollout checks.
+
+The user grants standing authorization for routine verified merges and updates
+to the existing owner-private Site. Preserve origin/audience and the REL-01 save
+protocol; pre-REL-01 deployment versions are not compatible rollback targets.
+Cold offline launch/reload and actual iOS/Android verification remain open before
+a broad child-facing release. Prior native acceptance below remains future work.
 
 ## Mission
 Continue this game as an original, polished, child-appropriate iOS/Android product. Prioritize the actual play loop, distinctive store presentation, and retention before monetization. Start with no advertising; any eventual ad tests must be controlled, policy-eligible, disclosed, and reversible.
@@ -45,7 +50,7 @@ The browser parent checkpoint is a test-only interaction barrier, not verified p
 
 `shared/core.js` contains tested business rules and pure simulation reference functions. `shared/remote-config.js` and `server/config_admin.py` are future-control scaffolding. No ad adapter exists. Current capability flags and signer both refuse enabled policies. Server settings cannot authorize unreviewed functionality. Do not add a dormant, undisclosed SDK or relax a safety gate to make a test pass.
 
-App names, publisher identity, trademarks, signing identities, store account access, domains, privacy-policy URLs and product IDs remain unconfirmed. Do not invent them, purchase services, accept legal agreements, publish, or modify unrelated business websites.
+App names, publisher identity, trademarks, signing identities, store account access, domains, privacy-policy URLs and product IDs remain unconfirmed. Do not invent them, purchase services, accept legal agreements, publish outside the authorized existing private Site, or modify unrelated business websites.
 
 ## Work method
 1. Inspect the supplied source and run the applicable tests. Fix real regressions before expanding scope.
@@ -61,7 +66,7 @@ A reproducible native project; one complete first-play loop; local save/reload/r
 ## Business measurement
 No retention, public downloads, parent purchases or revenue have been measured. Begin with supervised comprehension/interest tests using `docs/PLAYTEST_PROTOCOL.md`. Browser visit counts are not unique users or retention. Do not infer success from synthetic tests, screenshot polish, or family enthusiasm alone.
 
-## 2026-10-25 — Wonder Workshop continuation checkpoint
+## Historical 2026-10-25 — Wonder Workshop continuation checkpoint
 
 `codex/lab-progression` adds a finite local progression layer for the requested
 ages 7–11: six science cards, four cosmetics, two themes, eight goals and Nova.

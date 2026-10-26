@@ -1,18 +1,24 @@
-# Current checkpoint — REL-01 (2026-10-26)
+# Current checkpoint — ROLLOUT-01 (2026-10-26)
 
-REL-01 implements local-progress durability on `codex/lab-release01`, stacked on
-progression PR #2 and OPT-01 PR #1. Neither dependency is merged. See
-`evidence/RELEASE01_REPORT.md` and `docs/MASTER_TRACKER.md`. Do not restart the
-historical OPT-01 brief below or expand the game without a new bounded request.
+OPT-01, progression and REL-01 are merged into main through PRs #1, #2 and #3.
+Main game revision `5ecf177d7b283799f7513ae0f4573ede5309f67b` matches the tested
+REL-01 source tree. See `evidence/ROLLOUT01_REPORT.md`,
+`docs/GITHUB_CODEX_STATUS.md` and `docs/MASTER_TRACKER.md`. Do not restart the
+historical OPT-01 brief below or expand the game without a bounded request.
 
-Next release work: review dependencies, verify on actual iOS/Android devices,
+The user grants standing authorization for routine verified merges and updates
+to the existing owner-private Site. Check CI and save compatibility; preserve
+access, origin and the REL-01 minimum compatible rollback version.
+
+Next release work: verify on actual iOS/Android devices,
 resolve the offline-startup delivery decision, and enforce a compatible rollback
 policy. Child-informed onboarding/hints, book polish, performance, original final
-store artwork and native Godot remain backlog. No deployment in REL-01.
+store artwork and native Godot remain backlog. The original REL-01 implementation
+did not deploy; subsequent rollout identity is in the current status/report.
 
 ---
 
-# Wonder Lab Adventures — Codex optimization queue
+# Historical Wonder Lab Adventures — Codex optimization queue
 
 These are prepared work items, not running jobs or existing GitHub issues.
 

@@ -1,0 +1,59 @@
+{
+  "browser": "145.0.7632.6",
+  "python": "3.13.5",
+  "tests_run": 12,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "results": [
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_all_cards_unlocks_equipment_and_reload",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_backup_recovers_rewards_and_equipment",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_initial_collection_and_visible_goals",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_legacy_save_migrates_without_losing_discoveries",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_malformed_save_cannot_grant_unknown_unlocks",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_mobile_goals_and_keyboard_access",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_offline_points_and_collection_work_after_load",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_replay_and_puzzle_reset_preserve_collection",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_review_keyboard_focus_stays_in_book",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_rewards_experimentation_without_hint_cost_or_farming",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_storage_failures_show_visit_only_review_and_equipment",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.ProgressionBrowser.test_progression_unavailable_storage_still_rewards_this_visit",
+      "status": "passed"
+    }
+  ],
+  "limits": "Real HTTP browser storage and headless Chromium; touch is emulated. No physical-device, child-usability or demonstrated-retention testing."
+}

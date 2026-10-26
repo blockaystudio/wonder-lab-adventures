@@ -39,8 +39,12 @@ Do not use guilt, loss of pets, streak penalties, deceptive rewards, or manipula
 payment mechanics to optimize retention. Parent gates in this prototype are not
 proof of legal parental consent. Never commit secrets, signing keys, child data,
 real user identifiers or account credentials.
-No publishing, store submissions, purchases of services, legal acceptances,
-visibility changes, deletion of history or changes to unrelated repositories.
+Routine merges and deployment of verified changes to this project's existing
+owner-private Site have standing user authorization (2026-10-26). Preserve its
+audience and origin, check CI/dependencies/save compatibility, and retain a
+compatible rollback artifact. This does not authorize public distribution, store
+submissions, purchases of services, legal acceptances, visibility changes,
+deletion of history or changes to unrelated repositories.
 
 ## Workflow and evidence
 Use a separate `codex/<short-task>` branch and one bounded task per pull request.
@@ -53,6 +57,9 @@ Record baseline failures before fixing them. Add a regression test for each bug.
 Run verification after changes. Include actual commands, results, relevant
 screenshots when captured, and remaining limits in each PR. Never fabricate
 physical-device, browser, store, legal, revenue or retention results.
-Update `docs/WORK_LOG.md` and the tracker. PRs require owner review; do not merge,
-force-push, enable auto-merge or trigger deployment without explicit authorization.
+Update `docs/WORK_LOG.md` and the tracker. Keep changes reviewable in bounded PRs;
+the standing authorization above permits routine merge/deployment after checks
+without another confirmation. Resolve concrete release blockers before rollout.
+Do not force-push or bypass repository checks. Pre-REL-01 builds are incompatible
+rollback targets after protected saves exist; retain the REL-01 save protocol.
 Stop the task after the bounded change and evidence; do not claim ongoing work.

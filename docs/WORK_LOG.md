@@ -109,3 +109,42 @@
   `fffeafc`. Final review then pinned renderer identities with Linux pidfds to
   close the ancestry-check/signal PID-reuse window. All 16 release tests passed
   locally again; the final head's CI result is linked on PR #3.
+
+## 2026-10-26 — ROLLOUT-01: authorized merges and private deployment
+
+- The user granted standing authorization for routine verified merges and
+  deployments, then instructed us to proceed. Updated current instructions and
+  checkpoints to record it while preserving access, spending, safety and scope
+  boundaries. Historical implementation reports remain intact.
+- Started from clean REL-01 `690fefde1b8f65f26fa48bd5d15107d53abb3186`.
+  Verified repository, PR dependencies and existing private Site. Reused verified
+  pinned Node 22.16.0, isolated Python 3.13.5, cryptography 46.0.4, Playwright
+  1.58.0 and Chromium 145.0.7632.6; no dependency installation in this turn.
+- Fresh verifier passed: 131 Node + 6 Python. Direct Node suites confirm all
+  131 individual tests. Fresh HTTP browser suites passed 17 puzzle + 12
+  progression + 16 release methods. Actual logs, JSON and selected captures are
+  in `evidence/rollout01/`; commands are in `evidence/ROLLOUT01_REPORT.md`.
+- Merged PR #1 into main as `f0b581c2d397713c53ab05802d7d3da525d41f54`,
+  then retargeted/merged PR #2 as `a670a64352718c535cbc47739262bb9a738876cb`,
+  then retargeted/merged PR #3 as `5ecf177d7b283799f7513ae0f4573ede5309f67b`.
+  The resulting source tree equals tested REL-01 `690fefd`. No force-push or
+  access change. Rollout documentation uses `codex/lab-release01-rollout`.
+- The exact pre-merge source passed CI run 40296893640. Merged-main run
+  40398943729 was last observed installing Chromium; final outcome was not
+  observed before the user requested immediate wrap-up and no more tests or
+  research. Publication used the identical source and fresh passing checks;
+  no final main-CI pass is claimed.
+- Pushed clean hosting source `a5508d78bf08f2a8a12574964f0d374b8f6631ad`;
+  packaged HTML equals merged game `5ecf177`, 130833 bytes, SHA-256
+  `9bd9e13f5dce364b7e5e13ef01cf2f792dde248f6b5b83806cc1de7071ae67f0`.
+  No application source, puzzles, rewards or art changed in this rollout.
+- Native Sites confirmed deployment success at `2026-10-26T20:54:58.143435+00:00`:
+  deployment `appgdep_6adfbe1b8bf48191bfa7f83a3fb71b29`, saved version
+  `appgprj_6add6aeff3d0819194aa179638900111~appgver_bffed3c1424481919010a5224e39dc08`.
+  URL: https://wonder-lab-adventures-mobile.wholeclock.chatgpt.site . Same origin
+  and owner-private audience. Native result: `evidence/rollout01/deployment.json`.
+  No post-deployment HTTP checksum or browser test followed the wrap-up request.
+- Retained REL-01 as the minimum compatible rollback baseline; do not redeploy
+  older save/erase protocols. Cold offline startup/reload and actual iOS/Android
+  verification remain blockers to a broad child-facing release. No child test,
+  learning/retention outcome, native/store release or prohibited service added.

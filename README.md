@@ -1,8 +1,18 @@
 # Wonder Lab Adventures
 
 **Working browser prototype; not a finished iOS/Android game.**
-Source repository: `blockaystudio/wonder-lab-adventures`; current REL-01 work is documented in `evidence/RELEASE01_REPORT.md`.
+Source repository: `blockaystudio/wonder-lab-adventures`; OPT-01, progression and
+REL-01 are merged into main through PRs #1–#3. Fresh rollout verification is in
+[ROLLOUT01_REPORT.md](evidence/ROLLOUT01_REPORT.md); current deployed identity is
+in [GITHUB_CODEX_STATUS.md](docs/GITHUB_CODEX_STATUS.md). Historical implementation
+evidence remains in [RELEASE01_REPORT.md](evidence/RELEASE01_REPORT.md).
 Requested audience: ages 7–11; physical-device and child usability tests remain pending.
+
+Existing private mobile site: https://wonder-lab-adventures-mobile.wholeclock.chatgpt.site
+REL-01 game revision `5ecf177` was published successfully on 2026-10-26; the native
+Sites result confirms deployment. Access remains owner-private. Load it online; continued play works offline, but
+cold offline startup/reload is unsupported. Pre-REL-01 builds are incompatible
+rollback targets once the protected save is present.
 
 ## Start here
 Read `AGENTS.md`, `HANDOFF.md`, `docs/GITHUB_CODEX_STATUS.md` and
